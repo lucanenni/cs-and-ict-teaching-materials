@@ -21,8 +21,9 @@ e poi visita `http://localhost:8000`.
 ## Cosa mostra
 
 - Una frase di esempio viene generata token per token con un'animazione temporizzata (velocità regolabile).
-- In due punti della frase il modello si trova davanti a più alternative plausibili: se la "modalità automatica" è disattivata, la generazione si ferma e mostra le probabilità delle alternative, lasciando scegliere quale percorso seguire.
+- In uno o due punti della frase (a seconda dell'esempio) il modello si trova davanti a più alternative plausibili: se la "modalità automatica" è disattivata, la generazione si ferma e mostra le probabilità delle alternative — che sommano sempre al 100% insieme al percorso principale — lasciando scegliere quale seguire.
 - I colori distinguono il token corrente, il percorso principale e i percorsi alternativi scelti.
+- Una sezione "Perché il modello sceglie queste probabilità?" (in fondo, sotto "Come funziona?") approfondisce brevemente softmax e temperatura per chi vuole andare oltre.
 
 ## Concetti didattici illustrati
 
