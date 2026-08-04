@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS and ICT teaching materials</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(to bottom right, #eff6ff, #faf5ff);
+            min-height: 100vh;
+            padding: 1.5rem;
+            color: #1f2937;
+        }
+
+        .page {
+            max-width: 64rem;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin: 2rem 0 3rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            font-size: 1.1rem;
+            max-width: 40rem;
+            margin: 0 auto;
+        }
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            display: block;
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e5e7eb;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .card:hover,
+        .card:focus-visible {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 20px -6px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #2563eb;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-description {
+            font-size: 0.95rem;
+            color: #4b5563;
+            line-height: 1.5;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-cta {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #2563eb;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+
+        footer a {
+            color: #2563eb;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <header>
+            <h1>CS and ICT teaching materials</h1>
+            <p class="subtitle">Una raccolta di piccoli progetti didattici per spiegare concetti di informatica e
+                intelligenza artificiale a studenti delle scuole superiori.</p>
+        </header>
+
+        <main class="projects">
+            <a class="card" href="llm-token-visualizer/">
+                <div class="card-title">LLM token visualizer</div>
+                <p class="card-description">Scopri come un modello di linguaggio genera testo un token alla volta,
+                    scegliendo tra percorsi alternativi con probabilità diverse.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="artificial-neuron-simulator/">
+                <div class="card-title">Simulazione di un neurone artificiale</div>
+                <p class="card-description">Modifica input, pesi, bias e funzione di attivazione per vedere come un
+                    singolo neurone artificiale prende una decisione.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+        </main>
+
+        <footer>
+            <p>Codice sorgente su <a href="https://github.com/lucanenni/cs-and-ict-teaching-materials">GitHub</a></p>
+        </footer>
+    </div>
+</body>
+
+</html>
