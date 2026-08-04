@@ -1,2 +1,17 @@
-# LLM token visualizer
-A simple LLM simulator with token visualization. Vibe coding (Claude free) + some hacks made by me
+# CS and ICT teaching materials
+
+Una raccolta di piccoli progetti didattici, pensati per spiegare concetti di informatica e IA a studenti delle scuole superiori. Ogni progetto è indipendente, statico (HTML/CSS/JS senza build tool, salvo diversa indicazione) e vive nella propria sottocartella con un proprio README.
+
+## Progetti
+
+- [llm-token-visualizer](llm-token-visualizer/) — simulatore che mostra come un LLM genera testo un token alla volta, con probabilità e percorsi alternativi.
+
+## Come contribuire un nuovo progetto
+
+1. Crea una nuova sottocartella con un nome descrittivo in kebab-case (es. `nome-progetto/`).
+2. Aggiungi al suo interno un `README.md` che spieghi cosa fa il progetto, come avviarlo e quali concetti didattici illustra.
+3. Aggiungi una riga nell'elenco "Progetti" qui sopra.
+
+## Licenza
+
+Il repository è distribuito con licenza [MIT](LICENSE).
