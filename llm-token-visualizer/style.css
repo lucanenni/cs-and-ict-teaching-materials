@@ -1,400 +1,425 @@
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(to bottom right, #eff6ff, #faf5ff);
-            min-height: 100vh;
-            padding: 1.5rem;
-        }
-
-        .container {
-            max-width: 56rem;
-            margin: 0 auto;
-        }
-
-        .card {
-            background: white;
-            border-radius: 0.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        h1 {
-            font-size: 1.875rem;
-            font-weight: bold;
-            color: #1f2937;
-            margin-bottom: 0.5rem;
-        }
-
-        .subtitle {
-            color: #6b7280;
-            margin-bottom: 1.5rem;
-        }
-
-        label {
-            display: block;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: #374151;
-            margin-bottom: 0.5rem;
-        }
-
-        select,
-        input[type="range"] {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #d1d5db;
-            border-radius: 0.5rem;
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        select:focus {
-            outline: none;
-            border-color: #3b82f6;
-        }
-
-        .checkbox-container {
-            background: linear-gradient(to right, #eef2ff, #eff6ff);
-            border: 1px solid #c7d2fe;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .checkbox-label {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        input[type="checkbox"] {
-            width: 1.25rem;
-            height: 1.25rem;
-            margin-right: 0.75rem;
-            cursor: pointer;
-        }
-
-        .checkbox-text {
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: #374151;
-        }
-
-        .checkbox-text strong {
-            color: #4338ca;
-            font-weight: bold;
-        }
-
-        .checkbox-hint {
-            font-size: 0.75rem;
-            color: #6b7280;
-            margin-top: 0.5rem;
-            margin-left: 2rem;
-        }
-
-        .token-display {
-            background: #f9fafb;
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            min-height: 8rem;
-        }
-
-        .prompt-text {
-            font-size: 0.875rem;
-            color: #6b7280;
-            margin-bottom: 0.75rem;
-            font-family: monospace;
-        }
-
-        .tokens-container {
-            font-size: 1.5rem;
-            font-family: monospace;
-            line-height: 1.75;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .token {
-            display: inline-block;
-            padding: 0.25rem 0.5rem;
-            margin: 0.25rem;
-            border-radius: 0.25rem;
-            transition: all 0.3s;
-        }
-
-        .token-current {
-            background-color: #fef08a;
-            transform: scale(1.1);
-        }
-
-        .token-generated {
-            background-color: #bbf7d0;
-        }
-
-        .token-alt1,
-        .token-alt2 {
-            background-color: #fed7aa;
-        }
-
-        .token-next {
-            background-color: #dbeafe;
-            border: 2px dashed #93c5fd;
-            color: #93c5fd;
-        }
-
-        .choices-panel {
-            background: linear-gradient(to right, #faf5ff, #fce7f3);
-            border: 2px solid #d8b4fe;
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .choices-title {
-            font-weight: 600;
-            color: #581c87;
-            margin-bottom: 0.75rem;
-            font-size: 1.1rem;
-        }
-
-        .choices-description {
-            font-size: 0.875rem;
-            color: #701a75;
-            margin-bottom: 1rem;
-        }
-
-        .choice-button {
-            width: 100%;
-            background: white;
-            border: 2px solid;
-            text-align: left;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin-bottom: 0.75rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .choice-button:hover {
-            transform: translateY(-2px);
-        }
-
-        .choice-main {
-            border-color: #4ade80;
-        }
-
-        .choice-main:hover {
-            background-color: #f0fdf4;
-        }
-
-        .choice-alt {
-            border-color: #fb923c;
-        }
-
-        .choice-alt:hover {
-            background-color: #fff7ed;
-        }
-
-        .choice-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.5rem;
-        }
-
-        .choice-token {
-            font-family: monospace;
-            font-weight: bold;
-            font-size: 1.125rem;
-        }
-
-        .choice-probability {
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: bold;
-            color: white;
-        }
-
-        .prob-main {
-            background-color: #22c55e;
-        }
-
-        .prob-alt {
-            background-color: #f97316;
-        }
-
-        .choice-preview {
-            font-size: 0.875rem;
-            color: #6b7280;
-            font-family: monospace;
-            margin-bottom: 0.5rem;
-        }
-
-        .choice-bar-container {
-            height: 0.5rem;
-            background-color: #e5e7eb;
-            border-radius: 9999px;
-            overflow: hidden;
-        }
-
-        .choice-bar {
-            height: 100%;
-            border-radius: 9999px;
-        }
-
-        .bar-main {
-            background-color: #22c55e;
-        }
-
-        .bar-alt {
-            background-color: #f97316;
-        }
-
-        .info-panel {
-            background-color: #eff6ff;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .info-title {
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: #1e3a8a;
-            margin-bottom: 0.5rem;
-        }
-
-        .info-content {
-            font-size: 0.875rem;
-            color: #1e40af;
-        }
-
-        .info-content strong {
-            font-weight: bold;
-        }
-
-        .info-alt-path {
-            color: #ea580c;
-            font-weight: 600;
-            margin-left: 0.5rem;
-        }
-
-        .info-complete {
-            color: #16a34a;
-            font-weight: bold;
-        }
-
-        .controls {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .btn {
-            flex: 1;
-            font-weight: 600;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            transition: all 0.2s;
-            font-size: 1rem;
-        }
-
-        .btn-primary {
-            background-color: #2563eb;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: #1d4ed8;
-        }
-
-        .btn-secondary {
-            background-color: #e5e7eb;
-            color: #374151;
-        }
-
-        .btn-secondary:hover {
-            background-color: #d1d5db;
-        }
-
-        .settings-panel {
-            background-color: #f9fafb;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .speed-label {
-            display: block;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: #374151;
-            margin-bottom: 0.5rem;
-        }
-
-        .speed-scale {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.75rem;
-            color: #6b7280;
-            margin-top: 0.25rem;
-        }
-
-        .help-panel {
-            background-color: #faf5ff;
-            border-radius: 0.5rem;
-            padding: 1rem;
-        }
-
-        .help-title {
-            font-weight: 600;
-            color: #581c87;
-            margin-bottom: 0.5rem;
-        }
-
-        .help-list {
-            font-size: 0.875rem;
-            color: #701a75;
-            list-style: none;
-        }
-
-        .help-list li {
-            margin-bottom: 0.25rem;
-        }
-
-        .color-sample {
-            display: inline-block;
-            padding: 0 0.25rem;
-            border-radius: 0.125rem;
-        }
-
-        .sample-green {
-            background-color: #bbf7d0;
-        }
-
-        .sample-orange {
-            background-color: #fed7aa;
-        }
-
-        .sample-yellow {
-            background-color: #fef08a;
-        }
-
-        .hidden {
-            display: none;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(to bottom right, #eff6ff, #faf5ff);
+    min-height: 100vh;
+    padding: 1.5rem;
+}
+
+.container {
+    max-width: 56rem;
+    margin: 0 auto;
+}
+
+.card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 1.875rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+select,
+input[type="range"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+select:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+.checkbox-container {
+    background: linear-gradient(to right, #eef2ff, #eff6ff);
+    border: 1px solid #c7d2fe;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+input[type="checkbox"] {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: 0.75rem;
+    cursor: pointer;
+}
+
+.checkbox-text {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+}
+
+.checkbox-text strong {
+    color: #4338ca;
+    font-weight: bold;
+}
+
+.checkbox-hint {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 0.5rem;
+    margin-left: 2rem;
+}
+
+.token-display {
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    min-height: 8rem;
+}
+
+.prompt-text {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 0.75rem;
+    font-family: monospace;
+}
+
+.tokens-container {
+    font-size: 1.5rem;
+    font-family: monospace;
+    line-height: 1.75;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.token {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    margin: 0.25rem;
+    border-radius: 0.25rem;
+    transition: all 0.3s;
+}
+
+.token-current {
+    background-color: #fef08a;
+    transform: scale(1.1);
+}
+
+.token-generated {
+    background-color: #bbf7d0;
+}
+
+.token-alt {
+    background-color: #fed7aa;
+}
+
+.token-next {
+    background-color: #dbeafe;
+    border: 2px dashed #60a5fa;
+    color: #1d4ed8;
+}
+
+.choices-panel {
+    background: linear-gradient(to right, #faf5ff, #fce7f3);
+    border: 2px solid #d8b4fe;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.choices-title {
+    font-weight: 600;
+    color: #581c87;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+}
+
+.choices-description {
+    font-size: 0.875rem;
+    color: #701a75;
+    margin-bottom: 1rem;
+}
+
+.choice-button {
+    width: 100%;
+    background: white;
+    border: 2px solid;
+    text-align: left;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.choice-button:hover {
+    transform: translateY(-2px);
+}
+
+.choice-main {
+    border-color: #4ade80;
+}
+
+.choice-main:hover {
+    background-color: #f0fdf4;
+}
+
+.choice-alt {
+    border-color: #fb923c;
+}
+
+.choice-alt:hover {
+    background-color: #fff7ed;
+}
+
+.choice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.choice-token {
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 1.125rem;
+}
+
+.choice-probability {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: bold;
+    color: white;
+}
+
+.prob-main {
+    background-color: #22c55e;
+}
+
+.prob-alt {
+    background-color: #f97316;
+}
+
+.choice-preview {
+    font-size: 0.875rem;
+    color: #6b7280;
+    font-family: monospace;
+    margin-bottom: 0.5rem;
+}
+
+.choice-bar-container {
+    height: 0.5rem;
+    background-color: #e5e7eb;
+    border-radius: 9999px;
+    overflow: hidden;
+}
+
+.choice-bar {
+    height: 100%;
+    border-radius: 9999px;
+}
+
+.bar-main {
+    background-color: #22c55e;
+}
+
+.bar-alt {
+    background-color: #f97316;
+}
+
+.info-panel {
+    background-color: #eff6ff;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.info-title {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #1e3a8a;
+    margin-bottom: 0.5rem;
+}
+
+.info-content {
+    font-size: 0.875rem;
+    color: #1e40af;
+}
+
+.info-content strong {
+    font-weight: bold;
+}
+
+.info-alt-path {
+    color: #ea580c;
+    font-weight: 600;
+    margin-left: 0.5rem;
+}
+
+.info-complete {
+    color: #16a34a;
+    font-weight: bold;
+}
+
+.controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.btn {
+    flex: 1;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.2s;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background-color: #2563eb;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #1d4ed8;
+}
+
+.btn-secondary {
+    background-color: #e5e7eb;
+    color: #374151;
+}
+
+.btn-secondary:hover {
+    background-color: #d1d5db;
+}
+
+.settings-panel {
+    background-color: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.speed-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+.speed-scale {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+}
+
+.help-panel {
+    background-color: #faf5ff;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.help-title {
+    font-weight: 600;
+    color: #581c87;
+    margin-bottom: 0.5rem;
+}
+
+.help-list {
+    font-size: 0.875rem;
+    color: #701a75;
+    list-style: none;
+}
+
+.help-list li {
+    margin-bottom: 0.25rem;
+}
+
+.color-sample {
+    display: inline-block;
+    padding: 0 0.25rem;
+    border-radius: 0.125rem;
+}
+
+.sample-green {
+    background-color: #bbf7d0;
+}
+
+.sample-orange {
+    background-color: #fed7aa;
+}
+
+.sample-yellow {
+    background-color: #fef08a;
+}
+
+.btn-link {
+    display: block;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #6d28d9;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.btn-link:hover {
+    color: #581c87;
+}
+
+.deep-dive-panel {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #e9d5ff;
+    font-size: 0.875rem;
+    color: #701a75;
+    line-height: 1.5;
+}
+
+.hidden {
+    display: none;
+}

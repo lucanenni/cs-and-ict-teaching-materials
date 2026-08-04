@@ -1,9 +1,15 @@
+// Ogni frase ha una serie di token "principali" e, opzionalmente, uno o due
+// punti di scelta in cui il modello avrebbe potuto proseguire in modo diverso.
+// `firstChoice`/`secondChoice` sono opzionali: una frase può averne 0, 1 o 2.
+// In ogni punto di scelta le probabilità (mainProbability + alternatives)
+// sommano sempre a 100.
 const exampleSentences = [
     {
         prompt: "Completa: Il gatto",
         tokens: ["Il", " gatto", " nero", " dorme", " sul", " divano", " comodo", "."],
         firstChoice: {
             position: 2,
+            mainProbability: 40,
             alternatives: [
                 { token: " rosso", probability: 25, continueWith: [" dorme", " sul", " tappeto", " morbido", "."] },
                 { token: " bianco", probability: 15, continueWith: [" dorme", " nella", " sua", " cuccia", "."] },
@@ -13,11 +19,12 @@ const exampleSentences = [
         },
         secondChoice: {
             position: 3,
+            mainProbability: 40,
             alternatives: [
-                { token: " gioca", probability: 30, continueWith: [" con", " il", " gomitolo", " di", " lana", "."] },
-                { token: " corre", probability: 20, continueWith: [" veloce", " nel", " giardino", "."] },
-                { token: " si", probability: 15, continueWith: [" nasconde", " sotto", " il", " letto", "."] },
-                { token: " miagola", probability: 10, continueWith: [" forte", " vicino", " alla", " porta", "."] }
+                { token: " gioca", probability: 24, continueWith: [" con", " il", " gomitolo", " di", " lana", "."] },
+                { token: " corre", probability: 16, continueWith: [" veloce", " nel", " giardino", "."] },
+                { token: " si", probability: 12, continueWith: [" nasconde", " sotto", " il", " letto", "."] },
+                { token: " miagola", probability: 8, continueWith: [" forte", " vicino", " alla", " porta", "."] }
             ]
         }
     },
@@ -26,29 +33,22 @@ const exampleSentences = [
         tokens: ["La", " programmazione", " è", " l'arte", " di", " risolvere", " problemi", " con", " il", " codice", "."],
         firstChoice: {
             position: 2,
+            mainProbability: 40,
             alternatives: [
-                { token: " richiede", probability: 30, continueWith: [" l'arte", " di", " scomporre", " problemi", " complessi", "."] },
-                { token: " permette", probability: 25, continueWith: [" l'arte", " di", " automatizzare", " processi", "."] },
-                { token: " insegna", probability: 20, continueWith: [" l'arte", " di", " pensare", " in", " modo", " strutturato", "."] },
-                { token: " sviluppa", probability: 15, continueWith: [" l'arte", " di", " creare", " soluzioni", " innovative", "."] }
+                { token: " richiede", probability: 20, continueWith: [" l'arte", " di", " scomporre", " problemi", " complessi", "."] },
+                { token: " permette", probability: 17, continueWith: [" l'arte", " di", " automatizzare", " processi", "."] },
+                { token: " insegna", probability: 13, continueWith: [" l'arte", " di", " pensare", " in", " modo", " strutturato", "."] },
+                { token: " sviluppa", probability: 10, continueWith: [" l'arte", " di", " creare", " soluzioni", " innovative", "."] }
             ]
         },
         secondChoice: {
             position: 4,
+            mainProbability: 40,
             alternatives: [
-                { token: " risolvere", probability: 35, continueWith: [" problemi", " complessi", " con", " eleganza", "."] },
-                { token: " creare", probability: 25, continueWith: [" software", " utile", " per", " tutti", "."] },
-                { token: " trasformare", probability: 18, continueWith: [" idee", " in", " realtà", " digitale", "."] },
-                { token: " automatizzare", probability: 12, continueWith: [" compiti", " ripetitivi", " e", " noiosi", "."] }
-            ]
-        },
-        secondChoice: {
-            position: 4,
-            alternatives: [
-                { token: " risolvere", probability: 35, continueWith: [" problemi", " complessi", " con", " eleganza", "."] },
-                { token: " creare", probability: 25, continueWith: [" software", " utile", " per", " tutti", "."] },
-                { token: " trasformare", probability: 18, continueWith: [" idee", " in", " realtà", " digitale", "."] },
-                { token: " automatizzare", probability: 12, continueWith: [" compiti", " ripetitivi", " e", " noiosi", "."] }
+                { token: " risolvere", probability: 23, continueWith: [" problemi", " complessi", " con", " eleganza", "."] },
+                { token: " creare", probability: 17, continueWith: [" software", " utile", " per", " tutti", "."] },
+                { token: " trasformare", probability: 12, continueWith: [" idee", " in", " realtà", " digitale", "."] },
+                { token: " automatizzare", probability: 8, continueWith: [" compiti", " ripetitivi", " e", " noiosi", "."] }
             ]
         }
     },
@@ -57,20 +57,37 @@ const exampleSentences = [
         tokens: ["Nel", " design", " grafico", ",", " i", " colori", " comunicano", " emozioni", " e", " messaggi", "."],
         firstChoice: {
             position: 4,
+            mainProbability: 40,
             alternatives: [
-                { token: " le", probability: 35, continueWith: [" forme", " comunicano", " struttura", " e", " significato", "."] },
-                { token: " la", probability: 30, continueWith: [" tipografia", " comunica", " tono", " e", " personalità", "."] },
-                { token: " gli", probability: 20, continueWith: [" spazi", " comunicano", " equilibrio", " e", " respiro", "."] },
-                { token: " il", probability: 15, continueWith: [" contrasto", " comunica", " gerarchia", " visiva", "."] }
+                { token: " le", probability: 21, continueWith: [" forme", " comunicano", " struttura", " e", " significato", "."] },
+                { token: " la", probability: 18, continueWith: [" tipografia", " comunica", " tono", " e", " personalità", "."] },
+                { token: " gli", probability: 12, continueWith: [" spazi", " comunicano", " equilibrio", " e", " respiro", "."] },
+                { token: " il", probability: 9, continueWith: [" contrasto", " comunica", " gerarchia", " visiva", "."] }
             ]
         },
         secondChoice: {
             position: 6,
+            mainProbability: 40,
             alternatives: [
-                { token: " esprimono", probability: 30, continueWith: [" emozioni", " profonde", " e", " immediate", "."] },
-                { token: " trasmettono", probability: 25, continueWith: [" significati", " culturali", " specifici", "."] },
-                { token: " creano", probability: 20, continueWith: [" atmosfere", " coinvolgenti", " e", " memorabili", "."] },
-                { token: " influenzano", probability: 15, continueWith: [" percezioni", " e", " decisioni", "."] }
+                { token: " esprimono", probability: 20, continueWith: [" emozioni", " profonde", " e", " immediate", "."] },
+                { token: " trasmettono", probability: 17, continueWith: [" significati", " culturali", " specifici", "."] },
+                { token: " creano", probability: 13, continueWith: [" atmosfere", " coinvolgenti", " e", " memorabili", "."] },
+                { token: " influenzano", probability: 10, continueWith: [" percezioni", " e", " decisioni", "."] }
+            ]
+        }
+    },
+    {
+        // Esempio con un solo punto di scelta (e sole 3 alternative), per mostrare
+        // che non tutte le frasi hanno per forza due bivi.
+        prompt: "Completa: Oggi il tempo",
+        tokens: ["Oggi", " il", " tempo", " è", " splendido", " e", " caldo", "."],
+        firstChoice: {
+            position: 4,
+            mainProbability: 45,
+            alternatives: [
+                { token: " pessimo", probability: 30, continueWith: [" e", " piove", " forte", "."] },
+                { token: " variabile", probability: 15, continueWith: [" con", " nuvole", " sparse", "."] },
+                { token: " incerto", probability: 10, continueWith: [" tra", " sole", " e", " pioggia", "."] }
             ]
         }
     }
@@ -99,15 +116,15 @@ function getTokensForPath() {
 
     const parts = state.selectedPath.split('-');
 
-    if (state.selectedPath.startsWith('main-alt2-')) {
+    if (state.selectedPath.startsWith('main-alt2-') && sentence.secondChoice) {
         const alt2Index = parseInt(parts[2]);
         const alt2 = sentence.secondChoice.alternatives[alt2Index];
         return [...sentence.tokens.slice(0, sentence.secondChoice.position), alt2.token, ...alt2.continueWith];
-    } else if (parts.length === 2 && parts[0] === 'alt1') {
+    } else if (parts.length === 2 && parts[0] === 'alt1' && sentence.firstChoice) {
         const altIndex = parseInt(parts[1]);
         const alt = sentence.firstChoice.alternatives[altIndex];
         return [...sentence.tokens.slice(0, sentence.firstChoice.position), alt.token, ...alt.continueWith];
-    } else if (parts.length === 4) {
+    } else if (parts.length === 4 && sentence.firstChoice && sentence.secondChoice) {
         const alt1Index = parseInt(parts[1]);
         const alt2Index = parseInt(parts[3]);
         const alt1 = sentence.firstChoice.alternatives[alt1Index];
@@ -145,10 +162,10 @@ function render() {
 
         if (idx === state.currentIndex) {
             span.classList.add('token-current');
-        } else if (state.selectedPath.startsWith('alt1-') && idx === sentence.firstChoice.position) {
-            span.classList.add('token-alt1');
-        } else if ((state.selectedPath.startsWith('alt2-') || state.selectedPath.includes('-alt2-')) && idx === sentence.secondChoice.position) {
-            span.classList.add('token-alt2');
+        } else if (sentence.firstChoice && state.selectedPath.startsWith('alt1-') && idx === sentence.firstChoice.position) {
+            span.classList.add('token-alt');
+        } else if (sentence.secondChoice && (state.selectedPath.startsWith('alt2-') || state.selectedPath.includes('-alt2-')) && idx === sentence.secondChoice.position) {
+            span.classList.add('token-alt');
         } else {
             span.classList.add('token-generated');
         }
@@ -204,21 +221,15 @@ function showChoices() {
     const sentence = exampleSentences[state.selectedSentence];
     const choicesPanel = document.getElementById('choicesPanel');
 
+    const choice = state.currentChoicePoint === 1 ? sentence.firstChoice : sentence.secondChoice;
+    if (!choice) return;
+
     const choiceLabel = state.currentChoicePoint === 1 ? '(prima scelta)' : '(seconda scelta)';
-    const mainProb = state.currentChoicePoint === 1 ? '40%' : '35%';
-    const mainProbWidth = state.currentChoicePoint === 1 ? '40%' : '35%';
+    const mainProb = `${choice.mainProbability}%`;
 
-    const mainToken = state.currentChoicePoint === 1
-        ? sentence.tokens[sentence.firstChoice.position]
-        : sentence.tokens[sentence.secondChoice.position];
-
-    const mainPreview = state.currentChoicePoint === 1
-        ? sentence.tokens.slice(0, 6).join('')
-        : sentence.tokens.slice(0, 7).join('');
-
-    const alternatives = state.currentChoicePoint === 1
-        ? sentence.firstChoice.alternatives
-        : sentence.secondChoice.alternatives;
+    const mainToken = sentence.tokens[choice.position];
+    const mainPreview = sentence.tokens.slice(0, choice.position + 4).join('');
+    const alternatives = choice.alternatives;
 
     let html = `
                 <div class="choices-title">
@@ -227,7 +238,7 @@ function showChoices() {
                 <p class="choices-description">
                     Il modello ha calcolato diverse probabilità per il prossimo token. Scegli quale percorso seguire:
                 </p>
-                
+
                 <button class="choice-button choice-main" onclick="handleChoice('main')">
                     <div class="choice-header">
                         <span class="choice-token">${mainToken}</span>
@@ -235,15 +246,13 @@ function showChoices() {
                     </div>
                     <div class="choice-preview">${mainPreview}...</div>
                     <div class="choice-bar-container">
-                        <div class="choice-bar bar-main" style="width: ${mainProbWidth}"></div>
+                        <div class="choice-bar bar-main" style="width: ${mainProb}"></div>
                     </div>
                 </button>
             `;
 
     alternatives.forEach((alt, idx) => {
-        const preview = state.currentChoicePoint === 1
-            ? [...sentence.tokens.slice(0, sentence.firstChoice.position), alt.token, ...alt.continueWith.slice(0, 3)].join('')
-            : [...sentence.tokens.slice(0, sentence.secondChoice.position), alt.token, ...alt.continueWith.slice(0, 3)].join('');
+        const preview = [...sentence.tokens.slice(0, choice.position), alt.token, ...alt.continueWith.slice(0, 3)].join('');
 
         html += `
                     <button class="choice-button choice-alt" onclick="handleChoice('alt${state.currentChoicePoint}-${idx}')">
@@ -311,16 +320,17 @@ function startInterval() {
         state.currentIndex++;
         render();
 
-        const firstChoicePos = sentence.firstChoice.position;
-        const secondChoicePos = sentence.secondChoice.position;
+        // Le frasi possono non avere un secondo (o alcun) punto di scelta:
+        // ogni controllo va eseguito solo se quel punto di scelta esiste davvero.
+        const firstChoicePos = sentence.firstChoice ? sentence.firstChoice.position : null;
+        const secondChoicePos = sentence.secondChoice ? sentence.secondChoice.position : null;
 
-        // Verifica se dobbiamo fermarci per una scelta
-        if (state.currentIndex === firstChoicePos && !state.autoMode && !state.firstChoiceMade) {
+        if (firstChoicePos !== null && state.currentIndex === firstChoicePos && !state.autoMode && !state.firstChoiceMade) {
             clearInterval(state.interval);
             state.isPlaying = false;
             state.currentChoicePoint = 1;
             showChoices();
-        } else if (state.currentIndex === secondChoicePos && !state.autoMode && !state.secondChoiceMade) {
+        } else if (secondChoicePos !== null && state.currentIndex === secondChoicePos && !state.autoMode && !state.secondChoiceMade) {
             clearInterval(state.interval);
             state.isPlaying = false;
             state.currentChoicePoint = 2;
@@ -377,7 +387,8 @@ document.getElementById('resetBtn').addEventListener('click', reset);
 
 document.getElementById('settingsBtn').addEventListener('click', () => {
     const panel = document.getElementById('settingsPanel');
-    panel.classList.toggle('hidden');
+    const isHidden = panel.classList.toggle('hidden');
+    document.getElementById('settingsBtn').setAttribute('aria-expanded', String(!isHidden));
 });
 
 document.getElementById('speedSlider').addEventListener('input', (e) => {
@@ -386,6 +397,16 @@ document.getElementById('speedSlider').addEventListener('input', (e) => {
     if (state.isPlaying) {
         startInterval();
     }
+});
+
+document.getElementById('deepDiveBtn').addEventListener('click', () => {
+    const panel = document.getElementById('deepDivePanel');
+    const isHidden = panel.classList.toggle('hidden');
+    const btn = document.getElementById('deepDiveBtn');
+    btn.setAttribute('aria-expanded', String(!isHidden));
+    btn.textContent = isHidden
+        ? 'Perché il modello sceglie queste probabilità? ▸'
+        : 'Perché il modello sceglie queste probabilità? ▾';
 });
 
 // Inizializzazione
