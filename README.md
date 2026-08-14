@@ -8,6 +8,11 @@ Una raccolta di piccoli progetti didattici, pensati per spiegare concetti di inf
 
 - [llm-token-visualizer](llm-token-visualizer/) — simulatore che mostra come un LLM genera testo un token alla volta, con probabilità e percorsi alternativi.
 - [artificial-neuron-simulator](artificial-neuron-simulator/) — simulazione interattiva di un neurone artificiale: input pesati, bias e funzioni di attivazione.
+- [perceptron-learning-simulator](perceptron-learning-simulator/) — un percettrone che impara da solo, un aggiornamento alla volta, a separare due classi di punti.
+- [attention-visualizer](attention-visualizer/) — mostra a quali parole di una frase un modello "presta attenzione" per costruirne il significato.
+- [word-embedding-explorer](word-embedding-explorer/) — esplora la somiglianza tra parole e le analogie vettoriali (es. re − uomo + donna = regina).
+- [bias-in-data-simulator](bias-in-data-simulator/) — mostra come un modello impari a ripetere un'ingiustizia presente nei propri dati di addestramento.
+- [rules-vs-ai-chatbot](rules-vs-ai-chatbot/) — due chatbot a confronto: uno a regole rigide, uno probabilistico simulato — con una vera allucinazione "in diretta".
 
 ## Come contribuire un nuovo progetto
 
