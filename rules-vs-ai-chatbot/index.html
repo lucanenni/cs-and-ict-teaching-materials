@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regole contro IA: due chatbot a confronto</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Regole contro IA: due chatbot a confronto</h1>
+            <p class="subtitle">Scrivi lo stesso messaggio a entrambi e guarda come rispondono in modo diverso</p>
+
+            <div class="chat-columns">
+                <div class="chat-panel rule-panel">
+                    <div class="chat-panel-title">🔧 Chatbot a regole</div>
+                    <p class="chat-panel-desc">Risponde solo se il messaggio contiene esattamente una parola chiave
+                        prevista.</p>
+                    <div class="chat-log" id="ruleLog" aria-live="polite"></div>
+                </div>
+                <div class="chat-panel ai-panel">
+                    <div class="chat-panel-title">✨ Chatbot "IA" (simulato)</div>
+                    <p class="chat-panel-desc">Riconosce anche frasi dette in modo diverso e sceglie tra più risposte
+                        possibili.</p>
+                    <div class="chat-log" id="aiLog" aria-live="polite"></div>
+                </div>
+            </div>
+
+            <div class="chips-row" id="chipsRow"></div>
+
+            <form class="input-row" id="chatForm">
+                <label for="chatInput" class="sr-only">Scrivi un messaggio</label>
+                <input type="text" id="chatInput" placeholder="Scrivi un messaggio per entrambi i chatbot..."
+                    autocomplete="off">
+                <button class="btn btn-primary" type="submit">Invia</button>
+            </form>
+
+            <div class="controls">
+                <button class="btn btn-secondary" id="resetChatBtn">↻ Ricomincia</button>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Il <strong>chatbot a regole</strong> segue istruzioni fisse del tipo "se il messaggio
+                        contiene X, rispondi Y": è prevedibile e trasparente, ma rigido — basta scrivere la stessa
+                        domanda in modo leggermente diverso perché non la riconosca più.</li>
+                    <li>• Il <strong>chatbot "IA"</strong> (qui solo simulato, non un vero modello) riconosce frasi
+                        dette in modo diverso e sceglie tra più risposte possibili, mostrando quanto è "sicuro" della
+                        scelta.</li>
+                    <li>• Quando nessuno dei due sa la risposta, guarda bene <strong>cosa fa l'IA simulata</strong>:
+                        invece di ammettere "non lo so", a volte genera comunque una risposta plausibile — anche se è
+                        inventata. Questo fenomeno nei veri modelli si chiama <strong>allucinazione</strong>.</li>
+                    <li>• Prova il messaggio sui mondiali del 2050 per vedere un'allucinazione "in diretta".</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
