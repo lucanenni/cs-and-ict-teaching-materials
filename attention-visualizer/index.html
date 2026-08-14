@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attenzione, semplificata</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Attenzione, semplificata</h1>
+            <p class="subtitle">Clicca su una parola e scopri a quali altre parole della frase presta più
+                "attenzione"</p>
+
+            <label for="exampleSelect">Seleziona un esempio:</label>
+            <select id="exampleSelect">
+                <option value="0">A cosa si riferisce "era"?</option>
+                <option value="1">Accordo tra aggettivo e sostantivo</option>
+                <option value="2">Dipendenze a lunga distanza</option>
+            </select>
+
+            <p class="hint" id="hintText"></p>
+
+            <div class="sentence-box">
+                <div class="tokens-row" id="tokensRow"></div>
+            </div>
+
+            <div class="weights-panel" id="weightsPanel">
+                <p class="weights-placeholder">👆 Clicca su una parola della frase qui sopra per vedere la sua
+                    distribuzione di attenzione.</p>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Per ogni parola, il modello calcola quanto "guardare" ciascun'altra parola della stessa
+                        frase per costruirne il significato in contesto.</li>
+                    <li>• Queste quantità si chiamano <strong>pesi di attenzione</strong> e sommano sempre al
+                        100% per ogni parola.</li>
+                    <li>• Più il colore di sfondo è intenso, più la parola selezionata presta attenzione a
+                        quell'altra parola.</li>
+                    <li>• I numeri di questa pagina sono scelti a mano per essere chiari da vedere, non calcolati da
+                        un vero modello — ma il meccanismo è lo stesso.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Come si calcolano davvero questi pesi? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>In un vero modello Transformer, ogni parola viene trasformata in tre vettori: <strong>query</strong>
+                        (cosa sto cercando), <strong>key</strong> (cosa offro) e <strong>value</strong> (il
+                        contenuto che porto). Il peso di attenzione tra due parole nasce dal confrontare la query
+                        della prima con la key della seconda (un prodotto scalare), poi tutti i confronti di una
+                        parola vengono trasformati in probabilità con una <strong>softmax</strong>. Il risultato
+                        finale è una combinazione pesata dei value di tutte le parole — cioè esattamente le barre che
+                        vedi qui sotto.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
