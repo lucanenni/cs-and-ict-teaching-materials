@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il bias nei dati</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Il bias nei dati</h1>
+            <p class="subtitle">Una città immaginaria, un'assunzione immaginaria: guarda come un modello impara a
+                ripetere una discriminazione storica</p>
+
+            <div class="scenario-box">
+                <p><strong>Lo scenario:</strong> 24 candidati con punteggi di <strong>competenza</strong> e
+                    <strong>esperienza</strong> (0–10) si sono candidati per un posto. Metà vengono dalla
+                    "Città A", metà dalla "Città B" — due città immaginarie, senza nessuna differenza reale nelle
+                    competenze dei loro abitanti. Storicamente, però, chi veniva dalla Città A è stato assunto molto
+                    più spesso, a parità di merito: un'ingiustizia del passato, non giustificata da nulla.</p>
+            </div>
+
+            <div class="toggle-row">
+                <label class="switch">
+                    <input type="checkbox" id="useCityToggle" checked>
+                    <span class="slider"></span>
+                </label>
+                <span class="toggle-label">Il modello usa la città di provenienza come informazione per
+                    decidere</span>
+            </div>
+
+            <div class="visualization">
+                <canvas id="plotCanvas" role="img"
+                    aria-label="Grafico dei candidati per competenza ed esperienza, colorati per città di provenienza"></canvas>
+                <div class="legend">
+                    <span class="legend-item"><span class="legend-dot dot-a"></span> Città A</span>
+                    <span class="legend-item"><span class="legend-dot dot-b"></span> Città B</span>
+                    <span class="legend-item"><span class="legend-dot dot-filled"></span> assunto dal modello</span>
+                    <span class="legend-item"><span class="legend-dot dot-hollow"></span> non assunto</span>
+                </div>
+            </div>
+
+            <div class="stats-panel">
+                <div class="stats-title">Tasso di assunzione del modello, per città</div>
+                <div class="stat-row">
+                    <span class="stat-label">Città A</span>
+                    <div class="stat-bar-container">
+                        <div class="stat-bar stat-bar-a" id="barA"></div>
+                    </div>
+                    <span class="stat-value" id="valueA">–</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Città B</span>
+                    <div class="stat-bar-container">
+                        <div class="stat-bar stat-bar-b" id="barB"></div>
+                    </div>
+                    <span class="stat-value" id="valueB">–</span>
+                </div>
+                <p class="stats-note" id="statsNote"></p>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-secondary" id="newCandidatesBtn">🔀 Nuovi candidati</button>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Cosa sta succedendo?</h3>
+                <ul class="help-list">
+                    <li>• I due gruppi (Città A e Città B) hanno, per costruzione, la <strong>stessa</strong>
+                        distribuzione di competenza ed esperienza: non c'è nessuna differenza reale di merito.</li>
+                    <li>• Le decisioni <strong>storiche</strong> (quelle su cui il modello si allena) favorivano però
+                        la Città A a parità di punteggio: è un bias presente nei dati, non nella realtà.</li>
+                    <li>• Un modello addestrato a imitare quelle decisioni, se ha accesso alla città, la usa per
+                        prevedere meglio le decisioni storiche — e così <strong>replica</strong> l'ingiustizia.</li>
+                    <li>• Disattivando l'interruttore, il modello smette di usare la città: qui il divario
+                        scompare, perché la città non è collegata a nessun'altra informazione disponibile.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Basta togliere l'informazione sensibile per risolvere il problema? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>In questo esempio sì, perché la città è stata generata in modo indipendente da competenza ed
+                        esperienza. Nel mondo reale, però, altre informazioni apparentemente neutre (il codice
+                        postale, la scuola frequentata, perfino il nome) sono spesso <strong>correlate</strong> con
+                        caratteristiche sensibili: un modello può quindi continuare a discriminare "indirettamente"
+                        anche senza mai vedere esplicitamente l'informazione sensibile. Questo fenomeno si chiama
+                        <strong>discriminazione per proxy</strong>, ed è uno dei motivi per cui verificare l'equità
+                        di un modello richiede più che semplicemente "nascondergli" un dato.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
