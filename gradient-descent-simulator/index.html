@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La discesa del gradiente</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>La discesa del gradiente</h1>
+            <p class="subtitle">Guarda una pallina scendere verso il punto più basso di un paesaggio d'errore, un
+                passo alla volta</p>
+
+            <p class="hint">👆 Clicca in un punto del grafico per far partire la pallina da lì.</p>
+
+            <div class="controls-row">
+                <button class="btn btn-secondary" id="settingsBtn" aria-label="Impostazioni" aria-expanded="false"
+                    aria-controls="settingsPanel">⚙ Impostazioni</button>
+            </div>
+
+            <div id="settingsPanel" class="settings-panel hidden">
+                <label class="speed-label" id="speedLabel" for="speedSlider">Velocità di generazione: 400ms</label>
+                <input type="range" id="speedSlider" min="100" max="1200" step="100" value="400">
+                <label class="speed-label" id="rateLabel" for="rateSlider" style="margin-top: 1rem;">Tasso di
+                    apprendimento: 0.05</label>
+                <input type="range" id="rateSlider" min="0.01" max="0.9" step="0.01" value="0.05">
+            </div>
+
+            <div class="visualization">
+                <canvas id="plotCanvas" role="img"
+                    aria-label="Grafico della funzione di errore con la pallina che scende verso il minimo"></canvas>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-title">Stato della discesa</div>
+                <div class="info-content" id="infoContent" aria-live="polite" aria-atomic="true"></div>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playPauseBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">⏭ Passo singolo</button>
+                <button class="btn btn-secondary" id="resetBtn">↻ Reset</button>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• La linea rappresenta una funzione di "errore": più in basso, meglio va.</li>
+                    <li>• Ad ogni passo, la pallina si sposta nella direzione in cui l'errore diminuisce più
+                        velocemente (la discesa più ripida), di una quantità proporzionale al
+                        <strong>tasso di apprendimento</strong>.</li>
+                    <li>• Con un tasso di apprendimento troppo <strong>basso</strong> la discesa è lentissima; con uno
+                        troppo <strong>alto</strong> la pallina rimbalza da un lato all'altro senza fermarsi.</li>
+                    <li>• Questo paesaggio ha <strong>due valli</strong>: a seconda da dove parte, la pallina può
+                        fermarsi in quella meno profonda (un <strong>minimo locale</strong>) invece di raggiungere
+                        il punto più basso in assoluto (il <strong>minimo globale</strong>).</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Qual è la formula dell'aggiornamento? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Ad ogni passo si calcola la <strong>derivata</strong> (pendenza) della funzione nel punto
+                        attuale, <code>f'(x)</code>, e si aggiorna la posizione con <code>x = x − η · f'(x)</code>,
+                        dove η (eta) è il tasso di apprendimento. La derivata indica sempre la direzione di salita
+                        più ripida: sottraendola ci si muove verso il basso. È lo stesso principio con cui una rete
+                        neurale aggiusta i propri pesi per ridurre l'errore, solo che lì al posto di un solo numero
+                        x ci sono milioni di pesi contemporaneamente.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
