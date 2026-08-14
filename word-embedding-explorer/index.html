@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Somiglianza tra parole</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Somiglianza tra parole</h1>
+            <p class="subtitle">Nei modelli linguistici ogni parola diventa un punto nello spazio: le parole con
+                significato simile finiscono vicine</p>
+
+            <div class="mode-toggle">
+                <button class="mode-btn active" id="exploreModeBtn">🔍 Esplora parole vicine</button>
+                <button class="mode-btn" id="analogyModeBtn">➕ Analogie tra vettori</button>
+            </div>
+
+            <p class="hint" id="hintText"></p>
+
+            <div id="analogyControls" class="analogy-controls hidden">
+                <select id="analogySelect">
+                    <option value="0">re − uomo + donna = ?</option>
+                    <option value="1">principessa − ragazza + ragazzo = ?</option>
+                </select>
+                <button class="btn btn-primary" id="calcAnalogyBtn">Calcola</button>
+            </div>
+
+            <div class="plot-box">
+                <svg id="plotSvg" viewBox="-11 -11 22 22" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                            <path d="M0,0 L6,3 L0,6 Z" fill="#7c3aed" />
+                        </marker>
+                    </defs>
+                    <g id="gridGroup"></g>
+                    <g id="linesGroup"></g>
+                    <g id="pointsGroup"></g>
+                </svg>
+            </div>
+
+            <div class="results-panel" id="resultsPanel">
+                <p class="results-placeholder">👆 Clicca su una parola del grafico qui sopra per vedere le parole più
+                    simili.</p>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Un modello linguistico rappresenta ogni parola come un punto (un <strong>vettore</strong>)
+                        in uno spazio con moltissime dimensioni — qui, per poterlo disegnare, ne usiamo solo 2.</li>
+                    <li>• Parole con significato simile o usate in contesti simili finiscono per avere vettori
+                        vicini tra loro: è così che il modello "sa" che gatto e cane sono più simili tra loro che gatto
+                        e pioggia.</li>
+                    <li>• Sorprendentemente, anche le <strong>relazioni</strong> tra parole diventano vettori: la
+                        modalità "Analogie" mostra come sommare e sottrarre questi vettori dia risultati sensati.</li>
+                    <li>• Le posizioni di questa pagina sono scelte a mano per essere chiare da vedere, non calcolate
+                        da un vero modello — ma il fenomeno è reale e ben documentato (es. word2vec, 2013).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
