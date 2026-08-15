@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrice di confusione e soglia di decisione</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Matrice di confusione e soglia di decisione</h1>
+            <p class="subtitle">Un filtro anti-spam già "addestrato": sposta la soglia e guarda come cambiano gli
+                errori</p>
+
+            <div class="scenario-box">
+                <p>Ogni pallino è un'email: il filtro le ha già assegnato un <strong>punteggio di rischio</strong>
+                    da 0 a 100. Se il punteggio supera la soglia, l'email viene marcata come spam. Il colore vero
+                    dell'email (spam o normale) è nascosto al filtro — noi lo vediamo per poter valutare quanto si
+                    sbaglia.</p>
+            </div>
+
+            <label for="thresholdSlider">Soglia di decisione: <span id="thresholdValue" class="value-badge">50</span></label>
+            <input type="range" id="thresholdSlider" min="0" max="100" step="1" value="50">
+
+            <div class="visualization">
+                <canvas id="stripCanvas" role="img"
+                    aria-label="Grafico a striscia con ogni email posizionata secondo il suo punteggio di rischio"></canvas>
+                <div class="legend">
+                    <span class="legend-item"><span class="legend-dot dot-spam"></span> spam (reale)</span>
+                    <span class="legend-item"><span class="legend-dot dot-ham"></span> normale (reale)</span>
+                    <span class="legend-item"><span class="legend-line"></span> soglia</span>
+                </div>
+            </div>
+
+            <div class="matrix-metrics-row">
+                <div class="matrix-box">
+                    <div class="matrix-title">Matrice di confusione</div>
+                    <div class="matrix-grid">
+                        <div class="matrix-corner"></div>
+                        <div class="matrix-header">Predetto: Spam</div>
+                        <div class="matrix-header">Predetto: Normale</div>
+                        <div class="matrix-header">Reale: Spam</div>
+                        <div class="matrix-cell cell-correct" id="cellTP"></div>
+                        <div class="matrix-cell cell-wrong" id="cellFN"></div>
+                        <div class="matrix-header">Reale: Normale</div>
+                        <div class="matrix-cell cell-wrong" id="cellFP"></div>
+                        <div class="matrix-cell cell-correct" id="cellTN"></div>
+                    </div>
+                </div>
+                <div class="metrics-box">
+                    <div class="matrix-title">Metriche</div>
+                    <div class="metric-row">
+                        <span class="metric-label">Accuratezza</span>
+                        <div class="metric-bar-container"><div class="metric-bar bar-accuracy" id="barAccuracy"></div></div>
+                        <span class="metric-value" id="valueAccuracy">–</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Precisione</span>
+                        <div class="metric-bar-container"><div class="metric-bar bar-precision" id="barPrecision"></div></div>
+                        <span class="metric-value" id="valuePrecision">–</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Richiamo</span>
+                        <div class="metric-bar-container"><div class="metric-bar bar-recall" id="barRecall"></div></div>
+                        <span class="metric-value" id="valueRecall">–</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-secondary" id="newDataBtn">🔀 Nuove email</button>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• <strong>Vero positivo</strong> (TP): spam vero, marcato come spam. <strong>Vero
+                            negativo</strong> (TN): email normale, lasciata passare. Sono i due casi "corretti".</li>
+                    <li>• <strong>Falso positivo</strong> (FP): email normale marcata per errore come spam (rischio:
+                        perdere email importanti). <strong>Falso negativo</strong> (FN): spam che passa il filtro.</li>
+                    <li>• <strong>Precisione</strong> risponde a: "delle email marcate spam, quante lo erano
+                        davvero?" — importante quando i falsi positivi sono costosi.</li>
+                    <li>• <strong>Richiamo</strong> risponde a: "di tutto lo spam vero, quanto ne abbiamo
+                        catturato?" — importante quando i falsi negativi sono costosi.</li>
+                    <li>• Abbassando la soglia si cattura più spam ma si rischia di bloccare email legittime;
+                        alzandola succede il contrario. Non esiste una soglia "perfetta" in assoluto: dipende da
+                        cosa costa di più sbagliare.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché non basta guardare solo l'accuratezza? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Immagina un filtro che non fa mai nulla e lascia passare tutto: se solo il 5% delle email
+                        fosse spam, quel filtro pigro avrebbe comunque il 95% di accuratezza, pur essendo inutile.
+                        L'accuratezza da sola può nascondere problemi seri quando le classi sono sbilanciate. Per
+                        questo si guardano anche precisione e richiamo (e la loro combinazione, l'F1-score):
+                        raccontano <em>che tipo</em> di errori fa il modello, non solo quanti.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
