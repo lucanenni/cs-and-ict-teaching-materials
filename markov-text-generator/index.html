@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generatore di testo a catena di Markov</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Generatore di testo "alla vecchia maniera"</h1>
+            <p class="subtitle">Prima degli LLM, i modelli di linguaggio guardavano solo l'ultima parola (o le
+                ultime due) per indovinare la prossima</p>
+
+            <button type="button" class="btn-link" id="corpusToggleBtn" aria-expanded="false"
+                aria-controls="corpusPanel">📖 Leggi il testo da cui il modello ha imparato ▸</button>
+            <div id="corpusPanel" class="corpus-panel hidden"></div>
+
+            <div class="settings-row">
+                <div class="setting-group">
+                    <label for="memorySelect">Memoria del modello:</label>
+                    <select id="memorySelect">
+                        <option value="1">1 parola (bigram)</option>
+                        <option value="2">2 parole (trigram)</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label for="seedSelect">Parola iniziale:</label>
+                    <select id="seedSelect"></select>
+                </div>
+            </div>
+
+            <div class="checkbox-container">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="greedyMode">
+                    <span class="checkbox-text">
+                        <strong>Modalità deterministica</strong> - scegli sempre la parola più probabile
+                    </span>
+                </label>
+                <p class="checkbox-hint">Quando disattiva, la parola successiva viene scelta a caso in base alle
+                    probabilità mostrate sotto.</p>
+            </div>
+
+            <div class="generated-box">
+                <div class="generated-label">Testo generato:</div>
+                <div class="generated-text" id="generatedText" aria-live="polite"></div>
+            </div>
+
+            <div class="weights-panel" id="weightsPanel"></div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playPauseBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">⏭ Passo singolo</button>
+                <button class="btn btn-secondary" id="resetBtn">↻ Reset</button>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Il modello ha "letto" un piccolo testo e ha contato quali parole seguono ciascuna parola
+                        (o coppia di parole).</li>
+                    <li>• Per generare testo nuovo, guarda solo l'ultima parola (o le ultime due) già scritte e
+                        sceglie la prossima in base a quelle statistiche — <strong>nient'altro</strong>: non
+                        "capisce" il senso della frase, non ricorda cosa ha scritto molte parole prima.</li>
+                    <li>• Guarda cosa succede con "1 parola" di memoria: il testo tende a vagare o a ripetersi in
+                        un ciclo. Con "2 parole" è già un po' più coerente — un assaggio del perché
+                        l'<a href="../attention-visualizer/">attenzione</a> (che guarda l'intera frase, non solo le
+                        ultime parole) ha fatto una differenza enorme.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
