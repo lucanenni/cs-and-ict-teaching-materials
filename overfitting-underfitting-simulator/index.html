@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overfitting vs underfitting</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Overfitting vs underfitting</h1>
+            <p class="subtitle">Sposta lo slider e guarda cosa succede quando un modello è troppo semplice — o
+                troppo complicato — per i dati</p>
+
+            <label for="degreeSlider">Grado del polinomio (complessità del modello): <span id="degreeValue"
+                    class="value-badge">5</span></label>
+            <input type="range" id="degreeSlider" min="1" max="9" step="1" value="5">
+
+            <div class="visualization">
+                <canvas id="plotCanvas" role="img"
+                    aria-label="Grafico con i punti di addestramento, i punti di test e la curva del modello"></canvas>
+                <div class="legend">
+                    <span class="legend-item"><span class="legend-dot dot-train"></span> dati di addestramento</span>
+                    <span class="legend-item"><span class="legend-dot dot-test"></span> dati mai visti (test)</span>
+                    <span class="legend-item"><span class="legend-line"></span> modello</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="stat-row">
+                    <span class="stat-label">Errore su dati di addestramento</span>
+                    <div class="stat-bar-container">
+                        <div class="stat-bar stat-bar-train" id="barTrain"></div>
+                    </div>
+                    <span class="stat-value" id="valueTrain">–</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Errore su dati mai visti</span>
+                    <div class="stat-bar-container">
+                        <div class="stat-bar stat-bar-test" id="barTest"></div>
+                    </div>
+                    <span class="stat-value" id="valueTest">–</span>
+                </div>
+                <p class="verdict" id="verdictText"></p>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-secondary" id="newDataBtn">🔀 Nuovi dati</button>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• I punti "di addestramento" sono quelli che il modello vede e usa per adattarsi.</li>
+                    <li>• I punti "mai visti" simulano dati nuovi, su cui il modello non si è allenato: misurano se
+                        ha davvero imparato l'andamento generale, non solo memorizzato i punti.</li>
+                    <li>• Con un grado <strong>basso</strong> (es. 1, una retta) il modello è troppo semplice: sbaglia
+                        sia sui dati di addestramento che su quelli nuovi — <strong>underfitting</strong>.</li>
+                    <li>• Con un grado <strong>troppo alto</strong>, la curva passa quasi esattamente per ogni punto
+                        di addestramento (errore bassissimo lì) ma diventa scriteriata e sbaglia parecchio sui dati
+                        nuovi — <strong>overfitting</strong>: ha "memorizzato" il rumore invece di imparare la
+                        tendenza reale.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché un polinomio di grado alto passa per tutti i punti? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Un polinomio di grado <em>n</em> ha <em>n+1</em> coefficienti liberi da scegliere: con
+                        abbastanza gradi di libertà, può curvarsi esattamente quanto serve per toccare ogni singolo
+                        punto di addestramento, rumore incluso. Il problema è che il rumore, per definizione, non ha
+                        nessuno schema da imparare — quindi un modello che lo insegue alla lettera si allontana dalla
+                        vera tendenza dei dati, e fa previsioni peggiori su tutto ciò che non ha già visto. Lo stesso
+                        succede nelle reti neurali con troppi parametri rispetto ai dati disponibili.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
