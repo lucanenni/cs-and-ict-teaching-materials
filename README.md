@@ -13,6 +13,10 @@ Una raccolta di piccoli progetti didattici, pensati per spiegare concetti di inf
 - [word-embedding-explorer](word-embedding-explorer/) — esplora la somiglianza tra parole e le analogie vettoriali (es. re − uomo + donna = regina).
 - [bias-in-data-simulator](bias-in-data-simulator/) — mostra come un modello impari a ripetere un'ingiustizia presente nei propri dati di addestramento.
 - [rules-vs-ai-chatbot](rules-vs-ai-chatbot/) — due chatbot a confronto: uno a regole rigide, uno probabilistico simulato — con una vera allucinazione "in diretta".
+- [gradient-descent-simulator](gradient-descent-simulator/) — una pallina scende un paesaggio d'errore, mostrando l'effetto del tasso di apprendimento e il rischio dei minimi locali.
+- [overfitting-underfitting-simulator](overfitting-underfitting-simulator/) — regola la complessità di un modello e guarda l'errore su dati di addestramento vs dati mai visti divergere.
+- [markov-text-generator](markov-text-generator/) — un generatore di testo "alla vecchia maniera" che guarda solo l'ultima parola o due, per contrasto con l'attenzione.
+- [confusion-matrix-explorer](confusion-matrix-explorer/) — sposta la soglia di decisione di un filtro anti-spam e guarda matrice di confusione, precisione e richiamo cambiare dal vivo.
 
 ## Come contribuire un nuovo progetto
 
