@@ -21,8 +21,13 @@ function generateCandidates() {
     for (let i = 0; i < 12; i++) {
         const competenza = 3 + Math.random() * 7;
         const esperienza = 3 + Math.random() * 7;
-        candidates.push({ competenza, esperienza, city: 'A' });
-        candidates.push({ competenza, esperienza, city: 'B' });
+        // Angolo casuale per coppia: separa i due "gemelli" a schermo senza
+        // che tutte le coppie si scostino sempre nella stessa direzione
+        // (altrimenti il grafico mostra un pattern diagonale sospetto che
+        // sembra un dato reale invece che un semplice accorgimento visivo).
+        const jitterAngle = Math.random() * Math.PI * 2;
+        candidates.push({ competenza, esperienza, city: 'A', jitterAngle });
+        candidates.push({ competenza, esperienza, city: 'B', jitterAngle });
     }
     return candidates;
 }
@@ -87,12 +92,14 @@ function render() {
     ctx.restore();
 
     // Punti (piccolo scarto solo visivo tra i due "gemelli" di una coppia,
-    // per non farli coincidere esattamente sullo schermo)
+    // per non farli coincidere esattamente sullo schermo). La direzione dello
+    // scarto è casuale per coppia: A e B si scostano in direzioni opposte
+    // lungo un angolo scelto una volta sola per coppia in generateCandidates.
     state.candidates.forEach(c => {
         const base = toCanvasCoords(c.competenza, c.esperienza);
-        const jitter = c.city === 'A' ? -4 : 4;
-        const cx = base.cx + jitter;
-        const cy = base.cy + jitter;
+        const sign = c.city === 'A' ? 1 : -1;
+        const cx = base.cx + Math.cos(c.jitterAngle) * 4 * sign;
+        const cy = base.cy + Math.sin(c.jitterAngle) * 4 * sign;
         const color = c.city === 'A' ? '#2563eb' : '#d97706';
         const hired = hiredByModel(c);
 
