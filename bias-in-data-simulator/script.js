@@ -6,30 +6,26 @@ const CITY_A_BOOST = 2; // vantaggio storico ingiustificato per la Città A
 const CITY_B_PENALTY = -1;
 
 let state = {
-    candidates: [],
+    pairs: [],
     useCity: true
 };
 
-function generateCandidates() {
-    // Ogni candidato di Città A ha un "gemello" di Città B con ESATTAMENTE lo
-    // stesso merito (competenza ed esperienza). Così, quando il modello non usa
-    // la città, i due gruppi ottengono per costruzione lo stesso tasso di
-    // assunzione — nessun rumore statistico a confondere la lezione. Le due
-    // posizioni vengono leggermente separate solo a schermo, per restare
-    // entrambe visibili sul grafico.
-    const candidates = [];
+function generatePairs() {
+    // Ogni coppia rappresenta due candidati con ESATTAMENTE lo stesso merito
+    // (competenza ed esperienza) — uno di Città A, uno di Città B. Vengono
+    // disegnati come un unico pallino diviso a metà nella STESSA posizione,
+    // invece di due pallini vicini ma separati: prima li scostavamo
+    // leggermente per non farli coincidere a schermo, ma anche con una
+    // direzione casuale per coppia restavano visivamente "appiccicati",
+    // suggerendo un accoppiamento innaturale. Un solo simbolo bicolore nella
+    // posizione esatta comunica meglio "stesso identico merito".
+    const pairs = [];
     for (let i = 0; i < 12; i++) {
         const competenza = 3 + Math.random() * 7;
         const esperienza = 3 + Math.random() * 7;
-        // Angolo casuale per coppia: separa i due "gemelli" a schermo senza
-        // che tutte le coppie si scostino sempre nella stessa direzione
-        // (altrimenti il grafico mostra un pattern diagonale sospetto che
-        // sembra un dato reale invece che un semplice accorgimento visivo).
-        const jitterAngle = Math.random() * Math.PI * 2;
-        candidates.push({ competenza, esperienza, city: 'A', jitterAngle });
-        candidates.push({ competenza, esperienza, city: 'B', jitterAngle });
+        pairs.push({ competenza, esperienza });
     }
-    return candidates;
+    return pairs;
 }
 
 function historicalScore(c) {
@@ -91,40 +87,52 @@ function render() {
     ctx.fillText('Esperienza →', 0, 0);
     ctx.restore();
 
-    // Punti (piccolo scarto solo visivo tra i due "gemelli" di una coppia,
-    // per non farli coincidere esattamente sullo schermo). La direzione dello
-    // scarto è casuale per coppia: A e B si scostano in direzioni opposte
-    // lungo un angolo scelto una volta sola per coppia in generateCandidates.
-    state.candidates.forEach(c => {
-        const base = toCanvasCoords(c.competenza, c.esperienza);
-        const sign = c.city === 'A' ? 1 : -1;
-        const cx = base.cx + Math.cos(c.jitterAngle) * 4 * sign;
-        const cy = base.cy + Math.sin(c.jitterAngle) * 4 * sign;
-        const color = c.city === 'A' ? '#2563eb' : '#d97706';
-        const hired = hiredByModel(c);
+    // Ogni coppia è un solo pallino diviso a metà, nella posizione esatta del
+    // loro (identico) merito: metà sinistra = Città A, metà destra = Città B.
+    // Niente scarti né posizioni approssimate: la stessa identica competenza
+    // ed esperienza restano un solo punto sul grafico.
+    const r = 8;
+    state.pairs.forEach(p => {
+        const { cx, cy } = toCanvasCoords(p.competenza, p.esperienza);
+        const hiredA = hiredByModel({ ...p, city: 'A' });
+        const hiredB = hiredByModel({ ...p, city: 'B' });
+
+        drawHalfCircle(cx, cy, r, Math.PI / 2, Math.PI * 1.5, '#2563eb', hiredA); // sinistra: Città A
+        drawHalfCircle(cx, cy, r, -Math.PI / 2, Math.PI / 2, '#d97706', hiredB); // destra: Città B
 
         ctx.beginPath();
-        ctx.arc(cx, cy, 6, 0, Math.PI * 2);
-        if (hired) {
-            ctx.fillStyle = color;
-            ctx.fill();
-        } else {
-            ctx.fillStyle = 'white';
-            ctx.fill();
-            ctx.strokeStyle = color;
-            ctx.lineWidth = 2;
-            ctx.stroke();
-        }
+        ctx.moveTo(cx, cy - r);
+        ctx.lineTo(cx, cy + r);
+        ctx.strokeStyle = '#1f2937';
+        ctx.lineWidth = 1;
+        ctx.stroke();
     });
 
     renderStats();
 }
 
+function drawHalfCircle(cx, cy, r, startAngle, endAngle, color, filled) {
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, r, startAngle, endAngle);
+    ctx.closePath();
+    if (filled) {
+        ctx.fillStyle = color;
+        ctx.fill();
+    } else {
+        ctx.fillStyle = 'white';
+        ctx.fill();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+    }
+}
+
 function renderStats() {
-    const groupA = state.candidates.filter(c => c.city === 'A');
-    const groupB = state.candidates.filter(c => c.city === 'B');
-    const rateA = Math.round((groupA.filter(hiredByModel).length / groupA.length) * 100);
-    const rateB = Math.round((groupB.filter(hiredByModel).length / groupB.length) * 100);
+    const hiredA = state.pairs.filter(p => hiredByModel({ ...p, city: 'A' })).length;
+    const hiredB = state.pairs.filter(p => hiredByModel({ ...p, city: 'B' })).length;
+    const rateA = Math.round((hiredA / state.pairs.length) * 100);
+    const rateB = Math.round((hiredB / state.pairs.length) * 100);
 
     document.getElementById('barA').style.width = rateA + '%';
     document.getElementById('barB').style.width = rateB + '%';
@@ -143,7 +151,7 @@ function renderStats() {
 }
 
 function newCandidates() {
-    state.candidates = generateCandidates();
+    state.pairs = generatePairs();
     render();
 }
 

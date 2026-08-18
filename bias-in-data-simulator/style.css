@@ -148,12 +148,12 @@ input:checked+.slider:before {
     border-radius: 50%;
 }
 
-.dot-a {
-    background: #2563eb;
-}
-
-.dot-b {
-    background: #d97706;
+.legend-half-dot {
+    display: inline-block;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background: linear-gradient(90deg, #2563eb 50%, #d97706 50%);
 }
 
 .dot-filled {

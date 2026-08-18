@@ -83,10 +83,10 @@ h1 {
     transition: background-color 0.3s;
 }
 
-.circle {
-    position: absolute;
-    border-radius: 50%;
-    transition: background-color 0.1s;
+#circlesCanvas {
+    display: block;
+    width: 100%;
+    height: auto;
 }
 
 .sliders-row {

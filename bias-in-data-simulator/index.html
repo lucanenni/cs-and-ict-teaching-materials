@@ -16,11 +16,12 @@
                 ripetere una discriminazione storica</p>
 
             <div class="scenario-box">
-                <p><strong>Lo scenario:</strong> 24 candidati con punteggi di <strong>competenza</strong> e
-                    <strong>esperienza</strong> (0–10) si sono candidati per un posto. Metà vengono dalla
-                    "Città A", metà dalla "Città B" — due città immaginarie, senza nessuna differenza reale nelle
-                    competenze dei loro abitanti. Storicamente, però, chi veniva dalla Città A è stato assunto molto
-                    più spesso, a parità di merito: un'ingiustizia del passato, non giustificata da nulla.</p>
+                <p><strong>Lo scenario:</strong> 12 coppie di candidati con punteggi di <strong>competenza</strong> e
+                    <strong>esperienza</strong> (0–10): ogni coppia condivide esattamente lo stesso merito, ma un
+                    candidato viene dalla "Città A" e l'altro dalla "Città B" — due città immaginarie, senza nessuna
+                    differenza reale nelle competenze dei loro abitanti. Storicamente, però, chi veniva dalla Città A
+                    è stato assunto molto più spesso, a parità di merito: un'ingiustizia del passato, non giustificata
+                    da nulla.</p>
             </div>
 
             <div class="toggle-row">
@@ -36,8 +37,8 @@
                 <canvas id="plotCanvas" role="img"
                     aria-label="Grafico dei candidati per competenza ed esperienza, colorati per città di provenienza"></canvas>
                 <div class="legend">
-                    <span class="legend-item"><span class="legend-dot dot-a"></span> Città A</span>
-                    <span class="legend-item"><span class="legend-dot dot-b"></span> Città B</span>
+                    <span class="legend-item"><span class="legend-half-dot"></span> stessa coppia: sinistra Città
+                        A, destra Città B (stesso identico merito)</span>
                     <span class="legend-item"><span class="legend-dot dot-filled"></span> assunto dal modello</span>
                     <span class="legend-item"><span class="legend-dot dot-hollow"></span> non assunto</span>
                 </div>
@@ -69,8 +70,8 @@
             <div class="help-panel">
                 <h3 class="help-title">Cosa sta succedendo?</h3>
                 <ul class="help-list">
-                    <li>• I due gruppi (Città A e Città B) hanno, per costruzione, la <strong>stessa</strong>
-                        distribuzione di competenza ed esperienza: non c'è nessuna differenza reale di merito.</li>
+                    <li>• Ogni coppia condivide, per costruzione, <strong>esattamente lo stesso</strong> punteggio
+                        di competenza ed esperienza: non c'è nessuna differenza reale di merito tra i due candidati.</li>
                     <li>• Le decisioni <strong>storiche</strong> (quelle su cui il modello si allena) favorivano però
                         la Città A a parità di punteggio: è un bias presente nei dati, non nella realtà.</li>
                     <li>• Un modello addestrato a imitare quelle decisioni, se ha accesso alla città, la usa per

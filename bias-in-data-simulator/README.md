@@ -18,10 +18,10 @@ e poi visita `http://localhost:8000`.
 
 ## Cosa mostra
 
-- 24 candidati fittizi, generati in 12 coppie "gemelle": ogni candidato di Città A ha un corrispondente di Città B con **esattamente lo stesso punteggio** di competenza ed esperienza — nessuna differenza reale di merito tra i due gruppi, per costruzione (non per caso statistico).
+- 12 coppie di candidati fittizi: in ogni coppia, un candidato di Città A e uno di Città B condividono **esattamente lo stesso punteggio** di competenza ed esperienza — nessuna differenza reale di merito, per costruzione (non per caso statistico).
 - Le decisioni storiche di assunzione (su cui il modello giocattolo di questa pagina è "allenato") favorivano però la Città A a parità di punteggio: un bias del passato, arbitrario e ingiustificato.
 - Un interruttore permette di attivare o disattivare l'uso della città come informazione per il modello: con l'interruttore attivo si vede un chiaro divario nel tasso di assunzione tra le due città; disattivandolo, il divario scompare.
-- Un grafico a dispersione mostra ogni candidato (colorato per città, pieno se assunto dal modello, vuoto se no) e due barre confrontano il tasso di assunzione complessivo dei due gruppi.
+- Un grafico a dispersione mostra ogni coppia come **un solo pallino diviso a metà** nella posizione esatta del loro merito condiviso (sinistra = Città A, destra = Città B), pieno se quel candidato è assunto dal modello, vuoto se no — così è impossibile non notare quando le due metà divergono pur partendo dallo stesso punto.
 
 ## Concetti didattici illustrati
 

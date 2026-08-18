@@ -1,5 +1,6 @@
 const stageBox = document.getElementById('stageBox');
-const circles = [document.getElementById('circle1'), document.getElementById('circle2'), document.getElementById('circle3')];
+const canvas = document.getElementById('circlesCanvas');
+const ctx = canvas.getContext('2d');
 const sliders = [document.getElementById('slider1'), document.getElementById('slider2'), document.getElementById('slider3')];
 const sliderLabels = [document.getElementById('slider1Label'), document.getElementById('slider2Label'), document.getElementById('slider3Label')];
 
@@ -83,6 +84,8 @@ function currentColors() {
     return state.values.map((v, i) => cfg.baseChannel(v, i));
 }
 
+let circleGeometry = { positions: [], radius: 0 };
+
 function layoutCircles() {
     const w = stageBox.clientWidth;
     const size = w * 0.44;
@@ -93,23 +96,48 @@ function layoutCircles() {
     ];
     const stageHeight = size * 0.52 + size * 0.62 + size * 0.52;
     stageBox.style.height = stageHeight + 'px';
-    circles.forEach((el, i) => {
-        el.style.width = size + 'px';
-        el.style.height = size + 'px';
-        el.style.left = (positions[i].x - size / 2) + 'px';
-        el.style.top = (positions[i].y - size / 2) + 'px';
+
+    // Il canvas ha bisogno di attributi width/height espliciti (il suo
+    // "buffer" di disegno interno), non solo di dimensioni CSS, altrimenti
+    // il disegno risulterebbe sfocato o scalato in modo scorretto.
+    canvas.width = w;
+    canvas.height = stageHeight;
+
+    circleGeometry = { positions, radius: size / 2 };
+    render();
+}
+
+function drawCircles() {
+    const cfg = modes[state.mode];
+    const colors = currentColors();
+    const { positions, radius } = circleGeometry;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.fillStyle = cfg.stageBackground;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Disegnare i tre cerchi con globalCompositeOperation invece che con
+    // mix-blend-mode su elementi HTML separati: quest'ultimo, verificato
+    // empiricamente, può dare risultati sbagliati quando tre livelli si
+    // sovrappongono tutti insieme (es. il centro non risultava del tutto
+    // nero in sottrattiva). Il canvas usa la stessa identica formula di
+    // fusione ma la applica in modo affidabile, pixel per pixel.
+    ctx.globalCompositeOperation = cfg.blendMode;
+    positions.forEach((p, i) => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
+        ctx.fillStyle = toRgbString(colors[i]);
+        ctx.fill();
     });
+    ctx.globalCompositeOperation = 'source-over';
 }
 
 function render() {
     const cfg = modes[state.mode];
-    stageBox.style.backgroundColor = cfg.stageBackground;
-
     const colors = currentColors();
-    circles.forEach((el, i) => {
-        el.style.backgroundColor = toRgbString(colors[i]);
-        el.style.mixBlendMode = cfg.blendMode;
-    });
+
+    drawCircles();
 
     sliders.forEach((slider, i) => {
         slider.value = state.values[i];
@@ -185,4 +213,3 @@ document.getElementById('deepDiveBtn').addEventListener('click', () => {
 window.addEventListener('resize', layoutCircles);
 
 layoutCircles();
-render();
