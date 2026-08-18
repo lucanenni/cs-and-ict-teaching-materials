@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sintesi additiva e sottrattiva del colore</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Sintesi additiva e sottrattiva del colore</h1>
+            <p class="subtitle">Perché uno schermo e una stampante mescolano i colori in modi opposti</p>
+
+            <div class="mode-toggle">
+                <button class="mode-btn active" id="additiveModeBtn">💡 Sintesi additiva (luce)</button>
+                <button class="mode-btn" id="subtractiveModeBtn">🎨 Sintesi sottrattiva (pigmenti)</button>
+            </div>
+
+            <p class="hint" id="hintText"></p>
+
+            <div class="stage-box" id="stageBox">
+                <div class="circle" id="circle1"></div>
+                <div class="circle" id="circle2"></div>
+                <div class="circle" id="circle3"></div>
+            </div>
+
+            <div class="sliders-row">
+                <div class="slider-group">
+                    <label id="slider1Label" for="slider1"></label>
+                    <input type="range" id="slider1" min="0" max="255" value="255">
+                </div>
+                <div class="slider-group">
+                    <label id="slider2Label" for="slider2"></label>
+                    <input type="range" id="slider2" min="0" max="255" value="255">
+                </div>
+                <div class="slider-group">
+                    <label id="slider3Label" for="slider3"></label>
+                    <input type="range" id="slider3" min="0" max="255" value="255">
+                </div>
+            </div>
+
+            <div class="overlap-legend" id="overlapLegend"></div>
+
+            <div class="controls">
+                <button class="btn btn-secondary" id="resetBtn">↻ Tutto al massimo</button>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list" id="helpList"></ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché le stampanti usano anche il nero (CMYK)? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>In teoria, mescolando ciano, magenta e giallo al massimo si dovrebbe ottenere nero — ma gli
+                        inchiostri reali non sono perfetti: il risultato è un marrone scuro poco intenso. Per questo
+                        le stampanti aggiungono un quarto inchiostro, il nero puro (la "K" di CMY<strong>K</strong>,
+                        dall'inglese <em>Key</em>): rende i testi e le ombre più nitidi e fa risparmiare
+                        inchiostro colorato. Gli schermi, invece, non hanno bisogno di un "bianco" a parte: basta
+                        accendere rosso, verde e blu tutti al massimo nello stesso pixel.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
