@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binario, decimale, esadecimale</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Binario, decimale, esadecimale</h1>
+            <p class="subtitle">Accendi e spegni i bit e guarda il numero cambiare in tre sistemi diversi, in tempo
+                reale</p>
+
+            <div class="top-row">
+                <div class="width-toggle">
+                    <label for="widthSelect">Larghezza:</label>
+                    <select id="widthSelect">
+                        <option value="8">8 bit (un byte)</option>
+                        <option value="16">16 bit</option>
+                    </select>
+                </div>
+                <label class="signed-toggle">
+                    <input type="checkbox" id="signedToggle">
+                    Interpreta come numero con segno (complemento a due)
+                </label>
+            </div>
+
+            <div class="bits-box" id="bitsBox"></div>
+
+            <div class="values-row">
+                <div class="value-box">
+                    <div class="value-label">Decimale</div>
+                    <div class="value-display" id="decValue"></div>
+                </div>
+                <div class="value-box">
+                    <div class="value-label">Binario</div>
+                    <div class="value-display value-mono" id="binValue"></div>
+                </div>
+                <div class="value-box">
+                    <div class="value-label">Esadecimale</div>
+                    <div class="value-display value-mono" id="hexValue"></div>
+                </div>
+            </div>
+
+            <div class="sum-panel" id="sumPanel"></div>
+
+            <div class="input-row">
+                <select id="inputFormat">
+                    <option value="dec">Decimale</option>
+                    <option value="hex">Esadecimale</option>
+                </select>
+                <input type="text" id="valueInput" placeholder="Scrivi un numero...">
+                <button class="btn btn-primary" id="applyBtn">Applica</button>
+            </div>
+            <p class="error-text hidden" id="errorText"></p>
+
+            <div class="controls">
+                <button class="btn btn-secondary" id="clearBtn">↻ Azzera tutto</button>
+                <button class="btn btn-secondary" id="maxBtn">1️⃣ Tutti a 1</button>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Ogni bit vale il doppio di quello alla sua destra: 1, 2, 4, 8, 16, 32... Un numero binario è
+                        la somma dei valori dei bit accesi.</li>
+                    <li>• L'esadecimale raggruppa i bit a quattro a quattro: ogni cifra esadecimale (0-9, A-F)
+                        rappresenta esattamente 4 bit, il che lo rende un modo compatto per scrivere byte.</li>
+                    <li>• Prova a scrivere un numero decimale o esadecimale qui sopra e premere "Applica": i bit si
+                        accenderanno da soli.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Come si rappresentano i numeri negativi? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Attiva "Interpreta come numero con segno" qui sopra: il bit più a sinistra smette di valere
+                        "128" (o "32768") e diventa invece il <strong>segno</strong>. Con la tecnica del
+                        <strong>complemento a due</strong>, se quel bit è acceso il numero è negativo, e si calcola
+                        sottraendo il valore massimo rappresentabile + 1 (es. 256 per 8 bit). Questo trucco permette
+                        di sommare numeri positivi e negativi con la stessa identica addizione binaria, senza
+                        bisogno di un circuito separato per la sottrazione — per questo lo usano praticamente tutti
+                        i computer.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
