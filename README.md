@@ -44,6 +44,12 @@ L'indice online è organizzato per argomento: la home page mostra le categorie, 
 
 - [pc-assembly-simulator](pc-assembly-simulator/) — monta e smonta virtualmente un PC, componente per componente, con stile schematico/realistico e una modalità quiz.
 
+### 🧮 Algoritmi
+
+- [sorting-algorithm-visualizer](sorting-algorithm-visualizer/) — guarda bubble, selection, insertion e quick sort confrontare e scambiare valori, un passo alla volta.
+- [pathfinding-visualizer](pathfinding-visualizer/) — disegna dei muri su una griglia e guarda BFS e DFS esplorarla alla ricerca di un percorso.
+- [recursion-tree-visualizer](recursion-tree-visualizer/) — guarda una funzione ricorsiva (fattoriale, Fibonacci) scomporsi in chiamate più piccole, un passo alla volta.
+
 ## Come contribuire un nuovo progetto
 
 1. Crea una nuova sottocartella con un nome descrittivo in kebab-case (es. `nome-progetto/`).
