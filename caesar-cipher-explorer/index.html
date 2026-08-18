@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il cifrario di Cesare</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Il cifrario di Cesare</h1>
+            <p class="subtitle">Uno dei cifrari più antichi della storia — e uno dei più facili da rompere</p>
+
+            <div class="mode-toggle">
+                <button class="mode-btn active" id="encryptModeBtn">🔒 Cifra</button>
+                <button class="mode-btn" id="decryptModeBtn">🔓 Decifra</button>
+            </div>
+
+            <label for="mainText">Testo:</label>
+            <textarea id="mainText" rows="2">Ciao, come stai oggi?</textarea>
+
+            <label for="shiftSlider">Spostamento (shift): <span id="shiftValue" class="value-badge">3</span></label>
+            <input type="range" id="shiftSlider" min="0" max="25" step="1" value="3">
+
+            <div class="alphabet-row" id="alphabetRow"></div>
+
+            <div class="output-panel">
+                <div class="output-label" id="outputLabel">Testo cifrato:</div>
+                <div class="output-text" id="outputText"></div>
+            </div>
+
+            <div class="brute-section">
+                <h2 class="section-title">🕵️ Prova a romperlo (forza bruta)</h2>
+                <p class="section-hint">Immagina di intercettare questo messaggio cifrato senza conoscere lo
+                    spostamento usato. Con solo 26 possibilità, provarle tutte richiede pochi secondi:</p>
+                <label for="bruteInput">Testo cifrato da decifrare:</label>
+                <textarea id="bruteInput" rows="2"></textarea>
+                <button class="btn btn-primary" id="bruteBtn">Mostra tutti i 26 tentativi</button>
+                <div class="brute-results" id="bruteResults"></div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Ogni lettera viene sostituita con quella che si trova N posizioni più avanti
+                        nell'alfabeto (N è lo "spostamento"). Con spostamento 3, la A diventa D, la B diventa E, e
+                        così via.</li>
+                    <li>• Numeri, spazi e punteggiatura restano invariati: solo le lettere vengono spostate.</li>
+                    <li>• Per decifrare basta spostare le lettere della stessa quantità, ma all'indietro.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché è considerato un cifrario "debole"? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Perché esistono solo 25 spostamenti possibili (oltre a "nessuno spostamento"): un computer
+                        (o anche una persona con un po' di pazienza) può provarli tutti in pochissimo tempo, come
+                        hai appena visto. I cifrari moderni usati per proteggere davvero le comunicazioni (come
+                        AES) hanno invece chiavi con miliardi di miliardi di combinazioni possibili, rendendo il
+                        tentativo "a forza bruta" impraticabile anche per i computer più potenti al mondo.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
