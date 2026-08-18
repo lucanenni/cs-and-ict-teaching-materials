@@ -35,6 +35,11 @@ L'indice online è organizzato per argomento: la home page mostra le categorie, 
 - [caesar-cipher-explorer](caesar-cipher-explorer/) — cifra e decifra messaggi a mano, poi guarda quanto è facile romperli per forza bruta.
 - [hash-avalanche-explorer](hash-avalanche-explorer/) — cambia un solo carattere in un testo e guarda il suo hash SHA-256 diventare completamente diverso.
 
+### 🔢 Logica
+
+- [logic-gates-simulator](logic-gates-simulator/) — accendi e spegni gli input e guarda come ogni porta logica (AND, OR, NOT, XOR...) decide l'output.
+- [finite-state-machine-explorer](finite-state-machine-explorer/) — un semaforo e un distributore automatico, per capire come un sistema cambia stato in risposta agli eventi.
+
 ### 🖥️ Hardware
 
 - [pc-assembly-simulator](pc-assembly-simulator/) — monta e smonta virtualmente un PC, componente per componente, con stile schematico/realistico e una modalità quiz.
