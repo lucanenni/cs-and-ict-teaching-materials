@@ -1,0 +1,268 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(to bottom right, #f0fdf4, #eff6ff);
+    min-height: 100vh;
+    padding: 1.5rem;
+}
+
+.container {
+    max-width: 56rem;
+    margin: 0 auto;
+}
+
+.card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+select:focus {
+    outline: none;
+    border-color: #16a34a;
+}
+
+.circuit-box {
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 1.5rem 1rem;
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+}
+
+.circuit-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    min-width: 26rem;
+}
+
+.circuit-stage + .circuit-stage {
+    margin-top: 1.5rem;
+}
+
+.inputs-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-right: 0.5rem;
+}
+
+.input-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.input-toggle-label {
+    font-weight: bold;
+    font-family: monospace;
+    color: #374151;
+    width: 1.2rem;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 46px;
+    height: 26px;
+    flex-shrink: 0;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider-toggle {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #cbd5e1;
+    transition: .3s;
+    border-radius: 26px;
+}
+
+.slider-toggle:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .3s;
+    border-radius: 50%;
+}
+
+input:checked+.slider-toggle {
+    background-color: #16a34a;
+}
+
+input:checked+.slider-toggle:before {
+    transform: translateX(20px);
+}
+
+.wire {
+    height: 2px;
+    background: #9ca3af;
+    flex: 0 0 2rem;
+    transition: background-color 0.15s;
+}
+
+.wire.live {
+    background: #16a34a;
+    height: 3px;
+}
+
+.gate-box {
+    background: white;
+    border: 2px solid #9ca3af;
+    border-radius: 0.6rem;
+    padding: 0.9rem 1.3rem;
+    font-weight: bold;
+    color: #374151;
+    font-size: 0.95rem;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.output-lamp-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    margin-left: 0.5rem;
+}
+
+.output-lamp {
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 50%;
+    background: #e5e7eb;
+    border: 2px solid #9ca3af;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #6b7280;
+    transition: all 0.15s;
+}
+
+.output-lamp.on {
+    background: #16a34a;
+    border-color: #15803d;
+    color: white;
+    box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.15);
+}
+
+.output-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #6b7280;
+}
+
+.intermediate-label {
+    font-size: 0.68rem;
+    color: #6b7280;
+    margin-top: 0.3rem;
+    text-align: center;
+}
+
+.table-section {
+    margin-bottom: 1.5rem;
+}
+
+.section-title {
+    font-size: 1rem;
+    color: #1f2937;
+    margin-bottom: 0.75rem;
+}
+
+.truth-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: monospace;
+    font-size: 0.9rem;
+}
+
+.truth-table th,
+.truth-table td {
+    border: 1px solid #e5e7eb;
+    padding: 0.5rem 0.75rem;
+    text-align: center;
+}
+
+.truth-table th {
+    background: #f9fafb;
+    color: #374151;
+}
+
+.truth-table tr.current-row td {
+    background: #dcfce7;
+    font-weight: bold;
+    color: #166534;
+}
+
+.help-panel {
+    background-color: #f0fdf4;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.help-title {
+    font-weight: 600;
+    color: #14532d;
+    margin-bottom: 0.5rem;
+}
+
+.help-list {
+    font-size: 0.875rem;
+    color: #14532d;
+    list-style: none;
+}
+
+.help-list li {
+    margin-bottom: 0.35rem;
+}
