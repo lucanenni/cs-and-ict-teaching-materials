@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dal testo ai byte</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Dal testo ai byte</h1>
+            <p class="subtitle">Ogni carattere che scrivi diventa, dietro le quinte, una sequenza di byte: scopri
+                quanti</p>
+
+            <label for="textInput">Scrivi qualcosa:</label>
+            <input type="text" id="textInput" maxlength="24" placeholder="Scrivi qui..." value="Ciao">
+
+            <div class="presets-row">
+                <span class="presets-label">Prova:</span>
+                <button class="chip" data-text="Ciao">Ciao</button>
+                <button class="chip" data-text="Città">Città</button>
+                <button class="chip" data-text="😀 ciao">😀 ciao</button>
+                <button class="chip" data-text="日本語">日本語</button>
+                <button class="chip" data-text="café">café</button>
+            </div>
+
+            <div class="totals-panel" id="totalsPanel"></div>
+
+            <div class="chars-box" id="charsBox"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Ogni carattere ha un numero identificativo unico, il suo <strong>code point</strong>
+                        Unicode (scritto come "U+" seguito da cifre esadecimali).</li>
+                    <li>• Quel numero viene poi tradotto in una sequenza di <strong>byte</strong> secondo una regola
+                        di codifica — la più diffusa oggi è <strong>UTF-8</strong>.</li>
+                    <li>• In UTF-8 i caratteri dell'alfabeto latino di base occupano <strong>1 solo byte</strong>
+                        (esattamente come il vecchio standard ASCII), ma lettere accentate, altri alfabeti ed emoji
+                        ne occupano <strong>2, 3 o perfino 4</strong>.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché non usare sempre 4 byte per ogni carattere? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Si potrebbe fare (è quello che facevano alcune vecchie codifiche a lunghezza fissa), ma
+                        sprecherebbe spazio: la maggior parte del testo scritto al mondo — codice sorgente, tag
+                        HTML, testi in inglese e in molte altre lingue — usa soprattutto caratteri che in UTF-8
+                        occupano un solo byte. Usare una lunghezza <strong>variabile</strong>, che cresce solo
+                        quando serve davvero, rende i file più piccoli senza perdere la possibilità di rappresentare
+                        qualunque alfabeto o emoji al mondo. È anche per questo che UTF-8 è diventato lo standard di
+                        fatto del web.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
