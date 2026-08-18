@@ -5,99 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS and ICT teaching materials</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(to bottom right, #eff6ff, #faf5ff);
-            min-height: 100vh;
-            padding: 1.5rem;
-            color: #1f2937;
-        }
-
-        .page {
-            max-width: 64rem;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            margin: 2rem 0 3rem;
-        }
-
-        h1 {
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .subtitle {
-            color: #6b7280;
-            font-size: 1.1rem;
-            max-width: 40rem;
-            margin: 0 auto;
-        }
-
-        .projects {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-            gap: 1.5rem;
-        }
-
-        .card {
-            display: block;
-            background: white;
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            text-decoration: none;
-            color: inherit;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e5e7eb;
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
-        }
-
-        .card:hover,
-        .card:focus-visible {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 20px -6px rgba(0, 0, 0, 0.15);
-        }
-
-        .card-title {
-            font-size: 1.15rem;
-            font-weight: 600;
-            color: #2563eb;
-            margin-bottom: 0.5rem;
-        }
-
-        .card-description {
-            font-size: 0.95rem;
-            color: #4b5563;
-            line-height: 1.5;
-            margin-bottom: 0.75rem;
-        }
-
-        .card-cta {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: #2563eb;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 3rem;
-            font-size: 0.85rem;
-            color: #6b7280;
-        }
-
-        footer a {
-            color: #2563eb;
-        }
-    </style>
+    <link rel="stylesheet" href="assets/style.css" />
 </head>
 
 <body>
@@ -105,99 +13,32 @@
         <header>
             <h1>CS and ICT teaching materials</h1>
             <p class="subtitle">Una raccolta di piccoli progetti didattici per spiegare concetti di informatica e
-                intelligenza artificiale a studenti delle scuole superiori.</p>
+                intelligenza artificiale a studenti delle scuole superiori. Scegli un argomento per vedere i
+                progetti.</p>
         </header>
 
         <main class="projects">
-            <a class="card" href="llm-token-visualizer/">
-                <div class="card-title">LLM token visualizer</div>
-                <p class="card-description">Scopri come un modello di linguaggio genera testo un token alla volta,
-                    scegliendo tra percorsi alternativi con probabilità diverse.</p>
-                <span class="card-cta">Apri la simulazione →</span>
+            <a class="card" href="topics/ai.html">
+                <div class="card-icon">🤖</div>
+                <div class="card-title">Intelligenza Artificiale</div>
+                <p class="card-description">Come impara una rete neurale, l'attenzione dei modelli linguistici,
+                    bias nei dati, chatbot e altro ancora.</p>
+                <span class="card-count">11 progetti</span>
             </a>
 
-            <a class="card" href="artificial-neuron-simulator/">
-                <div class="card-title">Simulazione di un neurone artificiale</div>
-                <p class="card-description">Modifica input, pesi, bias e funzione di attivazione per vedere come un
-                    singolo neurone artificiale prende una decisione.</p>
-                <span class="card-cta">Apri la simulazione →</span>
+            <a class="card" href="topics/data-representation.html">
+                <div class="card-icon">💾</div>
+                <div class="card-title">Rappresentazione dei dati</div>
+                <p class="card-description">Come colori, numeri, immagini e testo diventano, dietro le quinte, solo
+                    sequenze di byte.</p>
+                <span class="card-count">4 progetti</span>
             </a>
 
-            <a class="card" href="perceptron-learning-simulator/">
-                <div class="card-title">Il percettrone che impara</div>
-                <p class="card-description">Guarda un percettrone aggiustare i propri pesi, un punto alla volta,
-                    finché non separa correttamente due classi.</p>
-                <span class="card-cta">Apri la simulazione →</span>
-            </a>
-
-            <a class="card" href="attention-visualizer/">
-                <div class="card-title">Attenzione, semplificata</div>
-                <p class="card-description">Clicca su una parola e scopri a quali altre parole della frase un
-                    modello presta più "attenzione".</p>
-                <span class="card-cta">Apri la simulazione →</span>
-            </a>
-
-            <a class="card" href="word-embedding-explorer/">
-                <div class="card-title">Somiglianza tra parole</div>
-                <p class="card-description">Esplora la somiglianza tra parole e le analogie vettoriali, come il
-                    celebre re − uomo + donna = regina.</p>
-                <span class="card-cta">Apri la simulazione →</span>
-            </a>
-
-            <a class="card" href="bias-in-data-simulator/">
-                <div class="card-title">Il bias nei dati</div>
-                <p class="card-description">Scopri come un modello impari a ripetere un'ingiustizia presente nei
-                    propri dati di addestramento.</p>
-                <span class="card-cta">Apri la simulazione →</span>
-            </a>
-
-            <a class="card" href="rules-vs-ai-chatbot/">
-                <div class="card-title">Regole contro IA: due chatbot a confronto</div>
-                <p class="card-description">Due chatbot rispondono allo stesso messaggio: uno a regole rigide, uno
-                    probabilistico — con un'allucinazione "in diretta".</p>
-                <span class="card-cta">Apri la simulazione →</span>
-            </a>
-
-            <a class="card" href="gradient-descent-simulator/">
-                <div class="card-title">La discesa del gradiente</div>
-                <p class="card-description">Guarda una pallina scendere verso il minimo di un paesaggio d'errore, un
-                    passo alla volta.</p>
-                <span class="card-cta">Apri la simulazione →</span>
-            </a>
-
-            <a class="card" href="overfitting-underfitting-simulator/">
-                <div class="card-title">Overfitting vs underfitting</div>
-                <p class="card-description">Regola la complessità di un modello e guarda l'errore su dati mai visti
-                    divergere da quello di addestramento.</p>
-                <span class="card-cta">Apri la simulazione →</span>
-            </a>
-
-            <a class="card" href="markov-text-generator/">
-                <div class="card-title">Generatore di testo "alla vecchia maniera"</div>
-                <p class="card-description">Un generatore a catena di Markov che guarda solo l'ultima parola o due —
-                    per contrasto con l'attenzione.</p>
-                <span class="card-cta">Apri la simulazione →</span>
-            </a>
-
-            <a class="card" href="confusion-matrix-explorer/">
-                <div class="card-title">Matrice di confusione e soglia di decisione</div>
-                <p class="card-description">Sposta la soglia di un filtro anti-spam e guarda matrice di confusione,
-                    precisione e richiamo cambiare dal vivo.</p>
-                <span class="card-cta">Apri la simulazione →</span>
-            </a>
-
-            <a class="card" href="color-synthesis-explorer/">
-                <div class="card-title">Sintesi additiva e sottrattiva del colore</div>
-                <p class="card-description">Cerchi RGB e CMY sovrapposti per scoprire perché uno schermo e una
-                    stampante mescolano i colori in modi opposti.</p>
-                <span class="card-cta">Apri la simulazione →</span>
-            </a>
-
-            <a class="card" href="pc-assembly-simulator/">
-                <div class="card-title">Monta il tuo PC</div>
-                <p class="card-description">Monta e smonta virtualmente un computer, componente per componente, con
-                    stile schematico o realistico e una modalità quiz.</p>
-                <span class="card-cta">Apri la simulazione →</span>
+            <a class="card" href="topics/hardware.html">
+                <div class="card-icon">🖥️</div>
+                <div class="card-title">Hardware</div>
+                <p class="card-description">I componenti fisici di un computer e a cosa serve ciascuno.</p>
+                <span class="card-count">1 progetto</span>
             </a>
         </main>
 
