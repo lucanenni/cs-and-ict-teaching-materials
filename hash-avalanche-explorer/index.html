@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'effetto valanga di un hash</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>L'effetto valanga</h1>
+            <p class="subtitle">Cambia anche un solo carattere in un testo, e il suo "hash" diventa
+                irriconoscibile</p>
+
+            <div class="presets-row">
+                <span class="presets-label">Prova:</span>
+                <button class="chip" id="presetDiff">Un punto in più</button>
+                <button class="chip" id="presetDigit">Una cifra diversa</button>
+                <button class="chip" id="presetSame">Testi identici</button>
+            </div>
+
+            <div class="inputs-row">
+                <div class="input-col">
+                    <label for="textA">Testo A:</label>
+                    <textarea id="textA" rows="2">Ciao mondo</textarea>
+                </div>
+                <div class="input-col">
+                    <label for="textB">Testo B:</label>
+                    <textarea id="textB" rows="2">Ciao mondo.</textarea>
+                </div>
+            </div>
+
+            <div class="hash-panel">
+                <div class="hash-row">
+                    <div class="hash-label">Hash SHA-256 di A:</div>
+                    <div class="hash-value" id="hashA"></div>
+                </div>
+                <div class="hash-row">
+                    <div class="hash-label">Hash SHA-256 di B:</div>
+                    <div class="hash-value" id="hashB"></div>
+                </div>
+            </div>
+
+            <div class="similarity-panel" id="similarityPanel"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Una funzione <strong>hash</strong> trasforma un testo di lunghezza qualsiasi in una
+                        sequenza di lunghezza fissa (qui, 64 cifre esadecimali = 256 bit), sempre la stessa per lo
+                        stesso testo in ingresso.</li>
+                    <li>• Una buona funzione hash ha l'<strong>effetto valanga</strong>: anche la più piccola
+                        modifica al testo in ingresso cambia completamente il risultato, in modo imprevedibile.</li>
+                    <li>• Per questo un hash si usa per <strong>verificare l'integrità</strong> di un file o di un
+                        messaggio: se anche un solo bit viene alterato (per errore o di proposito), l'hash cambia
+                        radicalmente e la manomissione si nota subito.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">A cosa servono davvero gli hash? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Oltre a verificare l'integrità dei file (i siti di download spesso pubblicano l'hash di un
+                        programma, così puoi controllare che il file scaricato non sia stato alterato), gli hash
+                        sono alla base di come i siti <strong>memorizzano le password</strong> in modo sicuro: non
+                        salvano mai la password in chiaro, ma solo il suo hash. Quando fai login, il sito calcola
+                        l'hash di quello che scrivi e lo confronta con quello salvato — così, anche se il database
+                        venisse rubato, le password vere non sarebbero direttamente leggibili. Sono anche
+                        fondamentali per le "catene" di blocchi usate dalle criptovalute, dove ogni blocco contiene
+                        l'hash del blocco precedente.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
