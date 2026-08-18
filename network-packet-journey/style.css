@@ -1,0 +1,233 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(to bottom right, #eff6ff, #ecfeff);
+    min-height: 100vh;
+    padding: 1.5rem;
+}
+
+.container {
+    max-width: 56rem;
+    margin: 0 auto;
+}
+
+.card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+.url-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.url-row label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #374151;
+}
+
+.url-row select {
+    padding: 0.6rem 0.85rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    flex: 1;
+    min-width: 12rem;
+}
+
+.diagram-box {
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 1.5rem 1rem;
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+}
+
+.node-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32rem;
+}
+
+.node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    flex-shrink: 0;
+    width: 5.5rem;
+}
+
+.node-icon {
+    width: 3.4rem;
+    height: 3.4rem;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid #d1d5db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: all 0.2s;
+}
+
+.node.active .node-icon {
+    border-color: #2563eb;
+    background: #dbeafe;
+    transform: scale(1.12);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+}
+
+.node-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: #4b5563;
+    text-align: center;
+}
+
+.edge {
+    flex: 1;
+    height: 3px;
+    background: #e5e7eb;
+    margin: 0 -0.5rem 1.7rem;
+    min-width: 2rem;
+    transition: background-color 0.2s;
+}
+
+.edge.active {
+    background: #2563eb;
+}
+
+.step-panel {
+    background-color: #eff6ff;
+    border-radius: 0.5rem;
+    padding: 1.1rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    color: #1e3a8a;
+    line-height: 1.6;
+    min-height: 3rem;
+}
+
+.step-panel .step-counter {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #2563eb;
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    flex: 1;
+    min-width: 8rem;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background-color: #2563eb;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #1d4ed8;
+}
+
+.btn-secondary {
+    background-color: #e5e7eb;
+    color: #374151;
+}
+
+.btn-secondary:hover {
+    background-color: #d1d5db;
+}
+
+.help-panel {
+    background-color: #ecfeff;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.help-title {
+    font-weight: 600;
+    color: #164e63;
+    margin-bottom: 0.5rem;
+}
+
+.help-list {
+    font-size: 0.875rem;
+    color: #164e63;
+    list-style: none;
+}
+
+.help-list li {
+    margin-bottom: 0.35rem;
+}
+
+.btn-link {
+    display: block;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #0e7490;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.btn-link:hover {
+    color: #164e63;
+}
+
+.deep-dive-panel {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #a5f3fc;
+    font-size: 0.875rem;
+    color: #164e63;
+    line-height: 1.6;
+}
+
+.hidden {
+    display: none;
+}

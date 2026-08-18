@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il viaggio di un pacchetto</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Il viaggio di un pacchetto</h1>
+            <p class="subtitle">Cosa succede davvero, passo dopo passo, quando il tuo browser carica un sito</p>
+
+            <div class="url-row">
+                <label for="urlSelect">Sito da caricare:</label>
+                <select id="urlSelect">
+                    <option value="www.scuola-esempio.it">www.scuola-esempio.it</option>
+                    <option value="www.biblioteca-esempio.it">www.biblioteca-esempio.it</option>
+                </select>
+            </div>
+
+            <div class="diagram-box">
+                <div class="node-row">
+                    <div class="node" id="node-client">
+                        <div class="node-icon">💻</div>
+                        <div class="node-label">Il tuo browser</div>
+                    </div>
+                    <div class="edge" id="edge-client-dns"></div>
+                    <div class="node" id="node-dns">
+                        <div class="node-icon">🌐</div>
+                        <div class="node-label">Server DNS</div>
+                    </div>
+                    <div class="edge" id="edge-dns-router"></div>
+                    <div class="node" id="node-router">
+                        <div class="node-icon">📡</div>
+                        <div class="node-label">Router</div>
+                    </div>
+                    <div class="edge" id="edge-router-server"></div>
+                    <div class="node" id="node-server">
+                        <div class="node-icon">🖥️</div>
+                        <div class="node-label">Server del sito</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-panel" id="stepPanel"></div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playPauseBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">⏭ Passo singolo</button>
+                <button class="btn btn-secondary" id="resetBtn">↻ Reset</button>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• I computer si scambiano dati usando <strong>indirizzi IP</strong> numerici, non nomi come
+                        "www.scuola-esempio.it": serve prima una "traduzione".</li>
+                    <li>• Il <strong>DNS</strong> (Domain Name System) è come una rubrica telefonica di internet:
+                        trasforma i nomi dei siti negli indirizzi IP dei server che li ospitano.</li>
+                    <li>• I dati viaggiano a "pacchetti", passando attraverso più <strong>router</strong> lungo il
+                        tragitto, un po' come una lettera che passa per più uffici postali prima di arrivare a
+                        destinazione.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché tutto questo richiede meno di un secondo? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Perché i dati viaggiano quasi alla velocità della luce nei cavi in fibra ottica, e perché
+                        molti di questi passaggi sono già "in cache": il tuo browser spesso ricorda già l'indirizzo
+                        IP di un sito visitato di recente e salta direttamente al passo 4, e i router scelgono il
+                        percorso più veloce disponibile in quel momento tra migliaia di strade alternative. La
+                        vera rete internet, inoltre, ha moltissimi più passaggi intermedi di questi quattro
+                        semplificati qui — ma il principio è esattamente lo stesso.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
