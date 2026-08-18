@@ -29,6 +29,12 @@ L'indice online è organizzato per argomento: la home page mostra le categorie, 
 - [pixel-art-rgb-explorer](pixel-art-rgb-explorer/) — dipingi una griglia di pixel e vedi il valore RGB esatto di ognuno.
 - [color-synthesis-explorer](color-synthesis-explorer/) — cerchi RGB/CMY sovrapponibili per esplorare la sintesi additiva (luce) e sottrattiva (pigmenti) del colore.
 
+### 🌐 Reti e sicurezza
+
+- [network-packet-journey](network-packet-journey/) — cosa succede davvero, passo dopo passo, quando il browser carica un sito: dal DNS al server e ritorno.
+- [caesar-cipher-explorer](caesar-cipher-explorer/) — cifra e decifra messaggi a mano, poi guarda quanto è facile romperli per forza bruta.
+- [hash-avalanche-explorer](hash-avalanche-explorer/) — cambia un solo carattere in un testo e guarda il suo hash SHA-256 diventare completamente diverso.
+
 ### 🖥️ Hardware
 
 - [pc-assembly-simulator](pc-assembly-simulator/) — monta e smonta virtualmente un PC, componente per componente, con stile schematico/realistico e una modalità quiz.
