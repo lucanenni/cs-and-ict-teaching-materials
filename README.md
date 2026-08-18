@@ -17,6 +17,7 @@ Una raccolta di piccoli progetti didattici, pensati per spiegare concetti di inf
 - [overfitting-underfitting-simulator](overfitting-underfitting-simulator/) — regola la complessità di un modello e guarda l'errore su dati di addestramento vs dati mai visti divergere.
 - [markov-text-generator](markov-text-generator/) — un generatore di testo "alla vecchia maniera" che guarda solo l'ultima parola o due, per contrasto con l'attenzione.
 - [confusion-matrix-explorer](confusion-matrix-explorer/) — sposta la soglia di decisione di un filtro anti-spam e guarda matrice di confusione, precisione e richiamo cambiare dal vivo.
+- [color-synthesis-explorer](color-synthesis-explorer/) — cerchi RGB/CMY sovrapponibili per esplorare la sintesi additiva (luce) e sottrattiva (pigmenti) del colore.
 
 ## Come contribuire un nuovo progetto
 
