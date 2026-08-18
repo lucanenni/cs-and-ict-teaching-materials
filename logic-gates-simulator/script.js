@@ -81,6 +81,10 @@ function buildCircuit() {
 
 function buildComboCircuit(box) {
     // Circuito: (A AND B) OR C
+    // I due "rami" che alimentano l'OR (il risultato di A AND B, e C) sono
+    // impilati verticalmente uno sopra l'altro, esattamente come i due input
+    // di un normale gate a 2 ingressi: così è chiaro che sono due ingressi
+    // separati dell'OR, non una catena A → B → C in fila.
     const [a, b, c] = state.inputs;
     const mid = GATES.AND.fn(a, b);
     const out = GATES.OR.fn(mid, c);
@@ -88,42 +92,46 @@ function buildComboCircuit(box) {
     const stage = document.createElement('div');
     stage.className = 'circuit-stage';
 
-    const inputsCol = document.createElement('div');
-    inputsCol.className = 'inputs-col';
-    inputsCol.appendChild(makeInputToggle('A', 0, a));
-    inputsCol.appendChild(makeInputToggle('B', 1, b));
-    stage.appendChild(inputsCol);
+    const branchesCol = document.createElement('div');
+    branchesCol.className = 'combo-branches-col';
 
-    const wire1 = document.createElement('div');
-    wire1.className = 'wire';
-    stage.appendChild(wire1);
-
+    // Ramo superiore: A, B → AND
+    const branchTop = document.createElement('div');
+    branchTop.className = 'combo-branch';
+    const miniInputs = document.createElement('div');
+    miniInputs.className = 'inputs-col mini';
+    miniInputs.appendChild(makeInputToggle('A', 0, a));
+    miniInputs.appendChild(makeInputToggle('B', 1, b));
+    branchTop.appendChild(miniInputs);
+    const miniWire = document.createElement('div');
+    miniWire.className = 'wire mini-wire' + ((a && b) ? ' live' : '');
+    branchTop.appendChild(miniWire);
     const gate1 = document.createElement('div');
-    gate1.className = 'gate-box';
+    gate1.className = 'gate-box mini';
     gate1.innerHTML = `AND<div class="intermediate-label">→ ${mid}</div>`;
-    stage.appendChild(gate1);
+    branchTop.appendChild(gate1);
+    branchesCol.appendChild(branchTop);
 
-    const wire2 = document.createElement('div');
-    wire2.className = 'wire' + (mid ? ' live' : '');
-    stage.appendChild(wire2);
+    // Ramo inferiore: C da solo, allo stesso "livello" di uscita del ramo AND
+    const branchBottom = document.createElement('div');
+    branchBottom.className = 'combo-branch';
+    branchBottom.appendChild(makeInputToggle('C', 2, c));
+    branchesCol.appendChild(branchBottom);
 
-    const inputC = document.createElement('div');
-    inputC.className = 'inputs-col';
-    inputC.appendChild(makeInputToggle('C', 2, c));
-    stage.appendChild(inputC);
+    stage.appendChild(branchesCol);
 
-    const wire3 = document.createElement('div');
-    wire3.className = 'wire' + (c ? ' live' : '');
-    stage.appendChild(wire3);
+    const wireIntoOr = document.createElement('div');
+    wireIntoOr.className = 'wire' + ((mid || c) ? ' live' : '');
+    stage.appendChild(wireIntoOr);
 
     const gate2 = document.createElement('div');
     gate2.className = 'gate-box';
     gate2.textContent = 'OR';
     stage.appendChild(gate2);
 
-    const wire4 = document.createElement('div');
-    wire4.className = 'wire' + (out ? ' live' : '');
-    stage.appendChild(wire4);
+    const wireOut = document.createElement('div');
+    wireOut.className = 'wire' + (out ? ' live' : '');
+    stage.appendChild(wireOut);
 
     stage.appendChild(makeOutputLamp(out, 'Q'));
 
@@ -131,7 +139,7 @@ function buildComboCircuit(box) {
 
     renderComboTruthTable(a, b, c, mid, out);
     document.getElementById('gateExplainList').innerHTML = `
-        <li>• Questo circuito collega due porte in sequenza: prima <strong>A AND B</strong>, poi il risultato entra in un <strong>OR</strong> insieme a C.</li>
+        <li>• L'OR finale ha due ingressi, impilati qui sopra uno sopra l'altro come in un gate normale: il risultato di <strong>A AND B</strong> (ramo in alto) e <strong>C</strong> (ramo in basso).</li>
         <li>• Il risultato finale (Q) è quindi: <strong>Q = (A AND B) OR C</strong>.</li>
         <li>• Circuiti come questo, con tante porte semplici collegate, sono i mattoni con cui si costruisce qualunque calcolo dentro un computer.</li>
     `;

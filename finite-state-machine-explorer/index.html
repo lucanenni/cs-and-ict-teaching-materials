@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macchina a stati finiti</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Macchina a stati finiti</h1>
+            <p class="subtitle">Un sistema che si trova sempre in uno tra pochi "stati" possibili, e cambia stato
+                solo in risposta a eventi precisi</p>
+
+            <div class="mode-toggle">
+                <button class="mode-btn active" id="trafficModeBtn">🚦 Semaforo</button>
+                <button class="mode-btn" id="vendingModeBtn">🥤 Distributore automatico</button>
+            </div>
+
+            <!-- ===== Semaforo ===== -->
+            <div id="trafficPanel">
+                <div class="states-row" id="trafficStatesRow"></div>
+                <div class="fsm-info" id="trafficInfo"></div>
+                <div class="controls">
+                    <button class="btn btn-primary" id="trafficNextBtn">Passo successivo →</button>
+                </div>
+            </div>
+
+            <!-- ===== Distributore ===== -->
+            <div id="vendingPanel" class="hidden">
+                <div class="states-row" id="vendingStatesRow"></div>
+                <div class="credit-display" id="creditDisplay"></div>
+                <div class="fsm-info" id="vendingInfo"></div>
+                <div class="controls">
+                    <button class="btn btn-secondary" id="insert50Btn">+ 0,50 €</button>
+                    <button class="btn btn-secondary" id="insert100Btn">+ 1 €</button>
+                    <button class="btn btn-secondary" id="cancelBtn">✕ Annulla</button>
+                    <button class="btn btn-primary" id="dispenseBtn">🥤 Preleva</button>
+                </div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list" id="helpList"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

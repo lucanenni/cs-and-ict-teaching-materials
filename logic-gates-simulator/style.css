@@ -168,6 +168,36 @@ input:checked+.slider-toggle:before {
     flex-shrink: 0;
 }
 
+.gate-box.mini {
+    padding: 0.55rem 0.85rem;
+    font-size: 0.82rem;
+}
+
+.inputs-col.mini {
+    gap: 0.6rem;
+    margin-right: 0.5rem;
+}
+
+.mini-wire {
+    flex: 0 0 1rem;
+    margin: 0;
+}
+
+/* I due rami che alimentano l'OR finale, impilati uno sopra l'altro (come i
+   due input di un gate normale) invece che in fila, così è chiaro che sono
+   due ingressi separati e non una catena. */
+.combo-branches-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1.75rem;
+}
+
+.combo-branch {
+    display: flex;
+    align-items: center;
+}
+
 .output-lamp-col {
     display: flex;
     flex-direction: column;
