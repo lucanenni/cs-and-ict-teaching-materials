@@ -59,6 +59,7 @@ function clearGroup(id) {
 
 function drawGrid() {
     const g = clearGroup('gridGroup');
+
     const axis = document.createElementNS(SVG_NS, 'line');
     axis.setAttribute('x1', -11); axis.setAttribute('x2', 11);
     axis.setAttribute('y1', 0); axis.setAttribute('y2', 0);
@@ -69,6 +70,41 @@ function drawGrid() {
     axis2.setAttribute('y1', -11); axis2.setAttribute('y2', 11);
     axis2.setAttribute('stroke', '#e5e7eb'); axis2.setAttribute('stroke-width', 0.05);
     g.appendChild(axis2);
+
+    // Tacche numerate sui due assi: non hanno un significato proprio (sono
+    // due dimensioni qualsiasi di un vettore, non "formalità" o "dimensione
+    // fisica"), ma rendono le coordinate leggibili invece che solo intuibili.
+    const ticks = [-10, -5, 5, 10];
+    ticks.forEach(t => {
+        const tickX = document.createElementNS(SVG_NS, 'line');
+        tickX.setAttribute('x1', t); tickX.setAttribute('x2', t);
+        tickX.setAttribute('y1', svgY(0) - 0.15); tickX.setAttribute('y2', svgY(0) + 0.15);
+        tickX.setAttribute('stroke', '#9ca3af'); tickX.setAttribute('stroke-width', 0.05);
+        g.appendChild(tickX);
+        g.appendChild(makeLabel(t, -0.9, String(t), { size: 0.38, color: '#9ca3af', dy: 0 }));
+
+        const tickY = document.createElementNS(SVG_NS, 'line');
+        tickY.setAttribute('x1', -0.15); tickY.setAttribute('x2', 0.15);
+        tickY.setAttribute('y1', svgY(t)); tickY.setAttribute('y2', svgY(t));
+        tickY.setAttribute('stroke', '#9ca3af'); tickY.setAttribute('stroke-width', 0.05);
+        g.appendChild(tickY);
+        const ly = document.createElementNS(SVG_NS, 'text');
+        ly.setAttribute('x', 0.4); ly.setAttribute('y', svgY(t) + 0.2);
+        ly.setAttribute('font-size', 0.38); ly.setAttribute('fill', '#9ca3af');
+        ly.textContent = String(t);
+        g.appendChild(ly);
+    });
+
+    // Etichette generiche degli assi: "generiche" perché queste due
+    // dimensioni non rappresentano un concetto specifico (a differenza, ad
+    // esempio, di un grafico con "prezzo" ed "età" sugli assi) — sono solo
+    // due delle centinaia di dimensioni che avrebbe un vettore vero.
+    g.appendChild(makeLabel(9.5, -10.4, 'Dimensione 1 →', { size: 0.42, color: '#6b7280', dy: 0 }));
+    const dimLabel2 = document.createElementNS(SVG_NS, 'text');
+    dimLabel2.setAttribute('x', 0.4); dimLabel2.setAttribute('y', svgY(10.3));
+    dimLabel2.setAttribute('font-size', 0.42); dimLabel2.setAttribute('fill', '#6b7280');
+    dimLabel2.textContent = '↑ Dimensione 2';
+    g.appendChild(dimLabel2);
 }
 
 function svgY(y) {
@@ -170,7 +206,8 @@ function renderExplore() {
         panel.innerHTML = '<p class="results-placeholder">👆 Clicca su una parola del grafico qui sopra per vedere le parole più simili.</p>';
         return;
     }
-    let html = `<div class="results-title">Parole più simili a "${state.selectedWord}":</div>`;
+    const origin = findWord(state.selectedWord);
+    let html = `<div class="results-title">Parole più simili a "${state.selectedWord}" — vettore (${origin.x}, ${origin.y}):</div>`;
     neighbors.forEach(n => {
         const sim = similarityIndex(n.dist);
         html += `
@@ -236,6 +273,7 @@ function renderAnalogy() {
         : `una corrispondenza molto vicina (distanza ${dist.toFixed(2)}).`;
     panel.innerHTML = `
         <div class="analogy-steps">
+            <div>Vettori di partenza: ${analogy.a}=(${a.x}, ${a.y}), ${analogy.b}=(${b.x}, ${b.y}), ${analogy.c}=(${c.x}, ${c.y})</div>
             <div>1. ${analogy.a} − ${analogy.b} = vettore (${(a.x - b.x).toFixed(0)}, ${(a.y - b.y).toFixed(0)})</div>
             <div>2. ${analogy.c} + quel vettore = punto (${computed.x.toFixed(0)}, ${computed.y.toFixed(0)})</div>
             <div>3. La parola più vicina a quel punto è...</div>

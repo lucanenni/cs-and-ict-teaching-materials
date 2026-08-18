@@ -19,12 +19,13 @@ e poi visita `http://localhost:8000`.
 ## Cosa mostra
 
 **Modalità "Esplora parole vicine"**
-- 17 parole (animali, meteo, royalty, persone) posizionate su un piano 2D.
-- Cliccando su una parola, si evidenziano le 4 parole più vicine con un indice di somiglianza percentuale — mostrando che il modello raggruppa parole semanticamente correlate senza che nessuno gliel'abbia detto esplicitamente.
+- 17 parole (animali, meteo, royalty, persone) posizionate su un piano 2D, con assi numerati (tacche a ±5 e ±10) così le coordinate del vettore di ogni parola sono leggibili direttamente sul grafico.
+- Cliccando su una parola, si evidenziano le 4 parole più vicine con un indice di somiglianza percentuale, e il titolo del pannello mostra il vettore esatto della parola scelta (es. "gatto — vettore (-9, 8)") — mostrando che il modello raggruppa parole semanticamente correlate senza che nessuno gliel'abbia detto esplicitamente.
 
 **Modalità "Analogie tra vettori"**
 - Il celebre esempio *re − uomo + donna = regina*: sottraendo e sommando i vettori delle parole si ottiene un punto che è, in questo caso, **esattamente** la posizione di "regina".
 - Un secondo esempio (*principessa − ragazza + ragazzo*) mostra un risultato molto vicino ma non perfetto — proprio come succede spesso con gli embedding reali.
+- Il pannello del calcolo mostra i vettori di partenza delle tre parole e ogni passaggio dell'operazione (sottrazione, somma) con le coordinate numeriche reali, non solo il risultato finale.
 
 ## Nota sui dati
 
