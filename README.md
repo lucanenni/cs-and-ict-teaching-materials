@@ -18,6 +18,7 @@ Una raccolta di piccoli progetti didattici, pensati per spiegare concetti di inf
 - [markov-text-generator](markov-text-generator/) — un generatore di testo "alla vecchia maniera" che guarda solo l'ultima parola o due, per contrasto con l'attenzione.
 - [confusion-matrix-explorer](confusion-matrix-explorer/) — sposta la soglia di decisione di un filtro anti-spam e guarda matrice di confusione, precisione e richiamo cambiare dal vivo.
 - [color-synthesis-explorer](color-synthesis-explorer/) — cerchi RGB/CMY sovrapponibili per esplorare la sintesi additiva (luce) e sottrattiva (pigmenti) del colore.
+- [pc-assembly-simulator](pc-assembly-simulator/) — monta e smonta virtualmente un PC, componente per componente, con stile schematico/realistico e una modalità quiz.
 
 ## Come contribuire un nuovo progetto
 
