@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Albero binario di ricerca</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Albero binario di ricerca</h1>
+            <p class="subtitle">Inserisci numeri e guarda una struttura che tiene tutto ordinato — e permette di
+                cercare senza controllare ogni elemento uno a uno</p>
+
+            <div class="input-row">
+                <input type="number" id="valueInput" placeholder="Numero...">
+                <button class="btn btn-primary" id="insertBtn">➕ Inserisci</button>
+                <button class="btn btn-secondary" id="searchBtn">🔍 Cerca</button>
+                <button class="btn btn-secondary" id="randomBtn">🔀 Albero casuale</button>
+                <button class="btn btn-secondary" id="clearBtn">↻ Svuota</button>
+            </div>
+
+            <div class="mode-row">
+                <button class="btn btn-secondary" id="inorderBtn">▶ Visita in-order (ordina l'albero)</button>
+                <span class="speed-label">Velocità: <span id="speedValue" class="value-badge">500ms</span></span>
+                <input type="range" id="speedSlider" min="150" max="1200" step="50" value="500">
+            </div>
+
+            <p class="step-caption" id="stepCaption"></p>
+
+            <div class="tree-wrapper">
+                <ul class="tree" id="treeRoot"></ul>
+            </div>
+
+            <div class="stats-row" id="statsRow"></div>
+
+            <div class="output-box hidden" id="outputBox">
+                <div class="output-label">Visita in-order (finora):</div>
+                <div class="output-values" id="outputValues"></div>
+            </div>
+
+            <div class="legend">
+                <span class="legend-item"><span class="legend-dot dot-normal"></span> nodo</span>
+                <span class="legend-item"><span class="legend-dot dot-comparing"></span> in confronto</span>
+                <span class="legend-item"><span class="legend-dot dot-found"></span> trovato / visitato</span>
+                <span class="legend-item"><span class="legend-dot dot-new"></span> appena inserito</span>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Ogni nodo tiene i valori <strong>più piccoli</strong> nel suo sottoalbero sinistro e quelli
+                        <strong>più grandi</strong> nel sottoalbero destro — questa regola vale ad ogni livello, non
+                        solo alla radice.</li>
+                    <li>• Per <strong>cercare</strong> un valore basta confrontarlo col nodo attuale e scendere a
+                        sinistra o a destra di conseguenza: niente bisogno di controllare tutti gli altri nodi.</li>
+                    <li>• Una <strong>visita in-order</strong> (sinistra, nodo, destra, ricorsivamente) attraversa
+                        l'albero e restituisce i valori in ordine crescente — sempre, qualunque sia la forma
+                        dell'albero.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché l'ordine di inserimento cambia tutto? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Prova a svuotare l'albero e a inserire i numeri <strong>in ordine crescente</strong> (1, 2, 3,
+                        4, 5...): ogni valore è sempre più grande di tutti i precedenti, quindi finisce sempre a
+                        destra — l'albero degenera in una catena lineare, esattamente come una lista. Cercare un
+                        valore richiederebbe allora di controllare ogni nodo, uno per uno: nessun vantaggio rispetto
+                        a una semplice lista. Un albero <strong>ben bilanciato</strong> invece dimezza lo spazio di
+                        ricerca ad ogni confronto, permettendo di trovare qualunque valore tra n elementi in circa
+                        log₂(n) passi invece di n. Esistono varianti (alberi rosso-neri, AVL...) che si
+                        ri-bilanciano automaticamente per garantire sempre questo comportamento, qualunque sia
+                        l'ordine di inserimento.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

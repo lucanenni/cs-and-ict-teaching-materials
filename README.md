@@ -51,6 +51,12 @@ L'indice online è organizzato per argomento: la home page mostra le categorie, 
 - [pathfinding-visualizer](pathfinding-visualizer/) — disegna dei muri su una griglia e guarda BFS e DFS esplorarla alla ricerca di un percorso.
 - [recursion-tree-visualizer](recursion-tree-visualizer/) — guarda una funzione ricorsiva (fattoriale, Fibonacci) scomporsi in chiamate più piccole, un passo alla volta.
 
+### 🗂️ Strutture dati
+
+- [stack-queue-visualizer](stack-queue-visualizer/) — due modi diversi di accumulare ed estrarre elementi: chi esce per primo, l'ultimo arrivato o il primo?
+- [binary-search-tree-visualizer](binary-search-tree-visualizer/) — inserisci numeri e guarda una struttura che tiene tutto ordinato e permette di cercare senza controllare ogni elemento.
+- [hash-table-visualizer](hash-table-visualizer/) — come trovare un dato in un colpo solo, quasi sempre — e cosa succede quando due chiavi diverse finiscono nello stesso posto.
+
 ## Come contribuire un nuovo progetto
 
 1. Crea una nuova sottocartella con un nome descrittivo in kebab-case (es. `nome-progetto/`).

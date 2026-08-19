@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pila e coda</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Pila e coda</h1>
+            <p class="subtitle">Due modi diversi di accumulare ed estrarre elementi: chi esce per primo, l'ultimo
+                arrivato o il primo?</p>
+
+            <div class="mode-toggle">
+                <button class="mode-btn active" id="stackModeBtn">📚 Pila (Stack)</button>
+                <button class="mode-btn" id="queueModeBtn">🚶 Coda (Queue)</button>
+            </div>
+
+            <p class="hint" id="hintText"></p>
+
+            <div class="input-row">
+                <input type="text" id="valueInput" maxlength="4" placeholder="Valore...">
+                <button class="btn btn-primary" id="addBtn">➕ Aggiungi</button>
+                <button class="btn btn-secondary" id="removeBtn">➖ Rimuovi</button>
+                <button class="btn btn-secondary" id="randomBtn">🔀 Casuale</button>
+            </div>
+
+            <div class="structure-box" id="structureBox">
+                <div class="structure-row" id="structureRow"></div>
+                <div class="structure-labels" id="structureLabels"></div>
+            </div>
+
+            <p class="removed-note" id="removedNote"></p>
+
+            <div class="log-box">
+                <div class="log-title">Cronologia operazioni</div>
+                <div class="log-list" id="logList"></div>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-secondary" id="clearBtn">↻ Svuota tutto</button>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list" id="helpList"></ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Dove si usano davvero pile e code? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>La <strong>pila delle chiamate</strong> di ogni programma (visibile anche nel progetto
+                        "Albero della ricorsione" di questa raccolta) è, letteralmente, una pila: ogni funzione
+                        chiamata viene "impilata" sopra la precedente, e quella che finisce per prima è sempre
+                        l'ultima chiamata (LIFO). Anche il tasto "Annulla" (Ctrl+Z) di un editor funziona così: ogni
+                        azione va in cima a una pila, e annullare toglie sempre l'ultima. Le <strong>code</strong>
+                        invece si usano ovunque serva rispettare l'ordine di arrivo: una stampante che processa i
+                        documenti nell'ordine in cui sono stati inviati, o un sistema che gestisce le richieste di un
+                        sito web una alla volta, nell'ordine in cui arrivano (FIFO).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
