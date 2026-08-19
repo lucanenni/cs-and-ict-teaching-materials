@@ -54,6 +54,7 @@ L'indice online è organizzato per argomento: la home page mostra le categorie, 
 - [sorting-algorithm-visualizer](sorting-algorithm-visualizer/) — guarda bubble, selection, insertion e quick sort confrontare e scambiare valori, un passo alla volta.
 - [pathfinding-visualizer](pathfinding-visualizer/) — disegna dei muri su una griglia e guarda BFS e DFS esplorarla alla ricerca di un percorso.
 - [recursion-tree-visualizer](recursion-tree-visualizer/) — guarda una funzione ricorsiva (fattoriale, Fibonacci) scomporsi in chiamate più piccole, un passo alla volta.
+- [complexity-growth-explorer](complexity-growth-explorer/) — sei classi di complessità a confronto, da O(1) a O(2ⁿ), e perché la differenza conta moltissimo.
 
 ### 🗂️ Strutture dati
 
