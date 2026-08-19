@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scambio di chiavi Diffie-Hellman</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Scambio di chiavi Diffie-Hellman</h1>
+            <p class="subtitle">Come due persone si accordano su un segreto condiviso comunicando solo in chiaro,
+                davanti a chiunque le stia ascoltando</p>
+
+            <div class="public-setup">
+                <div class="public-item">
+                    <span class="public-label">Numero primo pubblico (p)</span>
+                    <span class="public-value" id="pValue"></span>
+                </div>
+                <div class="public-item">
+                    <span class="public-label">Generatore pubblico (g)</span>
+                    <span class="public-value" id="gValue"></span>
+                </div>
+                <button class="btn btn-secondary" id="newPublicBtn">🔀 Nuovi numeri pubblici</button>
+            </div>
+
+            <div class="exchange-grid">
+                <div class="party-col alice-col">
+                    <div class="party-title">👩 Alice</div>
+                    <label for="aliceSecret">Segreto di Alice (a)</label>
+                    <input type="range" id="aliceSecret" min="1" max="10" value="6">
+                    <div class="secret-display" id="aliceSecretDisplay"></div>
+                    <div class="computed-row">
+                        A = g<sup>a</sup> mod p = <span id="aliceComputed"></span>
+                    </div>
+                    <div class="swatch-row" id="aliceSwatch"></div>
+                </div>
+
+                <div class="party-col public-col">
+                    <div class="party-title">🌐 Canale pubblico</div>
+                    <p class="eve-note">👁️ Eve vede tutto quello che passa da qui</p>
+                    <div class="public-channel-row"><strong>p, g</strong> — sempre pubblici</div>
+                    <div class="public-channel-row">Alice invia <strong>A</strong> = <span id="publicA"></span></div>
+                    <div class="public-channel-row">Bob invia <strong>B</strong> = <span id="publicB"></span></div>
+                </div>
+
+                <div class="party-col bob-col">
+                    <div class="party-title">👨 Bob</div>
+                    <label for="bobSecret">Segreto di Bob (b)</label>
+                    <input type="range" id="bobSecret" min="1" max="10" value="4">
+                    <div class="secret-display" id="bobSecretDisplay"></div>
+                    <div class="computed-row">
+                        B = g<sup>b</sup> mod p = <span id="bobComputed"></span>
+                    </div>
+                    <div class="swatch-row" id="bobSwatch"></div>
+                </div>
+            </div>
+
+            <div class="shared-secret-box">
+                <div class="shared-col">
+                    <div class="shared-label">Alice calcola: B<sup>a</sup> mod p</div>
+                    <div class="shared-value" id="aliceShared"></div>
+                </div>
+                <div class="shared-equals">=</div>
+                <div class="shared-col">
+                    <div class="shared-label">Bob calcola: A<sup>b</sup> mod p</div>
+                    <div class="shared-value" id="bobShared"></div>
+                </div>
+                <div class="shared-check" id="sharedCheck"></div>
+            </div>
+
+            <div class="eve-section">
+                <h2 class="section-title">🕵️ Cosa può fare Eve, che vede solo p, g, A e B?</h2>
+                <p class="eve-desc">Eve può provare a indovinare il segreto di Alice, provando ogni possibile
+                    esponente uno per uno finché g<sup>tentativo</sup> mod p non coincide con A.</p>
+                <div class="controls">
+                    <button class="btn btn-primary" id="crackBtn">▶ Fai provare a Eve</button>
+                    <button class="btn btn-secondary" id="resetCrackBtn">↺ Ricomincia</button>
+                </div>
+                <p class="step-caption" id="crackCaption"></p>
+                <div class="crack-attempts" id="crackAttempts"></div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Alice e Bob si accordano pubblicamente su due numeri, p (primo) e g — <strong>chiunque può
+                            vederli</strong>, non c'è nulla da nascondere qui.</li>
+                    <li>• Ognuno sceglie in segreto un numero (a per Alice, b per Bob) e invia pubblicamente solo il
+                        risultato di g elevato al proprio segreto, modulo p — <strong>non il segreto stesso</strong>.</li>
+                    <li>• La parte sorprendente: Alice, ricevendo il valore pubblico di Bob, può elevarlo al
+                        <strong>proprio</strong> segreto e ottenere lo stesso identico numero che ottiene Bob facendo
+                        il calcolo speculare — pur non avendosi mai scambiati i segreti stessi.</li>
+                    <li>• Questa pagina segue la spiegazione classica raccontata spesso con colori o vernici che si
+                        mescolano: qui ogni numero calcolato ha un colore diverso solo per essere più facile da
+                        seguire — il vero meccanismo "impossibile da invertire" è <strong>l'elevamento a potenza
+                            modulare</strong> qui sopra, non una mescolanza reale di colori.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché Eve non riesce sempre a violarlo? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Con i numeri piccoli usati in questa pagina (per poterli calcolare a mente), provare tutti i
+                        possibili segreti è questione di pochi tentativi — guardalo con i tuoi occhi qui sopra. Ma la
+                        sicurezza di Diffie-Hellman nella realtà non viene dal nascondere il metodo: viene dalla
+                        dimensione di p. Con un numero primo reale di 2048 bit (oltre 600 cifre decimali), il numero
+                        di tentativi possibili supera il numero di atomi nell'universo osservabile — nessun computer,
+                        per quanto veloce, può provarli tutti prima della fine dei tempi. Il problema di "invertire"
+                        una potenza modulare (trovare l'esponente conoscendo solo il risultato) si chiama
+                        <strong>logaritmo discreto</strong>, ed è uno dei pochi problemi matematici per cui non si
+                        conosce, ad oggi, una scorciatoia più veloce del tentare ogni possibilità.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

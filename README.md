@@ -35,6 +35,8 @@ L'indice online è organizzato per argomento: la home page mostra le categorie, 
 - [network-packet-journey](network-packet-journey/) — cosa succede davvero, passo dopo passo, quando il browser carica un sito: dal DNS al server e ritorno.
 - [caesar-cipher-explorer](caesar-cipher-explorer/) — cifra e decifra messaggi a mano, poi guarda quanto è facile romperli per forza bruta.
 - [hash-avalanche-explorer](hash-avalanche-explorer/) — cambia un solo carattere in un testo e guarda il suo hash SHA-256 diventare completamente diverso.
+- [diffie-hellman-explorer](diffie-hellman-explorer/) — come due persone si accordano su un segreto condiviso comunicando solo in chiaro, davanti a chiunque le stia ascoltando.
+- [password-strength-simulator](password-strength-simulator/) — cosa rende davvero difficile indovinare una password — e cosa, sorprendentemente, non basta.
 
 ### 🔢 Logica
 
