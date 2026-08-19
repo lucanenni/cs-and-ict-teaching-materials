@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compressione di Huffman</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Compressione di Huffman</h1>
+            <p class="subtitle">Perché dare codici più corti alle lettere più frequenti fa risparmiare spazio, senza
+                perdere nemmeno un bit di informazione</p>
+
+            <label for="textInput">Scrivi un testo:</label>
+            <input type="text" id="textInput" maxlength="32" placeholder="Scrivi qui..." value="abracadabra">
+
+            <div class="presets-row">
+                <span class="presets-label">Prova:</span>
+                <button class="chip" data-text="abracadabra">abracadabra</button>
+                <button class="chip" data-text="mississippi">mississippi</button>
+                <button class="chip" data-text="hello world">hello world</button>
+                <button class="chip" data-text="aaaaaabbbbcc">aaaaaabbbbcc</button>
+            </div>
+
+            <div class="freq-box" id="freqBox"></div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playPauseBtn">▶ Costruisci l'albero</button>
+                <button class="btn btn-secondary" id="stepBtn">⏭ Passo singolo</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Ricomincia</button>
+            </div>
+
+            <p class="step-caption" id="stepCaption"></p>
+
+            <div class="queue-box">
+                <div class="queue-label">Coda dei nodi ancora da unire (dal meno al più frequente):</div>
+                <div class="queue-row" id="queueRow"></div>
+            </div>
+
+            <div class="tree-wrapper">
+                <div class="forest-row" id="forestRow"></div>
+            </div>
+
+            <div class="code-section hidden" id="codeSection">
+                <h2 class="section-title">Codici assegnati</h2>
+                <table class="code-table" id="codeTable"></table>
+
+                <h2 class="section-title">Testo codificato</h2>
+                <div class="encoded-box" id="encodedBox"></div>
+                <div class="totals-panel" id="totalsPanel"></div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Si contano le occorrenze di ogni carattere, poi si uniscono ripetutamente i <strong>due
+                            nodi meno frequenti</strong> in un nuovo nodo (con frequenza pari alla somma), finché non
+                        ne resta uno solo: la radice dell'albero.</li>
+                    <li>• Il codice di ogni carattere si legge seguendo il percorso dalla radice alla sua foglia: 0
+                        per andare a sinistra, 1 per andare a destra. Più un carattere è frequente, più resta vicino
+                        alla radice, e più il suo codice è <strong>corto</strong>.</li>
+                    <li>• Nessuna informazione va persa: conoscendo solo l'albero (che si può ricostruire o allegare
+                        al file compresso), la sequenza di bit si decodifica in un unico modo possibile, tornando
+                        esattamente al testo originale.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché nessun codice è "prefisso" di un altro? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Guarda i codici nella tabella: non ne troverai mai uno che sia l'inizio esatto di un altro
+                        (es. non potranno mai coesistere "01" e "011"). Questa proprietà si chiama <strong>codice
+                            prefisso</strong>, e in un albero di Huffman viene garantita automaticamente dal fatto che
+                        ogni carattere sia sempre e solo una <strong>foglia</strong>, mai un nodo intermedio. Grazie a
+                        questo, decodificare è semplicissimo e non ambiguo: si leggono i bit uno alla volta, scendendo
+                        nell'albero, e appena si raggiunge una foglia si "stacca" quel carattere e si riparte dalla
+                        radice — senza bisogno di separatori tra un codice e l'altro.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
