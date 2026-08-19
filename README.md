@@ -40,6 +40,7 @@ L'indice online è organizzato per argomento: la home page mostra le categorie, 
 
 - [logic-gates-simulator](logic-gates-simulator/) — accendi e spegni gli input e guarda come ogni porta logica (AND, OR, NOT, XOR...) decide l'output.
 - [finite-state-machine-explorer](finite-state-machine-explorer/) — un semaforo e un distributore automatico, per capire come un sistema cambia stato in risposta agli eventi.
+- [binary-adder-simulator](binary-adder-simulator/) — come poche porte logiche, messe insieme, riescono a fare un'addizione — un bit alla volta.
 
 ### 🖥️ Hardware
 
