@@ -28,6 +28,7 @@ L'indice online è organizzato per argomento: la home page mostra le categorie, 
 - [text-encoding-explorer](text-encoding-explorer/) — scrivi del testo e scopri quanti byte serve davvero rappresentarlo in UTF-8.
 - [pixel-art-rgb-explorer](pixel-art-rgb-explorer/) — dipingi una griglia di pixel e vedi il valore RGB esatto di ognuno.
 - [color-synthesis-explorer](color-synthesis-explorer/) — cerchi RGB/CMY sovrapponibili per esplorare la sintesi additiva (luce) e sottrattiva (pigmenti) del colore.
+- [baudot-code-explorer](baudot-code-explorer/) — come si scriveva testo con soli 5 bit, prima di ASCII e Unicode: il codice dei vecchi telescriventi.
 
 ### 🌐 Reti e sicurezza
 
