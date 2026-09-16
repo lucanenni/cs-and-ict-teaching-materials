@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Load balancer: Round Robin vs Least Connections</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Load balancer: Round Robin vs Least Connections</h1>
+            <p class="subtitle">Le stesse otto richieste, con gli stessi tempi di arrivo e la stessa durata,
+                distribuite su 3 server con due strategie diverse. Guarda cosa succede quando una richiesta dura
+                molto più delle altre</p>
+
+            <h2 class="section-title">Richieste in arrivo</h2>
+            <div class="schedule-list" id="scheduleList"></div>
+
+            <div class="tick-row">
+                <span class="tick-label" id="tickLabel"></span>
+                <div class="controls">
+                    <button class="btn btn-primary" id="playBtn">▶ Avvia</button>
+                    <button class="btn btn-secondary" id="stepBtn">Passo singolo →</button>
+                    <button class="btn btn-secondary" id="resetBtn">↺ Reimposta</button>
+                </div>
+            </div>
+
+            <div class="columns-row">
+                <div class="column">
+                    <h2 class="section-title">Round Robin</h2>
+                    <p class="hint-text">A turno, sempre nello stesso ordine — senza guardare quanto è occupato
+                        ciascun server.</p>
+                    <div class="server-row" id="rrServers"></div>
+                    <div class="log-box" id="rrLog"></div>
+                </div>
+                <div class="column">
+                    <h2 class="section-title">Least Connections</h2>
+                    <p class="hint-text">Sempre al server con meno connessioni attive in quel momento.</p>
+                    <div class="server-row" id="lcServers"></div>
+                    <div class="log-box" id="lcLog"></div>
+                </div>
+            </div>
+
+            <div class="summary-box" id="summaryBox"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• <strong>Round Robin</strong> manda ogni nuova richiesta al server successivo nella
+                        lista, in un giro fisso — semplicissimo da implementare, ma cieco: non sa se il server a
+                        cui sta per mandare la richiesta è già sommerso di lavoro.</li>
+                    <li>• <strong>Least Connections</strong> guarda quante connessioni sono attive in questo
+                        istante su ciascun server, e sceglie quello più libero — si adatta, ma richiede che il
+                        bilanciatore tenga traccia in tempo reale dello stato di ogni server.</li>
+                    <li>• La differenza si vede solo quando le richieste NON durano tutte uguale: se fossero tutte
+                        istantanee, le due strategie si comporterebbero allo stesso modo.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Least Connections è sempre la scelta migliore? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Non sempre. Contare le connessioni attive presume che ogni connessione "pesi" più o meno
+                        uguale — ma una richiesta può essere leggerissima (un'icona) o pesantissima (un video in
+                        streaming) pur contando come "una connessione" allo stesso modo. Bilanciatori più
+                        sofisticati usano metriche diverse: il tempo di risposta medio recente di ogni server, il
+                        carico di CPU riportato dai server stessi, o pesi assegnati a mano ai server più potenti
+                        ("weighted round robin" o "weighted least connections"). La scelta della strategia giusta
+                        dipende da cosa, in pratica, rende un server "occupato" nel proprio caso specifico.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerarchia dei domini (DNS)</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Gerarchia dei domini (DNS)</h1>
+            <p class="subtitle">Un nome come <code>shop.example.co.uk</code> non è una singola etichetta: è una
+                catena di deleghe, letta da destra a sinistra. Scrivine uno e guarda come si scompone — e come un
+                resolver lo risolve passo dopo passo</p>
+
+            <div class="input-row">
+                <label for="domainInput">Nome di dominio</label>
+                <input type="text" id="domainInput" value="shop.example.co.uk" spellcheck="false">
+            </div>
+
+            <div class="presets-row">
+                <span class="presets-label">Prova:</span>
+                <button class="chip" data-domain="www.wikipedia.org">www.wikipedia.org</button>
+                <button class="chip" data-domain="shop.example.co.uk">shop.example.co.uk</button>
+                <button class="chip" data-domain="mail.google.com">mail.google.com</button>
+                <button class="chip" data-domain="cs.stanford.edu">cs.stanford.edu</button>
+                <button class="chip" data-domain="utente.github.io">utente.github.io</button>
+            </div>
+
+            <p class="error-text hidden" id="errorText"></p>
+
+            <div class="breadcrumb-wrap">
+                <div class="breadcrumb" id="breadcrumb"></div>
+                <div class="breadcrumb-legend">
+                    <span class="legend-item"><span class="legend-dot dot-sub"></span> sottodominio</span>
+                    <span class="legend-item"><span class="legend-dot dot-sld"></span> dominio di 2° livello</span>
+                    <span class="legend-item"><span class="legend-dot dot-tld"></span> dominio di primo livello
+                        (TLD)</span>
+                </div>
+            </div>
+
+            <div class="tree-wrap" id="treeWrap"></div>
+
+            <h2 class="section-title">Come lo risolve un resolver DNS</h2>
+            <div class="diagram-box">
+                <div class="node-row">
+                    <div class="node" id="node-client">
+                        <div class="node-icon">💻</div>
+                        <div class="node-label">Resolver</div>
+                    </div>
+                    <div class="edge" id="edge-client-root"></div>
+                    <div class="node" id="node-root">
+                        <div class="node-icon">🌍</div>
+                        <div class="node-label">Server radice (.)</div>
+                    </div>
+                    <div class="edge" id="edge-client-tld"></div>
+                    <div class="node" id="node-tld">
+                        <div class="node-icon">🏷️</div>
+                        <div class="node-label">Server TLD</div>
+                    </div>
+                    <div class="edge" id="edge-client-auth"></div>
+                    <div class="node" id="node-auth">
+                        <div class="node-icon">🗃️</div>
+                        <div class="node-label">Server autoritativo</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-panel" id="stepPanel"></div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playPauseBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">Passo singolo →</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Reimposta</button>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Un nome di dominio si legge da destra a sinistra: prima il <strong>TLD</strong> (dominio di
+                        primo livello, es. <code>.org</code>), poi il <strong>dominio di secondo livello</strong>
+                        registrato da un'organizzazione (es. <code>wikipedia</code>), poi eventuali
+                        <strong>sottodomini</strong> (es. <code>www</code>) che quell'organizzazione crea a
+                        piacere, senza dover registrare nulla.</li>
+                    <li>• Nessun server conosce da solo la risposta completa. Ognuno sa solo <em>a chi
+                            chiedere dopo</em>: è una catena di deleghe, non una singola tabella gigante.</li>
+                    <li>• L'indirizzo IP mostrato alla fine è inventato a scopo didattico: questa pagina non fa
+                        vere interrogazioni DNS in rete.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">In cosa differisce da "il viaggio di un pacchetto"? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>In <a href="../network-packet-journey/">network-packet-journey</a> il DNS è un'unica scatola
+                        nera che risponde subito con l'IP giusto — così si può seguire il resto del viaggio del
+                        pacchetto senza distrazioni. In realtà quella singola richiesta nasconde la catena di
+                        deleghe mostrata qui sopra, che di solito viene svolta da un <strong>resolver
+                            ricorsivo</strong> (spesso gestito dal tuo provider, o un servizio come 1.1.1.1)
+                        <em>per conto tuo</em>: il tuo browser chiede una sola volta al resolver, e il resolver fa
+                        tutte le domande a catena mostrate qui. Inoltre, grazie alla cache, quasi mai serve
+                        ripartire dalla radice: se qualcun altro ha già chiesto un dominio <code>.org</code> di
+                        recente, il resolver spesso conosce già i server TLD giusti e salta direttamente al passo
+                        successivo.</p>
+                    <p>Un'altra semplificazione: qui il confine tra "dominio di secondo livello" e "sottodominio"
+                        si basa solo su una piccola lista di TLD composti (come <code>.co.uk</code>). Nella realtà
+                        i browser usano una lista mantenuta pubblicamente (la <em>Public Suffix List</em>) perché
+                        esistono eccezioni: <code>github.io</code>, ad esempio, è trattato come se fosse esso
+                        stesso un TLD, perché GitHub assegna un sottodominio diverso a ogni utente — così i
+                        cookie di <code>utente-a.github.io</code> restano isolati da quelli di
+                        <code>utente-b.github.io</code>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

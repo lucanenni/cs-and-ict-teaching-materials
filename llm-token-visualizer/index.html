@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizzatore di token LLM</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Visualizzatore di token LLM</h1>
+            <p class="subtitle">Scopri come un modello di linguaggio genera testo un token alla volta</p>
+
+            <label for="sentenceSelect">Seleziona una frase di esempio:</label>
+            <select id="sentenceSelect">
+                <option value="0">Completa: Il gatto</option>
+                <option value="1">Completa: La programmazione</option>
+                <option value="2">Completa: Nel design grafico</option>
+                <option value="3">Completa: Oggi il tempo</option>
+            </select>
+
+            <div class="checkbox-container">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="autoMode">
+                    <span class="checkbox-text">
+                        <strong>Modalità automatica</strong> - genera senza fermarsi alle scelte
+                    </span>
+                </label>
+                <p class="checkbox-hint">
+                    Quando attiva, il modello sceglie automaticamente il percorso più probabile senza mostrare le
+                    alternative
+                </p>
+            </div>
+
+            <div class="token-display">
+                <div class="prompt-text" id="promptText"></div>
+                <div class="tokens-container" id="tokensContainer"></div>
+            </div>
+
+            <div id="choicesPanel" class="hidden"></div>
+
+            <div class="info-panel">
+                <div class="info-title">Informazioni sul processo</div>
+                <div class="info-content" id="infoContent" aria-live="polite" aria-atomic="true"></div>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playPauseBtn">
+                    ▶ Avvia
+                </button>
+                <button class="btn btn-secondary" id="resetBtn">
+                    ↻ Reset
+                </button>
+                <button class="btn btn-secondary" id="settingsBtn" aria-label="Impostazioni" aria-expanded="false"
+                    aria-controls="settingsPanel">
+                    ⚙
+                </button>
+            </div>
+
+            <div id="settingsPanel" class="settings-panel hidden">
+                <label class="speed-label" id="speedLabel" for="speedSlider">Velocità di generazione: 500ms</label>
+                <input type="range" id="speedSlider" min="100" max="2000" step="100" value="500">
+                <div class="speed-scale">
+                    <span>Veloce</span>
+                    <span>Lenta</span>
+                </div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• I modelli di linguaggio (LLM) generano testo un <strong>token</strong> alla volta</li>
+                    <li>• Un token può essere una parola, parte di parola o punteggiatura</li>
+                    <li>• Il modello predice quale token è più probabile in base al contesto precedente</li>
+                    <li>• Ogni token ha una <strong>probabilità</strong> associata: il modello può scegliere percorsi
+                        diversi</li>
+                    <li>• <span class="color-sample sample-green">Verde</span> = percorso principale, <span
+                            class="color-sample sample-orange">Arancione</span> = percorso alternativo, <span
+                            class="color-sample sample-yellow">Giallo</span> = token corrente</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché il modello sceglie queste probabilità? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Le probabilità nascono da una rete neurale allenata su enormi quantità di testo: per ogni
+                        token possibile calcola un punteggio, poi lo trasforma in probabilità con una funzione
+                        chiamata <strong>softmax</strong>. Un parametro chiamato <strong>temperatura</strong> regola
+                        quanto il modello "rischia": con temperatura bassa sceglie quasi sempre il token più
+                        probabile, con temperatura alta esplora di più le alternative.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

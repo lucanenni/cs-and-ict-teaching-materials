@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pascalina</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Pascalina</h1>
+            <p class="subtitle">Nel 1642 Blaise Pascal costruì una macchina che somma girando delle ruote dentate:
+                nessun bit, nessun circuito, solo ingranaggi — e un piccolo dente che sa quando far scattare il
+                "riporto" alla cifra successiva</p>
+
+            <div class="wheels-row" id="wheelsRow"></div>
+
+            <div class="value-row">
+                <span class="value-label">Valore accumulato:</span>
+                <span class="value-display" id="valueDisplay">0</span>
+            </div>
+
+            <p class="overflow-text hidden" id="overflowText"></p>
+
+            <label for="addInput">Numero da aggiungere (0 – 999999)</label>
+            <input type="text" id="addInput" value="1">
+            <p class="error-text hidden" id="addError"></p>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="addBtn">➕ Aggiungi</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Azzera</button>
+            </div>
+
+            <div class="speed-row">
+                <label for="speedSlider" class="speed-label">Velocità animazione</label>
+                <input type="range" id="speedSlider" min="10" max="300" step="10" value="90">
+                <span id="speedValue" class="speed-value"></span>
+            </div>
+
+            <p class="hint-text">Oppure gira una ruota a mano, uno scatto alla volta, con il pulsante "+1" sotto
+                ciascuna di esse — guarda cosa succede quando una ruota passa da 9 a 0.</p>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Ogni ruota rappresenta una cifra decimale (unità, decine, centinaia...) e può segnare un
+                        numero da 0 a 9. Per sommare, si girano le ruote in avanti del numero di scatti pari a
+                        ciascuna cifra dell'addendo.</li>
+                    <li>• Il pezzo geniale è il <strong>"sautoir"</strong>: un dente a molla che, solo quando una
+                        ruota passa da 9 a 0, si aggancia e spinge la ruota successiva avanti di uno scatto — è il
+                        <strong>riporto</strong>, lo stesso che si fa sulla carta quando la somma di una colonna
+                        supera 9.</li>
+                    <li>• Se il riporto arriva oltre l'ultima ruota, il numero è troppo grande per essere
+                        rappresentato con le cifre disponibili: prova a sommare partendo da 999999.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Come faceva a sottrarre, se sa solo sommare? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>La Pascalina, meccanicamente, sa fare solo un'operazione: girare le ruote in avanti, cioè
+                        sommare. Per sottrarre, Pascal usò un trucco matematico ancora oggi alla base di come i
+                        computer sottraggono davvero: il <strong>complemento a 9</strong>. Ogni ruota portava due
+                        serie di cifre incise, una normale e una complementare (per la cifra <em>d</em>, la cifra
+                        <em>9−d</em>), visibili spostando un listello scorrevole sul coperchio della macchina. Per
+                        sottrarre un numero, l'operatore leggeva la seconda serie invece della prima: sommare in
+                        avanti sulle ruote diventava così, letto sull'altra riga, un sottrarre. Lo stesso principio
+                        — rappresentare un numero negativo come il complemento di uno positivo, così che sottrarre
+                        diventi sommare — è quello che i processori moderni usano ancora oggi con il
+                        <strong>complemento a due</strong> in binario, solo con 2 al posto di 9.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

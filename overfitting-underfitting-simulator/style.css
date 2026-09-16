@@ -1,0 +1,255 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(to bottom right, #fff1f2, #fff7ed);
+    min-height: 100vh;
+    padding: 1.5rem;
+}
+
+.container {
+    max-width: 56rem;
+    margin: 0 auto;
+}
+
+.card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 1.875rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+.value-badge {
+    display: inline-block;
+    background: #e11d48;
+    color: white;
+    padding: 0.1rem 0.6rem;
+    border-radius: 9999px;
+    font-weight: bold;
+}
+
+input[type="range"] {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.visualization {
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+#plotCanvas {
+    width: 100%;
+    height: 340px;
+    display: block;
+    border: 2px solid #fecdd3;
+    border-radius: 0.5rem;
+    background: white;
+}
+
+.legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+    color: #475569;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.legend-dot {
+    display: inline-block;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+}
+
+.dot-train {
+    background: #0d9488;
+}
+
+.dot-test {
+    background: white;
+    border: 2px solid #e11d48;
+}
+
+.legend-line {
+    display: inline-block;
+    width: 1.25rem;
+    height: 2px;
+    background: #1f2937;
+}
+
+.info-panel {
+    background-color: #fff1f2;
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.stat-label {
+    min-width: 11rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #374151;
+}
+
+.stat-bar-container {
+    flex: 1;
+    height: 1rem;
+    background-color: #fecdd3;
+    border-radius: 9999px;
+    overflow: hidden;
+}
+
+.stat-bar {
+    height: 100%;
+    border-radius: 9999px;
+    transition: width 0.3s;
+}
+
+.stat-bar-train {
+    background-color: #0d9488;
+}
+
+.stat-bar-test {
+    background-color: #e11d48;
+}
+
+.stat-value {
+    min-width: 3.5rem;
+    text-align: right;
+    font-weight: bold;
+    color: #374151;
+}
+
+.verdict {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.verdict.underfit {
+    color: #b45309;
+}
+
+.verdict.overfit {
+    color: #be123c;
+}
+
+.verdict.good {
+    color: #15803d;
+}
+
+.controls {
+    margin-bottom: 1.5rem;
+}
+
+.btn {
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.btn-secondary {
+    background-color: #e5e7eb;
+    color: #374151;
+}
+
+.btn-secondary:hover {
+    background-color: #d1d5db;
+}
+
+.help-panel {
+    background-color: #fff7ed;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.help-title {
+    font-weight: 600;
+    color: #7c2d12;
+    margin-bottom: 0.5rem;
+}
+
+.help-list {
+    font-size: 0.875rem;
+    color: #7c2d12;
+    list-style: none;
+}
+
+.help-list li {
+    margin-bottom: 0.35rem;
+}
+
+.btn-link {
+    display: block;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #9a3412;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.btn-link:hover {
+    color: #7c2d12;
+}
+
+.deep-dive-panel {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #fed7aa;
+    font-size: 0.875rem;
+    color: #7c2d12;
+    line-height: 1.6;
+}
+
+.hidden {
+    display: none;
+}

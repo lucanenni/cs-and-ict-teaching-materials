@@ -1,0 +1,387 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(to bottom right, #eef2ff, #f5f3ff);
+    min-height: 100vh;
+    padding: 1.5rem;
+}
+
+.container {
+    max-width: 58rem;
+    margin: 0 auto;
+}
+
+.card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 0.65rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+    font-family: monospace;
+    margin-bottom: 0.5rem;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #4f46e5;
+}
+
+.error-text {
+    color: #b91c1c;
+    font-size: 0.8rem;
+    margin-bottom: 0.75rem;
+}
+
+.presets-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.presets-label {
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+.chip {
+    background: #eef2ff;
+    border: 1px solid #c7d2fe;
+    border-radius: 9999px;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.78rem;
+    font-family: monospace;
+    color: #4338ca;
+    cursor: pointer;
+}
+
+.chip:hover {
+    background: #e0e7ff;
+}
+
+.chip.active {
+    background: #4f46e5;
+    border-color: #4f46e5;
+    color: white;
+}
+
+.controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    flex: 1;
+    min-width: 8rem;
+    font-weight: 600;
+    padding: 0.7rem 1.2rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.btn-primary {
+    background-color: #4f46e5;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #4338ca;
+}
+
+.btn-primary:disabled {
+    background-color: #e5e7eb;
+    color: #9ca3af;
+    cursor: not-allowed;
+}
+
+.btn-secondary {
+    background-color: #e5e7eb;
+    color: #374151;
+}
+
+.btn-secondary:hover {
+    background-color: #d1d5db;
+}
+
+.btn-secondary:disabled {
+    color: #9ca3af;
+    cursor: not-allowed;
+}
+
+.speed-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.speed-label {
+    margin-bottom: 0;
+    white-space: nowrap;
+}
+
+.speed-row input[type="range"] {
+    flex: 1;
+}
+
+.speed-value {
+    font-size: 0.78rem;
+    color: #6b7280;
+    white-space: nowrap;
+    min-width: 6rem;
+    text-align: right;
+}
+
+.tape-viewport {
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem 1rem;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.tape-track {
+    display: flex;
+    justify-content: center;
+    gap: 0.3rem;
+}
+
+.tape-cell {
+    flex: 0 0 auto;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 0.35rem;
+    background: white;
+    border: 2px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: monospace;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: #6b7280;
+}
+
+.tape-cell.blank {
+    color: #d1d5db;
+}
+
+.tape-cell.head {
+    background: #4f46e5;
+    border-color: #4f46e5;
+    color: white;
+}
+
+.tape-cell.marked {
+    background: #dcfce7;
+    border-color: #86efac;
+    color: #15803d;
+}
+
+.tape-cell.head.marked {
+    background: #15803d;
+    border-color: #15803d;
+    color: white;
+}
+
+.head-marker {
+    text-align: center;
+    color: #4f46e5;
+    font-size: 0.9rem;
+    margin-top: -0.15rem;
+}
+
+.status-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.status-box {
+    flex: 1;
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    text-align: center;
+}
+
+.status-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.3rem;
+}
+
+.status-value {
+    font-family: monospace;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #1f2937;
+}
+
+.verdict {
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 700;
+    min-height: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.verdict.accepted {
+    color: #15803d;
+}
+
+.verdict.rejected {
+    color: #b91c1c;
+}
+
+.verdict.halted {
+    color: #4338ca;
+}
+
+.table-box {
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.section-title {
+    font-size: 0.9rem;
+    color: #1f2937;
+    margin-bottom: 0.4rem;
+}
+
+.table-hint {
+    font-size: 0.78rem;
+    color: #6b7280;
+    margin-bottom: 0.75rem;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+#ruleTable {
+    border-collapse: collapse;
+    width: 100%;
+    font-family: monospace;
+    font-size: 0.82rem;
+}
+
+#ruleTable th,
+#ruleTable td {
+    padding: 0.4rem 0.6rem;
+    text-align: center;
+    border-bottom: 1px solid #e5e7eb;
+    white-space: nowrap;
+}
+
+#ruleTable th {
+    color: #6b7280;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.68rem;
+    letter-spacing: 0.02em;
+}
+
+#ruleTable tr.active-rule {
+    background: #eef2ff;
+}
+
+#ruleTable tr.active-rule td {
+    color: #4338ca;
+    font-weight: 700;
+}
+
+.help-panel {
+    background-color: #eef2ff;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.help-title {
+    font-weight: 600;
+    color: #3730a3;
+    margin-bottom: 0.5rem;
+}
+
+.help-list {
+    font-size: 0.875rem;
+    color: #3730a3;
+    list-style: none;
+}
+
+.help-list li {
+    margin-bottom: 0.35rem;
+}
+
+.btn-link {
+    display: block;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #4f46e5;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.btn-link:hover {
+    color: #3730a3;
+}
+
+.deep-dive-panel {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #c7d2fe;
+    font-size: 0.875rem;
+    color: #3730a3;
+    line-height: 1.6;
+}
+
+.hidden {
+    display: none;
+}

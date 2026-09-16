@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il percettrone che impara</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Il percettrone che impara</h1>
+            <p class="subtitle">Guarda un percettrone aggiustare i propri pesi, un punto alla volta, finché non
+                separa correttamente due classi</p>
+
+            <div class="controls-row">
+                <button class="btn btn-secondary" id="newDatasetBtn">🔀 Nuovo dataset</button>
+                <button class="btn btn-secondary" id="settingsBtn" aria-label="Impostazioni" aria-expanded="false"
+                    aria-controls="settingsPanel">⚙</button>
+            </div>
+
+            <div id="settingsPanel" class="settings-panel hidden">
+                <label class="speed-label" id="speedLabel" for="speedSlider">Velocità di generazione: 500ms</label>
+                <input type="range" id="speedSlider" min="100" max="1500" step="100" value="500">
+                <label class="speed-label" id="rateLabel" for="rateSlider" style="margin-top: 1rem;">Tasso di
+                    apprendimento: 0.3</label>
+                <input type="range" id="rateSlider" min="0.1" max="1.5" step="0.1" value="0.3">
+            </div>
+
+            <div class="visualization">
+                <canvas id="plotCanvas" role="img"
+                    aria-label="Grafico con i punti delle due classi e la retta di separazione del percettrone"></canvas>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-title">Stato del percettrone</div>
+                <div class="info-content" id="infoContent" aria-live="polite" aria-atomic="true"></div>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playPauseBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">⏭ Passo singolo</button>
+                <button class="btn btn-secondary" id="resetBtn">↻ Reset pesi</button>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Ogni punto del grafico appartiene a una di due classi (● arancione / ● verde).</li>
+                    <li>• Il percettrone ha tre numeri regolabili, i <strong>pesi</strong> (w₀, w₁, w₂), che
+                        definiscono una retta di separazione.</li>
+                    <li>• Ad ogni passo, il percettrone guarda <strong>un punto</strong>: se lo classifica già bene
+                        non cambia nulla, altrimenti sposta leggermente la retta verso di esso.</li>
+                    <li>• Quando fa un giro completo su tutti i punti senza sbagliarne nessuno, ha
+                        <strong>convergenza</strong>: la retta separa perfettamente le due classi.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Qual è la formula dell'aggiornamento? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Per il punto (x, y) con etichetta reale <code>t</code> (+1 o −1), il percettrone calcola
+                        <code>z = w₀ + w₁·x + w₂·y</code> e predice <code>+1</code> se z ≥ 0, altrimenti
+                        <code>−1</code>. Se la predizione è sbagliata, aggiorna: <code>w₀ += η·t</code>,
+                        <code>w₁ += η·t·x</code>, <code>w₂ += η·t·y</code>, dove η (eta) è il tasso di
+                        apprendimento. Questa semplice regola, ripetuta abbastanza volte, converge sempre se le due
+                        classi sono separabili con una retta — è il primo algoritmo di apprendimento della storia
+                        delle reti neurali (1958).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

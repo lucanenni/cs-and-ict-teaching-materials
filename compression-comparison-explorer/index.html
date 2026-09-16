@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RLE, LZ77 e Huffman a confronto</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>RLE, LZ77 e Huffman a confronto</h1>
+            <p class="subtitle">Tre modi di comprimere lo stesso testo, ognuno bravo a sfruttare un tipo diverso di
+                ripetizione — nessuno è sempre il migliore</p>
+
+            <label for="textInput">Testo da comprimere</label>
+            <input type="text" id="textInput" maxlength="48" value="aaaaabbbbbccccc">
+
+            <div class="presets-row">
+                <span class="presets-label">Prova:</span>
+                <button class="chip" data-text="aaaaabbbbbccccc">aaaaabbbbbccccc (ottimo per RLE)</button>
+                <button class="chip" data-text="the cat and the hat and the cat">the cat and the hat and the
+                    cat (ottimo per LZ77)</button>
+                <button class="chip" data-text="abracadabra">abracadabra (ottimo per Huffman)</button>
+                <button class="chip" data-text="no repeats here xyz">no repeats here xyz (nessuno aiuta
+                    molto)</button>
+            </div>
+
+            <div class="results-grid" id="resultsGrid"></div>
+
+            <div class="summary-table-wrapper">
+                <table class="summary-table" id="summaryTable"></table>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• <strong>RLE</strong> (run-length encoding) sostituisce le sequenze di caratteri
+                        <em>identici e consecutivi</em> con "carattere + quante volte si ripete": perfetto per
+                        lunghe ripetizioni dello stesso simbolo, inutile se i caratteri non si ripetono mai di
+                        fila.</li>
+                    <li>• <strong>LZ77</strong> cerca sottostringhe già viste <em>di recente</em> e le sostituisce
+                        con un riferimento "torna indietro di N caratteri, copiane M": sfrutta ripetizioni di intere
+                        parole o frasi, non solo di singoli caratteri.</li>
+                    <li>• <strong>Huffman</strong> (vedi anche <a href="../huffman-coding-explorer/">huffman-coding-explorer</a>)
+                        non cerca ripetizioni consecutive: sfrutta il fatto che alcuni <em>singoli caratteri</em>
+                        compaiono più spesso di altri in tutto il testo, dando loro codici più corti.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché non si può sempre battere lo spazio originale? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Prova il preset "nessuno aiuta molto": un testo senza ripetizioni utili può addirittura
+                        <strong>crescere</strong> con RLE o LZ77, perché ogni token porta con sé un piccolo
+                        "costo fisso" (per dire "questo è un letterale" o "questo è un riferimento"), che non viene
+                        ripagato se non c'è abbastanza ripetizione da sfruttare. Questo è un fatto matematico
+                        dimostrabile (il <em>principio del piccione</em> applicato alla compressione): nessun
+                        algoritmo di compressione senza perdita può ridurre <em>ogni</em> possibile input, perché
+                        ci sono più input possibili di lunghezza N che output più corti disponibili. I compressori
+                        reali funzionano bene sui dati reali, che tendono ad avere molta ridondanza da sfruttare —
+                        non su sequenze scelte apposta per non averne.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

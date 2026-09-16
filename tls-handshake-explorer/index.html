@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handshake TLS/HTTPS</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Handshake TLS/HTTPS</h1>
+            <p class="subtitle">Prima che il browser scambi anche un solo byte dei tuoi dati con un sito https://,
+                client e server si scambiano una decina di messaggi per accordarsi su come cifrare tutto il
+                resto — è l'<strong>handshake TLS</strong>, e questa pagina lo esegue davvero, con una vera
+                cifratura</p>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="nextBtn">Avanti ▸</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Ricomincia</button>
+            </div>
+
+            <div class="diagram">
+                <div class="diagram-header">
+                    <div class="actor-label">🖥️ Client (il tuo browser)</div>
+                    <div class="actor-label">🌐 Server (il sito)</div>
+                </div>
+                <div class="diagram-lane">
+                    <div class="lane-line lane-line-left"></div>
+                    <div class="lane-line lane-line-right"></div>
+                    <div class="messages" id="messages"></div>
+                </div>
+            </div>
+
+            <p class="status-text" id="statusText"></p>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• I primi messaggi (ClientHello, ServerHello, Certificate) viaggiano <strong>in
+                            chiaro</strong>: servono solo ad accordarsi su come procedere e a dimostrare l'identità
+                        del server, non contengono ancora nulla di segreto.</li>
+                    <li>• Il vero segreto condiviso nasce dallo scambio di chiavi (ServerKeyExchange /
+                        ClientKeyExchange): qui la pagina esegue un vero scambio <strong>ECDHE</strong> (curve
+                        ellittiche, effimero — una coppia di chiavi nuova ad ogni connessione) con la Web Crypto
+                        API del browser.</li>
+                    <li>• I messaggi <strong>Finished</strong> sono il primo contenuto cifrato con la chiave appena
+                        calcolata: se anche un solo bit dei messaggi precedenti fosse stato alterato lungo la
+                        strada, i due "Finished" non coinciderebbero e l'handshake fallirebbe.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché "effimero"? Non bastava una chiave fissa? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Il certificato del server contiene una chiave pubblica <strong>fissa</strong>, valida per
+                        mesi o anni. Se il segreto condiviso per cifrare i dati venisse derivato direttamente da
+                        quella chiave fissa, chiunque riuscisse a rubarla in futuro (un server compromesso, una
+                        chiave privata trafugata) potrebbe decifrare <em>retroattivamente</em> ogni conversazione
+                        registrata in passato. Usare una coppia di chiavi effimere (generate al volo, usate una
+                        sola volta per questa connessione, poi buttate via) elimina il problema: anche se la
+                        chiave privata a lungo termine del server venisse rubata domani, le chiavi effimere di
+                        oggi sono già sparite e non si possono ricostruire. Questa proprietà si chiama <strong>Perfect
+                            Forward Secrecy</strong>, ed è il motivo per cui i siti moderni preferiscono ECDHE a
+                        uno scambio di chiavi statico. La sequenza esatta dei messaggi mostrata qui segue la
+                        <a href="https://datatracker.ietf.org/doc/html/rfc5246" target="_blank"
+                            rel="noopener">RFC 5246</a> (TLS 1.2), nel caso più comune senza autenticazione del
+                        client.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

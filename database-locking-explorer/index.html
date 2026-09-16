@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deadlock: quando due transazioni si bloccano a vicenda</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Deadlock: quando due transazioni si bloccano a vicenda</h1>
+            <p class="subtitle">Due bonifici, in direzioni opposte, tra gli stessi due conti. Se ciascuno blocca i
+                conti in un ordine diverso, possono finire per aspettarsi a vicenda per sempre — a meno che il
+                database non se ne accorga</p>
+
+            <div class="columns-row">
+                <div class="column">
+                    <h2 class="section-title">Ordine di lock incoerente</h2>
+                    <p class="hint-text">T1 trasferisce A→B (blocca A, poi B). T2 trasferisce B→A (blocca B, poi
+                        A): ordine opposto.</p>
+                    <div class="lock-table" id="deadlockLocks"></div>
+                    <div class="controls">
+                        <button class="btn btn-primary" id="deadlockRunBtn">▶ Avvia</button>
+                        <button class="btn btn-secondary" id="deadlockStepBtn" disabled>Passo singolo →</button>
+                    </div>
+                    <div class="step-panel" id="deadlockStepPanel"></div>
+                </div>
+                <div class="column">
+                    <h2 class="section-title">Ordine di lock coerente</h2>
+                    <p class="hint-text">Entrambe le transazioni bloccano sempre prima A, poi B — qualunque sia la
+                        direzione reale del trasferimento.</p>
+                    <div class="lock-table" id="orderedLocks"></div>
+                    <div class="controls">
+                        <button class="btn btn-primary" id="orderedRunBtn">▶ Avvia</button>
+                        <button class="btn btn-secondary" id="orderedStepBtn" disabled>Passo singolo →</button>
+                    </div>
+                    <div class="step-panel" id="orderedStepPanel"></div>
+                </div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Una transazione che vuole modificare una riga ne prende prima il <strong>lock</strong>:
+                        finché non lo rilascia (con COMMIT o ROLLBACK), nessun'altra transazione può modificare
+                        quella stessa riga — deve aspettare.</li>
+                    <li>• Un <strong>deadlock</strong> succede quando due transazioni aspettano, ciascuna, un lock
+                        che l'altra tiene: un'attesa circolare che non si scioglierebbe mai da sola.</li>
+                    <li>• Il database se ne accorge (mantiene un grafo delle attese) e risolve il deadlock
+                        scegliendo una <strong>vittima</strong>: la annulla (ROLLBACK), liberando i suoi lock e
+                        lasciando che l'altra proceda. L'applicazione può ritentare la transazione annullata.</li>
+                    <li>• La soluzione più semplice è <strong>prevenire</strong> il deadlock invece di doverlo
+                        risolvere: se tutte le transazioni prendono i lock sempre nello stesso ordine, un'attesa
+                        circolare non può proprio formarsi.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché non bloccare semplicemente tutto in anticipo? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Si potrebbe: far prendere a ogni transazione tutti i lock di cui avrà bisogno fin dal
+                        principio, invece che "man mano". Ma spesso una transazione non sa in anticipo di quali
+                        righe avrà bisogno (dipende dai risultati di query precedenti, dentro la stessa
+                        transazione), e bloccare "troppo, troppo presto" riduce drasticamente quante transazioni
+                        possono lavorare in parallelo — un costo reale in un sistema con molti utenti
+                        contemporanei. L'ordine di lock coerente è popolare proprio perché previene i deadlock
+                        senza sacrificare la concorrenza: le transazioni continuano a prendere i lock solo quando
+                        servono davvero, si mettono in coda quando serve, ma non aspettano mai in cerchio.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

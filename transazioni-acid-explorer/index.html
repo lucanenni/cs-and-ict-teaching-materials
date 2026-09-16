@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transazioni: perché un prelievo può "sparire"</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Transazioni: perché un prelievo può "sparire"</h1>
+            <p class="subtitle">Due sportelli prelevano dallo stesso conto, quasi nello stesso istante. Senza
+                transazioni, il conto può finire per dare via più soldi di quanti ne avesse — e il saldo finale non
+                lo rivela nemmeno</p>
+
+            <div class="setup-row">
+                <div class="setup-group">
+                    <label>Saldo iniziale del conto</label>
+                    <div class="static-value">€100</div>
+                </div>
+                <div class="setup-group">
+                    <label for="amountInput">Prelievo richiesto da ciascuno sportello</label>
+                    <input type="number" id="amountInput" value="70" min="1" max="100">
+                </div>
+            </div>
+
+            <div class="columns-row">
+                <div class="column">
+                    <h2 class="section-title">Senza transazioni</h2>
+                    <div class="controls">
+                        <button class="btn btn-primary" id="noTxRunBtn">▶ Avvia</button>
+                        <button class="btn btn-secondary" id="noTxStepBtn" disabled>Passo singolo →</button>
+                    </div>
+                    <div class="step-panel" id="noTxStepPanel"></div>
+                    <div class="result-box" id="noTxResult"></div>
+                </div>
+                <div class="column">
+                    <h2 class="section-title">Con transazioni</h2>
+                    <div class="controls">
+                        <button class="btn btn-primary" id="txRunBtn">▶ Avvia</button>
+                        <button class="btn btn-secondary" id="txStepBtn" disabled>Passo singolo →</button>
+                    </div>
+                    <div class="step-panel" id="txStepPanel"></div>
+                    <div class="result-box" id="txResult"></div>
+                </div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Senza protezione, ogni sportello legge il saldo, decide se ha fondi sufficienti, e
+                        scrive il nuovo saldo <strong>separatamente</strong>: se entrambi leggono prima che l'altro
+                        scriva, ragionano entrambi sullo stesso saldo "vecchio" — questo si chiama
+                        <strong>lost update</strong> (aggiornamento perso).</li>
+                    <li>• Una <strong>transazione</strong> rende l'intera sequenza leggi-verifica-scrivi
+                        <strong>atomica</strong> (tutta insieme, o niente) e <strong>isolata</strong> (un'altra
+                        transazione non può intromettersi a metà): la seconda deve aspettare che la prima finisca,
+                        e a quel punto legge il saldo già aggiornato.</li>
+                    <li>• Sono due lettere della sigla <strong>ACID</strong>, il "contratto" che un database
+                        promette per le transazioni: <strong>A</strong>tomicità, <strong>C</strong>oerenza,
+                        <strong>I</strong>solamento, <strong>D</strong>urabilità.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Cosa sono la "C" e la "D" di ACID? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p><strong>Coerenza</strong>: una transazione porta il database da uno stato valido a un altro
+                        stato valido, rispettando sempre le regole definite (es. un saldo non può diventare
+                        negativo, se questa è una regola del database) — mai a uno stato intermedio "rotto", nemmeno
+                        temporaneamente visibile da fuori. <strong>Durabilità</strong>: una volta che una
+                        transazione ha fatto <em>commit</em> (confermato), il suo effetto resta anche se il sistema
+                        si spegne un istante dopo — scritto su un supporto che sopravvive a un guasto, non solo
+                        tenuto in memoria. Questa pagina si concentra su Atomicità e Isolamento perché sono quelle
+                        che il classico problema del "doppio prelievo" mette in scena più chiaramente, ma tutte e
+                        quattro fanno parte della stessa promessa.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

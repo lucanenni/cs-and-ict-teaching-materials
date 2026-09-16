@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incapsulamento a strati (OSI / TCP-IP)</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Incapsulamento a strati (OSI / TCP-IP)</h1>
+            <p class="subtitle">Un messaggio non viaggia mai da solo: ogni livello della pila di rete gli
+                aggiunge un proprio "involucro" prima di spedirlo, e il destinatario li toglie uno alla volta,
+                nell'ordine esattamente contrario</p>
+
+            <div class="setup-row">
+                <div class="setup-group">
+                    <label for="messageInput">Il tuo messaggio</label>
+                    <input type="text" id="messageInput" value="Ciao!" maxlength="20">
+                </div>
+                <div class="setup-group">
+                    <label>Protocollo di trasporto</label>
+                    <div class="chip-row">
+                        <button class="chip active" data-proto="TCP">TCP (affidabile)</button>
+                        <button class="chip" data-proto="UDP">UDP (veloce)</button>
+                    </div>
+                </div>
+            </div>
+
+            <label class="checkbox-row">
+                <input type="checkbox" id="osiToggle">
+                Mostra anche la corrispondenza con i 7 livelli OSI
+            </label>
+
+            <div class="layers-box" id="layersBox"></div>
+
+            <div class="packet-box">
+                <span class="packet-label">Cosa viaggia in questo momento:</span>
+                <div class="packet-segments" id="packetSegments"></div>
+            </div>
+
+            <div class="step-panel" id="stepPanel"></div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playPauseBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">Passo singolo →</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Reset</button>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Ogni livello si occupa di un solo problema e si fida che i livelli sotto di lui
+                        risolvano il proprio: il <strong>Trasporto</strong> sa a quale programma consegnare i dati
+                        (le porte), la <strong>Rete</strong> sa come raggiungere il computer giusto ovunque sia
+                        (gli IP), il <strong>Collegamento</strong> sa come consegnare il pacchetto al dispositivo
+                        successivo nella stessa rete locale (i MAC).</li>
+                    <li>• Questo processo si chiama <strong>incapsulamento</strong>: ogni livello avvolge quello
+                        che riceve dal livello sopra con un proprio header, senza bisogno di sapere cosa contiene.
+                        Il <strong>Fisico</strong> non aggiunge un header: trasforma tutto in segnali (elettrici,
+                        luminosi o radio) da mandare sul mezzo trasmissivo.</li>
+                    <li>• Sul destinatario succede l'esatto contrario, in ordine inverso: la
+                        <strong>decapsulamento</strong>, un header alla volta, dal basso verso l'alto.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché si parlano di 7 livelli E di 5? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Il modello <strong>OSI</strong> (7 livelli) è nato prima come proposta teorica di
+                        standardizzazione, molto dettagliata e generale. Il modello <strong>TCP/IP</strong> (qui
+                        usato con 5 livelli) è invece la descrizione di come funziona realmente internet, nato dai
+                        protocolli TCP e IP stessi. In pratica i tre livelli più alti di OSI — Applicazione,
+                        Presentazione e Sessione — nella pila TCP/IP sono considerati un unico livello
+                        "Applicazione", perché nei protocolli reali (HTTP, DNS, la posta elettronica...) quelle
+                        distinzioni non si traducono quasi mai in tre header separati. Si studiano entrambi perché
+                        OSI resta un ottimo vocabolario comune per parlare di reti in generale, mentre TCP/IP
+                        descrive quello che i pacchetti fanno davvero.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

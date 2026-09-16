@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DES semplificato (S-DES)</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>DES semplificato (S-DES)</h1>
+            <p class="subtitle">Il vero DES cifra a blocchi di 64 bit con una chiave da 56 bit in 16 round: troppo
+                per seguirlo a mano. S-DES (Schaefer, 1996) ne conserva la stessa struttura — permutazioni,
+                espansione, S-box, round Feistel — su un solo byte, per poterla vedere calcolare passo dopo passo</p>
+
+            <div class="mode-row">
+                <button class="chip active" data-mode="encrypt">🔒 Cifra</button>
+                <button class="chip" data-mode="decrypt">🔓 Decifra</button>
+            </div>
+
+            <div class="bits-section">
+                <label id="plaintextLabel">Testo in chiaro (8 bit)</label>
+                <div class="bits-row" id="plaintextBits"></div>
+            </div>
+
+            <div class="bits-section">
+                <label>Chiave (10 bit)</label>
+                <div class="bits-row" id="keyBits"></div>
+            </div>
+
+            <div class="presets-row">
+                <span class="presets-label">Prova:</span>
+                <button class="chip" data-plaintext="10101010" data-key="1101001101">Esempio del libro di
+                    testo</button>
+                <button class="chip" data-plaintext="11110000" data-key="0101010101">11110000 / 0101010101</button>
+                <button class="chip" data-plaintext="00000001" data-key="1010101010">00000001 /
+                    1010101010</button>
+            </div>
+
+            <div class="result-box">
+                <span class="result-label" id="resultLabel">Testo cifrato:</span>
+                <span class="result-value" id="resultValue">--------</span>
+            </div>
+
+            <div class="trace" id="trace"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Dalla chiave da 10 bit si generano due <strong>sottochiavi</strong> K1 e K2 (una per
+                        round), tramite permutazioni e rotazioni — lo stesso principio del key schedule del DES
+                        vero, solo più corto.</li>
+                    <li>• Ogni round applica la stessa idea del <strong>cifrario di Feistel</strong>: solo metà del
+                        blocco (R) viene trasformata attraverso espansione, XOR con la sottochiave e le
+                        <strong>S-box</strong> (le uniche parti non lineari, quelle che rendono l'algoritmo
+                        difficile da invertire senza la chiave), poi il risultato si combina con l'altra metà
+                        (L).</li>
+                    <li>• Decifrare usa <em>esattamente lo stesso algoritmo</em>, solo con K1 e K2 scambiate di
+                        ordine — un'altra proprietà tipica dei cifrari di Feistel.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">In cosa differisce dal vero DES? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>S-DES condivide la struttura del DES vero ma ne riduce ogni dimensione per poterlo seguire a
+                        mano:</p>
+                    <ul class="deep-dive-list">
+                        <li>Blocco di <strong>8 bit</strong> invece di 64.</li>
+                        <li>Chiave di <strong>10 bit</strong> (2¹⁰ = 1024 chiavi possibili) invece di 56 bit (2⁵⁶,
+                            circa 72 mila miliardi — comunque violabile a forza bruta con hardware moderno, motivo
+                            per cui il DES vero è stato ritirato).</li>
+                        <li><strong>2 round</strong> invece di 16, con 2 sottochiavi invece di 16.</li>
+                        <li><strong>2 S-box</strong> da 4×4 invece di 8 S-box da 6×4, molto più piccole.</li>
+                    </ul>
+                    <p>Nonostante le dimensioni ridotte, il principio è identico: è per questo che S-DES è
+                        lo strumento didattico standard per introdurre la struttura del DES vero, inventato nel
+                        1996 dal crittografo Edward Schaefer.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategie di backup</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Strategie di backup</h1>
+            <p class="subtitle">Quanto spazio serve, e quanto costa ripristinare, con tre modi diversi di fare
+                backup — con numeri veri, non solo teoria</p>
+
+            <div class="rule-box">
+                <h2 class="section-title">La regola del 3-2-1</h2>
+                <p class="rule-desc">Una linea guida classica: almeno <strong>3 copie</strong> dei tuoi dati, su
+                    <strong>2 tipi di supporto diversi</strong>, con <strong>1 copia fuori sede</strong>.</p>
+                <div class="rule-checker">
+                    <label for="copiesInput">Quante copie totali hai dei tuoi dati (incluso l'originale)?</label>
+                    <input type="number" id="copiesInput" min="1" max="10" value="2">
+                    <div class="media-checks" id="mediaChecks"></div>
+                    <label class="offsite-check">
+                        <input type="checkbox" id="offsiteCheck">
+                        Almeno una copia è conservata fisicamente altrove (o su cloud)
+                    </label>
+                    <div class="rule-verdict" id="ruleVerdict"></div>
+                </div>
+            </div>
+
+            <h2 class="section-title">Completo, incrementale o differenziale?</h2>
+            <p class="hint">6 file, una settimana di modifiche (sempre le stesse, per poter confrontare i tre
+                approcci sugli stessi dati). Sposta lo slider per vedere cosa cambia ogni giorno.</p>
+
+            <label for="daySlider">Giorno: <span id="dayValue" class="value-badge"></span></label>
+            <input type="range" id="daySlider" min="1" max="7" step="1" value="4">
+
+            <div class="files-row" id="filesRow"></div>
+
+            <div class="strategy-table-wrapper">
+                <table class="strategy-table" id="strategyTable"></table>
+            </div>
+
+            <div class="totals-row" id="totalsRow"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Un <strong>backup completo</strong> copia sempre tutto: semplice da ripristinare (basta
+                        un solo backup), ma è quello che occupa più spazio ogni volta.</li>
+                    <li>• Un <strong>backup incrementale</strong> copia solo ciò che è cambiato dall'ultimo backup
+                        (di qualunque tipo): piccolo ogni giorno, ma per ripristinare serve l'intera catena, dal
+                        primo completo fino al giorno desiderato.</li>
+                    <li>• Un <strong>backup differenziale</strong> copia tutto ciò che è cambiato dall'ultimo backup
+                        <em>completo</em>: cresce di giorno in giorno, ma per ripristinare bastano sempre solo due
+                        backup, l'ultimo completo e l'ultimo differenziale.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché non fare sempre e solo backup completi? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Con pochi file, come in questo esempio, la differenza sembra piccola. Ma immagina un
+                        archivio da centinaia di gigabyte, di cui cambia solo l'1% al giorno: un backup completo
+                        quotidiano ricopierebbe ogni volta il 99% di dati identici al giorno prima, sprecando tempo,
+                        banda e spazio di archiviazione. Per questo, nella pratica, si combina spesso un backup
+                        completo periodico (es. settimanale) con backup incrementali o differenziali più frequenti
+                        — bilanciando lo spazio occupato con la velocità e semplicità del ripristino, a seconda di
+                        cosa conta di più nel proprio caso.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

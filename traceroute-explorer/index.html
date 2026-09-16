@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traceroute: mappare la strada di un pacchetto</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Traceroute: mappare la strada di un pacchetto</h1>
+            <p class="subtitle">Come si fa a scoprire, uno per uno, tutti i router che un pacchetto attraversa
+                prima di arrivare a destinazione? Con un trucco: farlo "morire" apposta un po' più lontano ogni
+                volta, e ascoltare chi si lamenta</p>
+
+            <div class="setup-row">
+                <label>Destinazione</label>
+                <div class="chip-row" id="destChips"></div>
+            </div>
+
+            <div class="diagram-box">
+                <div class="node-row" id="hopDiagram"></div>
+            </div>
+
+            <div class="step-panel" id="stepPanel"></div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playPauseBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">Passo singolo →</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Esegui di nuovo</button>
+            </div>
+
+            <h2 class="section-title">Risultato del traceroute</h2>
+            <div class="table-wrap">
+                <table class="hop-table">
+                    <thead>
+                        <tr>
+                            <th>TTL</th>
+                            <th>IP del router</th>
+                            <th>RTT</th>
+                            <th>Messaggio</th>
+                        </tr>
+                    </thead>
+                    <tbody id="hopBody"></tbody>
+                </table>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Ogni pacchetto IP porta con sé un contatore, il <strong>TTL</strong> (Time To Live): ogni
+                        router che lo attraversa lo diminuisce di 1. Se un router lo porta a 0, lo scarta e avvisa
+                        il mittente con un messaggio ICMP <strong>"Time Exceeded"</strong>, che include il proprio
+                        indirizzo.</li>
+                    <li>• Traceroute sfrutta esattamente questo: manda un primo pacchetto con TTL=1 (muore al primo
+                        router, che si rivela), poi uno con TTL=2 (muore al secondo), e così via — un hop alla
+                        volta, finché il pacchetto non sopravvive abbastanza da raggiungere la destinazione.</li>
+                    <li>• Il <strong>RTT</strong> (round-trip time) misurato a ogni hop è il tempo di andata e
+                        ritorno fino a <em>quel</em> router: perché di solito cresce mano a mano che i pacchetti si
+                        allontanano da casa tua.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché la destinazione finale non scarta il pacchetto? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Il traceroute classico (quello dei sistemi Unix/Linux/macOS) manda i suoi pacchetti a una
+                        porta UDP molto alta e quasi certamente inutilizzata sul server di destinazione. Quando il
+                        pacchetto finalmente sopravvive fino a lì, la destinazione risponde con un ICMP <strong>"Porta
+                            non raggiungibile"</strong> — un errore, ma un errore che arriva proprio da lei: è così
+                        che il programma capisce di aver finito, distinguendo "sono morto per strada" (Time
+                        Exceeded, da un router intermedio) da "sono arrivato" (Port Unreachable, dalla
+                        destinazione). Il comando <code>tracert</code> di Windows fa una scelta diversa e più
+                        semplice: usa pacchetti ICMP Echo Request fin dall'inizio, e la destinazione risponde con un
+                        normale Echo Reply.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

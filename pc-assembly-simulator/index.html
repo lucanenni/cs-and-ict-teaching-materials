@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monta il tuo PC</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Monta il tuo PC</h1>
+            <p class="subtitle">Monta e smonta virtualmente un computer, componente per componente, e scopri a cosa
+                serve ognuno</p>
+
+            <div class="top-row">
+                <div class="mode-toggle">
+                    <button class="mode-btn active" id="buildModeBtn">🔧 Monta/smonta</button>
+                    <button class="mode-btn" id="quizModeBtn">❓ Quiz</button>
+                </div>
+                <div class="style-toggle" id="styleToggle">
+                    <label for="styleSelect">Stile:</label>
+                    <select id="styleSelect">
+                        <option value="schematic">Schematico</option>
+                        <option value="realistic">Realistico</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- ===== Modalità Monta/smonta ===== -->
+            <div id="buildPanel">
+                <p class="hint" id="hintText"></p>
+
+                <div class="progress-row">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                    <span class="progress-label" id="progressLabel"></span>
+                </div>
+
+                <div class="stage-box">
+                    <svg id="caseSvg" viewBox="0 0 420 520" xmlns="http://www.w3.org/2000/svg"></svg>
+                </div>
+
+                <div class="tray-box">
+                    <div class="tray-title">Componenti</div>
+                    <div class="tray-grid" id="trayGrid"></div>
+                </div>
+
+                <div class="info-panel" id="infoPanel">
+                    <p class="info-placeholder">👆 Clicca su un componente (nel vassoio o nel case) per scoprire a
+                        cosa serve.</p>
+                </div>
+
+                <div class="controls">
+                    <button class="btn btn-primary" id="buildAllBtn">▶ Monta tutto</button>
+                    <button class="btn btn-secondary" id="resetBtn">↻ Smonta tutto</button>
+                </div>
+            </div>
+
+            <!-- ===== Modalità Quiz ===== -->
+            <div id="quizPanel" class="hidden">
+                <div id="quizIntro">
+                    <p class="hint">Metti alla prova quello che hai imparato: 10 domande, alcune di testo e alcune
+                        per riconoscere i componenti a colpo d'occhio.</p>
+                    <button class="btn btn-primary" id="startQuizBtn">▶ Inizia il quiz</button>
+                </div>
+
+                <div id="quizQuestion" class="hidden">
+                    <div class="quiz-progress" id="quizProgress"></div>
+                    <div class="quiz-question-box">
+                        <div class="quiz-question-text" id="quizQuestionText"></div>
+                        <svg id="quizImage" class="quiz-image hidden" viewBox="0 0 420 520"
+                            xmlns="http://www.w3.org/2000/svg"></svg>
+                    </div>
+                    <div class="quiz-options" id="quizOptions"></div>
+                    <div class="quiz-feedback hidden" id="quizFeedback"></div>
+                    <button class="btn btn-primary hidden" id="quizNextBtn">Prossima domanda →</button>
+                </div>
+
+                <div id="quizResult" class="hidden">
+                    <div class="quiz-result-score" id="quizResultScore"></div>
+                    <p id="quizResultMessage"></p>
+                    <button class="btn btn-primary" id="quizRetryBtn">↻ Rifai il quiz</button>
+                </div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Clicca su un componente nel vassoio per montarlo: se serve prima installarne un altro, te
+                        lo dirà.</li>
+                    <li>• Clicca su un componente già montato per vederne la scheda informativa, o per smontarlo (se
+                        non ci sono altri componenti che dipendono da lui).</li>
+                    <li>• Passa dallo stile "Schematico" (più semplice e chiaro) al "Realistico" (più dettagliato) in
+                        qualsiasi momento, anche a metà montaggio.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

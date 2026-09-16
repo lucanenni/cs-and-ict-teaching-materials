@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizzatore di ordinamento</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Visualizzatore di ordinamento</h1>
+            <p class="subtitle">Guarda un algoritmo di ordinamento confrontare e scambiare valori, un passo alla
+                volta</p>
+
+            <div class="top-row">
+                <div class="setting-group">
+                    <label for="algoSelect">Algoritmo:</label>
+                    <select id="algoSelect">
+                        <option value="bubble">Bubble sort</option>
+                        <option value="selection">Selection sort</option>
+                        <option value="insertion">Insertion sort</option>
+                        <option value="quick">Quick sort</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label for="speedSlider">Velocità: <span id="speedValue" class="value-badge">150ms</span></label>
+                    <input type="range" id="speedSlider" min="20" max="500" step="10" value="150">
+                </div>
+            </div>
+
+            <div class="bars-box">
+                <div class="bars-row" id="barsRow"></div>
+            </div>
+
+            <div class="stats-row" id="statsRow"></div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playPauseBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">⏭ Passo singolo</button>
+                <button class="btn btn-secondary" id="newArrayBtn">🔀 Nuovo array</button>
+            </div>
+
+            <div class="legend">
+                <span class="legend-item"><span class="legend-dot dot-default"></span> non ancora toccato</span>
+                <span class="legend-item"><span class="legend-dot dot-compare"></span> in confronto</span>
+                <span class="legend-item"><span class="legend-dot dot-swap"></span> appena scambiato</span>
+                <span class="legend-item"><span class="legend-dot dot-done"></span> ordinamento completato</span>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list" id="algoExplainList"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

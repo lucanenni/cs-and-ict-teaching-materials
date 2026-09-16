@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indici e alberi B: cercare senza leggere tutto</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Indici e alberi B: cercare senza leggere tutto</h1>
+            <p class="subtitle">Le righe di una tabella non sono ordinate su disco: cercarne una senza aiuto
+                significa leggerle una per una. Un indice — qui, un piccolo albero B — permette di trovarla in
+                pochissimi passi. Scegli un codice e confronta i due modi di cercarlo</p>
+
+            <div class="setup-row">
+                <div class="setup-group">
+                    <label for="targetInput">Codice da cercare</label>
+                    <input type="number" id="targetInput" value="68">
+                </div>
+                <div class="setup-group">
+                    <label>Prova</label>
+                    <div class="chip-row" id="presetChips"></div>
+                </div>
+            </div>
+
+            <div class="columns-row">
+                <div class="column">
+                    <h2 class="section-title">Senza indice: scansione lineare</h2>
+                    <p class="hint-text">La tabella così come è salvata su disco — nell'ordine in cui le righe
+                        sono state inserite, non ordinata per codice.</p>
+                    <div class="scan-table-wrap">
+                        <table class="scan-table" id="scanTable"></table>
+                    </div>
+                    <div class="controls">
+                        <button class="btn btn-primary" id="scanRunBtn">▶ Esegui</button>
+                    </div>
+                    <p class="step-text" id="scanStepText"></p>
+                    <div class="counter-box" id="scanCounter"></div>
+                </div>
+
+                <div class="column column-tree">
+                    <h2 class="section-title">Con indice: albero B</h2>
+                    <p class="hint-text">Lo stesso codice, ma organizzato in un albero: la radice indica subito
+                        in quale delle 4 foglie cercare.</p>
+                    <div class="tree-wrap">
+                        <div class="tree-box" id="treeBox">
+                            <svg id="treeLines" class="tree-lines"></svg>
+                            <div class="tree-root-row" id="treeRootRow"></div>
+                            <div class="tree-leaves-row" id="treeLeavesRow"></div>
+                        </div>
+                    </div>
+                    <div class="controls">
+                        <button class="btn btn-primary" id="treeRunBtn">▶ Esegui</button>
+                    </div>
+                    <p class="step-text" id="treeStepText"></p>
+                    <div class="counter-box" id="treeCounter"></div>
+                </div>
+            </div>
+
+            <div class="compare-box" id="compareBox"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Senza un indice, l'unico modo per essere sicuri che un codice non esista è controllare
+                        <strong>ogni</strong> riga: nel caso peggiore, tutte quante.</li>
+                    <li>• Un <strong>albero B</strong> tiene le chiavi ordinate in nodi con più chiavi ciascuno.
+                        Alla radice, poche chiavi bastano a capire subito in quale delle 4 foglie proseguire la
+                        ricerca — evitando di guardare le altre tre del tutto.</li>
+                    <li>• Il numero di nodi da attraversare cresce molto lentamente (logaritmicamente) rispetto al
+                        numero di righe: raddoppiare la tabella aggiunge sì e no un altro livello all'albero, non
+                        il doppio dei confronti.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché un indice non rende gratis anche gli INSERT? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Un indice velocizza le ricerche, ma ha un costo: ogni volta che inserisci, modifichi o
+                        cancelli una riga, l'indice va aggiornato anche lui, non solo la tabella. In un albero B
+                        questo a volte significa dividere un nodo troppo pieno in due (uno "sdoppiamento"), per
+                        mantenere l'albero bilanciato. È per questo che un database non mette automaticamente un
+                        indice su ogni colonna: su una tabella con moltissime scritture e poche ricerche, l'indice
+                        di troppo può rallentare più di quanto acceleri.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

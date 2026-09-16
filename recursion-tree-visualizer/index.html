@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Albero della ricorsione</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Albero della ricorsione</h1>
+            <p class="subtitle">Guarda come una funzione ricorsiva si scompone in tante chiamate più piccole, un
+                passo alla volta</p>
+
+            <div class="top-row">
+                <div class="setting-group">
+                    <label for="fnSelect">Funzione:</label>
+                    <select id="fnSelect">
+                        <option value="factorial">Fattoriale</option>
+                        <option value="fibonacci">Fibonacci</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label for="nSlider">n = <span id="nValue" class="value-badge">5</span></label>
+                    <input type="range" id="nSlider" min="1" max="8" step="1" value="5">
+                </div>
+                <div class="setting-group">
+                    <label for="speedSlider">Velocità: <span id="speedValue" class="value-badge">400ms</span></label>
+                    <input type="range" id="speedSlider" min="100" max="1000" step="50" value="400">
+                </div>
+            </div>
+
+            <div class="step-caption" id="stepCaption">Premi "Avvia" o "Passo singolo" per iniziare.</div>
+
+            <div class="tree-wrapper">
+                <ul class="tree" id="treeRoot"></ul>
+            </div>
+
+            <div class="stack-box">
+                <div class="stack-label">Pila delle chiamate attive:</div>
+                <div class="stack-row" id="stackRow"><span class="stack-empty">(vuota)</span></div>
+            </div>
+
+            <div class="stats-row" id="statsRow"></div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playPauseBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">⏭ Passo singolo</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Ricomincia</button>
+            </div>
+
+            <div class="legend">
+                <span class="legend-item"><span class="legend-dot dot-pending"></span> non ancora chiamata</span>
+                <span class="legend-item"><span class="legend-dot dot-active"></span> chiamata in corso</span>
+                <span class="legend-item"><span class="legend-dot dot-base"></span> caso base</span>
+                <span class="legend-item"><span class="legend-dot dot-returned"></span> valore calcolato</span>
+                <span class="legend-item"><span class="legend-dot dot-dup"></span> ricalcolata più volte</span>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list" id="fnExplainList"></ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché Fibonacci ricorsivo è così lento? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Guarda quante volte l'albero ripete la <strong>stessa identica chiamata</strong>: fibonacci(3)
+                        può comparire diverse volte, ognuna ricalcolata da zero come se non fosse mai stata fatta
+                        prima. Il numero totale di chiamate cresce esponenzialmente con n — molto più in fretta di
+                        quanto servirebbe. Una versione con un semplice ciclo (o una che "ricorda" i risultati già
+                        calcolati, tecnica chiamata <em>memoization</em>) risolverebbe lo stesso problema con un
+                        numero di passi proporzionale a n, non esponenziale.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

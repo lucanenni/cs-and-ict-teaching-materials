@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDN: cache hit, cache miss e invalidazione</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>CDN: cache hit, cache miss e invalidazione</h1>
+            <p class="subtitle">La prima richiesta per un file va fino al server d'origine, lontano e lento. Se un
+                server "edge" più vicino ne tiene una copia, le richieste successive sono molto più veloci —
+                finché quella copia non scade, o qualcuno la invalida a mano</p>
+
+            <div class="clock-row">Tempo simulato: <strong id="clockValue">0</strong> s</div>
+
+            <div class="diagram-box">
+                <div class="node-row">
+                    <div class="node" id="node-user">
+                        <div class="node-icon">🧑</div>
+                        <div class="node-label">Utente</div>
+                    </div>
+                    <div class="edge" id="edge-user-edge"></div>
+                    <div class="node" id="node-edge">
+                        <div class="node-icon">🌐</div>
+                        <div class="node-label">Server edge (CDN)</div>
+                    </div>
+                    <div class="edge" id="edge-edge-origin"></div>
+                    <div class="node" id="node-origin">
+                        <div class="node-icon">🖥️</div>
+                        <div class="node-label">Origine</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-panel" id="stepPanel">Scegli una risorsa qui sotto e premi "Richiedi".</div>
+
+            <h2 class="section-title">Risorse</h2>
+            <div class="resources-grid" id="resourcesGrid"></div>
+
+            <h2 class="section-title">Cronologia richieste</h2>
+            <div class="table-wrap">
+                <table class="log-table">
+                    <thead><tr><th>t</th><th>Risorsa</th><th>Esito</th><th>Tempo di risposta</th></tr></thead>
+                    <tbody id="logBody"></tbody>
+                </table>
+                <p class="empty-text" id="emptyLogText">Nessuna richiesta ancora effettuata.</p>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• <strong>Cache miss</strong>: il server edge non ha (o non ha più) una copia valida,
+                        quindi deve interpellare l'origine — lento, ma necessario per avere il contenuto
+                        aggiornato.</li>
+                    <li>• <strong>Cache hit</strong>: il server edge ha già una copia valida e risponde subito,
+                        senza disturbare l'origine — molto più veloce, e con meno traffico verso l'origine.</li>
+                    <li>• <strong>TTL (Time To Live)</strong>: ogni copia in cache ha una scadenza. Passata quella,
+                        la richiesta successiva sarà di nuovo un miss, anche se nessuno ha invalidato nulla a
+                        mano.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché a volte serve invalidare a mano? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Se pubblichi una nuova versione di un file prima che il TTL della vecchia copia scada, chi
+                        visita il sito continuerebbe a vedere la versione vecchia fino alla scadenza naturale —
+                        potrebbero passare minuti o ore. L'invalidazione manuale ("purge" o "cache busting") dice
+                        esplicitamente al CDN "butta via questa copia adesso, la prossima richiesta deve andare
+                        all'origine": è quello che succede automaticamente ogni volta che pubblichi un
+                        aggiornamento sulla maggior parte delle piattaforme di hosting moderne. Prova il pulsante
+                        "Invalida" su una risorsa appena messa in cache, e guarda come la richiesta successiva
+                        torna a essere un miss anche se il TTL non era ancora scaduto.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

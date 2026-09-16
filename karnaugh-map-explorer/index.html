@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mappe di Karnaugh</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Mappe di Karnaugh</h1>
+            <p class="subtitle">Una tabella di verità dice cosa deve fare un circuito; una mappa di Karnaugh
+                mostra <strong>come semplificarlo</strong> — disposta apposta perché le celle adiacenti differiscano
+                di un solo bit, i raggruppamenti diventano visibili a colpo d'occhio</p>
+
+            <div class="vars-row">
+                <span class="vars-label">Variabili:</span>
+                <button class="chip" data-vars="2">2 (A, B)</button>
+                <button class="chip active" data-vars="3">3 (A, B, C)</button>
+                <button class="chip" data-vars="4">4 (A, B, C, D)</button>
+            </div>
+
+            <div class="presets-row" id="presetsRow"></div>
+
+            <div class="controls">
+                <button class="btn btn-secondary" id="clearBtn">↺ Azzera (tutti 0)</button>
+                <button class="btn btn-secondary" id="fillBtn">⬛ Riempi (tutti 1)</button>
+            </div>
+
+            <p class="hint-text">Clicca una cella della mappa per accendere/spegnere il suo valore.</p>
+
+            <div class="kmap-wrap">
+                <table id="kmapTable"></table>
+            </div>
+
+            <div class="expr-box">
+                <span class="expr-label">Espressione minimizzata:</span>
+                <div class="expr-terms" id="exprTerms"></div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Righe e colonne della mappa non sono in ordine binario normale, ma in <strong>codice di
+                            Gray</strong> (00, 01, 11, 10): così due celle adiacenti — anche a un capo e all'altro
+                        della mappa, che "si toccano" ai bordi — differiscono sempre per un solo bit.</li>
+                    <li>• Ogni gruppo di 1, 2, 4 o 8 celle adiacenti con lo stesso colore corrisponde a un
+                        <strong>termine prodotto</strong> dell'espressione semplificata: più grande è il gruppo,
+                        meno variabili servono per descriverlo (una variabile "sparisce" ogni volta che il gruppo
+                        raddoppia).</li>
+                    <li>• L'algoritmo usato qui (<strong>Quine-McCluskey</strong>) trova questi raggruppamenti
+                        matematicamente, combinando ripetutamente le celle che differiscono per un solo bit —
+                        esattamente il procedimento che si farebbe a mano guardando la mappa.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Come faccio a sapere che è davvero corretta? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Ogni volta che questa pagina calcola un'espressione semplificata, la <strong>rivaluta su
+                            tutte le combinazioni di ingresso possibili</strong> e verifica che il risultato
+                        coincida esattamente con la mappa originale, cella per cella — non si fida ciecamente
+                        dell'algoritmo di riduzione. La stessa idea è stata usata per testare il codice prima di
+                        pubblicare questa pagina: sono state generate <strong>tutte</strong> le mappe possibili con
+                        2 e 3 variabili (rispettivamente 16 e 256) e migliaia di mappe casuali con 4 variabili,
+                        controllando ogni volta che l'espressione prodotta fosse funzionalmente equivalente
+                        all'originale su ogni singolo ingresso.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagrammi ER: cardinalità e tabelle</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Diagrammi ER: cardinalità e tabelle</h1>
+            <p class="subtitle">Un diagramma entità-relazione descrive come sono collegati i dati — ma è la
+                <strong>cardinalità</strong> di ogni relazione a decidere come si traducono davvero in tabelle SQL.
+                Scegli uno scenario e clicca su una relazione per scoprire quali tabelle produce</p>
+
+            <div class="chip-row" id="scenarioChips"></div>
+
+            <div class="diagram-wrap">
+                <div class="diagram-box" id="diagramBox">
+                    <svg id="linesLayer" class="lines-layer"></svg>
+                    <div class="entities-row" id="entitiesRow"></div>
+                    <div class="badges-layer" id="badgesLayer"></div>
+                </div>
+            </div>
+
+            <div class="detail-panel" id="detailPanel">
+                <p class="hint-text">Clicca su una delle etichette di cardinalità (1:1, 1:N, N:M) sopra per vedere
+                    la spiegazione e le tabelle risultanti.</p>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come si legge la cardinalità?</h3>
+                <ul class="help-list">
+                    <li>• <strong>1:1</strong> — a ogni riga della prima tabella corrisponde <em>al più una</em>
+                        riga della seconda, e viceversa.</li>
+                    <li>• <strong>1:N</strong> — a ogni riga della prima tabella possono corrispondere
+                        <em>molte</em> righe della seconda, ma ogni riga della seconda ne ha solo una della
+                        prima.</li>
+                    <li>• <strong>N:M</strong> — righe di entrambe le tabelle possono corrispondere a molte righe
+                        dell'altra: servono <em>due</em> chiavi esterne, in una tabella a parte.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché una relazione N:M non si può fare con una sola FK? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Una singola colonna può contenere un solo valore per riga: se provassi a mettere la chiave
+                        esterna direttamente in una delle due tabelle, ogni riga potrebbe collegarsi a
+                        <em>un solo</em> record dell'altra tabella — esattamente la definizione di 1:N, non di
+                        N:M. Per lasciare che una riga di entrambe le tabelle si colleghi a più righe dell'altra,
+                        serve una terza tabella che non ha altro scopo se non "ricordare" ogni coppia collegata: ha
+                        una riga per ogni combinazione esistente, con due chiavi esterne (spesso proprio la sua
+                        chiave primaria insieme). Questa tabella, a volte chiamata <em>tabella ponte</em> o
+                        <em>tabella associativa</em>, può anche avere attributi propri che appartengono
+                        specificamente alla relazione (come una quantità o una data), non a nessuna delle due
+                        entità originali.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

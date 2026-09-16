@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distanza di Manhattan</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Distanza di Manhattan</h1>
+            <p class="subtitle">In una città a griglia non si taglia mai in diagonale: si contano solo gli
+                isolati percorsi in orizzontale e in verticale. Sposta i due punti e guarda come cambia questa
+                distanza — e quanto si allontana dalla linea d'aria</p>
+
+            <div class="legend-row">
+                <button class="point-btn active" data-point="A">📍 Sposta A</button>
+                <button class="point-btn" data-point="B">🎯 Sposta B</button>
+            </div>
+            <p class="hint-text">Clicca su una cella della griglia per spostarci il punto selezionato.</p>
+
+            <div class="presets-row">
+                <span class="presets-label">Prova:</span>
+                <button class="chip" data-preset="diagonal">Angoli opposti</button>
+                <button class="chip" data-preset="row">Stessa riga</button>
+                <button class="chip" data-preset="col">Stessa colonna</button>
+                <button class="chip" data-preset="random">Casuale</button>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="shuffleBtn">🔀 Mescola percorso</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Reimposta</button>
+            </div>
+
+            <label class="checkbox-row">
+                <input type="checkbox" id="euclidToggle" checked>
+                Mostra anche la distanza in linea d'aria (euclidea)
+            </label>
+
+            <div class="grid-wrap">
+                <div id="grid" class="grid"></div>
+                <svg id="euclidLine" class="euclid-line"></svg>
+            </div>
+
+            <div class="distances-row">
+                <div class="distance-box manhattan">
+                    <span class="distance-label">Distanza di Manhattan</span>
+                    <span class="distance-value" id="manhattanValue">0</span>
+                    <span class="distance-unit">isolati</span>
+                </div>
+                <div class="distance-box euclid">
+                    <span class="distance-label">Distanza euclidea</span>
+                    <span class="distance-value" id="euclidValue">0</span>
+                    <span class="distance-unit">in linea d'aria</span>
+                </div>
+            </div>
+
+            <p class="status-text" id="statusText"></p>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• La distanza di Manhattan tra due celle è la somma delle differenze assolute di riga e
+                        colonna: <code>|Δriga| + |Δcolonna|</code>. Si chiama anche "taxicab distance": è il numero
+                        di isolati che percorrerebbe un taxi che può girare solo agli incroci, mai in
+                        diagonale.</li>
+                    <li>• Il percorso a scala evidenziato in griglia è solo <em>uno dei tanti</em> possibili: ogni
+                        combinazione di passi in orizzontale e in verticale, in qualsiasi ordine, ha esattamente la
+                        stessa lunghezza. Premi "Mescola percorso" per vederne un altro.</li>
+                    <li>• La distanza euclidea (la riga tratteggiata) è sempre minore o uguale a quella di
+                        Manhattan: il taglio in diagonale è sempre corto uguale o più corto, mai più lungo.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">A cosa serve in pratica? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Quando un algoritmo di pathfinding (come quelli visti in
+                        <a href="../pathfinding-visualizer/">pathfinding-visualizer</a> e
+                        <a href="../dijkstra-shortest-path-explorer/">dijkstra-shortest-path-explorer</a>) può
+                        muoversi solo su e giù o a destra e sinistra — mai in diagonale — la distanza di Manhattan
+                        tra una cella e l'obiettivo è una stima perfetta del numero <strong>minimo</strong> di passi
+                        che servono per arrivarci, muri a parte: non ne servono mai di meno. Questa proprietà la
+                        rende una <strong>euristica ammissibile</strong>, il tipo di stima che algoritmi come A*
+                        usano per scegliere quale cella esplorare per prima senza mai rischiare di "saltare" il
+                        percorso davvero più breve. Se invece il movimento in diagonale fosse permesso, la distanza
+                        di Manhattan sovrastimerebbe il costo reale, e l'euristica giusta diventerebbe quella
+                        euclidea.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

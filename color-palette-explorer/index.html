@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palette di colori</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Palette di colori</h1>
+            <p class="subtitle">Come si costruiscono combinazioni di colori che stanno bene insieme — e come si
+                verifica se sono davvero leggibili</p>
+
+            <div class="base-row">
+                <div class="base-swatch" id="baseSwatch"></div>
+                <div class="base-controls">
+                    <label for="hueSlider">Tonalità (H): <span id="hueValue" class="value-badge"></span></label>
+                    <input type="range" id="hueSlider" min="0" max="360" step="1" value="210">
+                    <label for="satSlider">Saturazione (S): <span id="satValue" class="value-badge"></span></label>
+                    <input type="range" id="satSlider" min="0" max="100" step="1" value="70">
+                    <label for="lightSlider">Luminosità (L): <span id="lightValue" class="value-badge"></span></label>
+                    <input type="range" id="lightSlider" min="10" max="90" step="1" value="50">
+                </div>
+            </div>
+
+            <div class="harmony-toggle" id="harmonyToggle">
+                <button class="harmony-btn active" data-harmony="complementary">Complementare</button>
+                <button class="harmony-btn" data-harmony="analogous">Analoghi</button>
+                <button class="harmony-btn" data-harmony="triadic">Triade</button>
+                <button class="harmony-btn" data-harmony="tetradic">Tetrade</button>
+                <button class="harmony-btn" data-harmony="monochromatic">Monocromatica</button>
+            </div>
+
+            <div class="palette-row" id="paletteRow"></div>
+
+            <div class="contrast-box">
+                <h2 class="section-title">Verifica di contrasto (accessibilità)</h2>
+                <div class="contrast-controls">
+                    <div class="contrast-field">
+                        <label for="textColorSelect">Colore del testo</label>
+                        <select id="textColorSelect"></select>
+                    </div>
+                    <div class="contrast-field">
+                        <label for="bgColorSelect">Colore dello sfondo</label>
+                        <select id="bgColorSelect"></select>
+                    </div>
+                </div>
+                <div class="contrast-preview" id="contrastPreview">Testo di esempio Aa</div>
+                <div class="contrast-result" id="contrastResult"></div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list" id="helpList"></ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché il contrasto conta più dell'estetica? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Una combinazione di colori può essere bellissima e allo stesso tempo illeggibile per una
+                        parte dei visitatori: chi ha una vista ridotta, chi usa uno schermo in pieno sole, o chi ha
+                        una forma di daltonismo (vedi
+                        <a href="../cones-rods-explorer/">cones-rods-explorer</a> in questa raccolta). Le linee
+                        guida WCAG (Web Content Accessibility Guidelines) fissano soglie numeriche precise di
+                        rapporto di contrasto proprio per rendere questo giudizio oggettivo e verificabile, invece
+                        di affidarsi solo al colpo d'occhio di chi progetta.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

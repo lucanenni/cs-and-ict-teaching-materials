@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automa per espressioni regolari</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Automa per espressioni regolari</h1>
+            <p class="subtitle">Dietro ogni espressione regolare c'è un vero automa a stati: qui puoi vederlo
+                "pensare", un carattere alla volta</p>
+
+            <label for="regexInput">Espressione regolare (supporta: concatenazione, | , * , + , ? , parentesi)</label>
+            <input type="text" id="regexInput" value="a(b|c)*d">
+            <p class="error-text hidden" id="regexError"></p>
+
+            <label for="testInput">Stringa da verificare</label>
+            <input type="text" id="testInput" value="abcbcd">
+
+            <div class="presets-row">
+                <span class="presets-label">Prova:</span>
+                <button class="chip" data-regex="a*b" data-text="aaab">a*b</button>
+                <button class="chip" data-regex="(ab)+" data-text="ababab">(ab)+</button>
+                <button class="chip" data-regex="colou?r" data-text="color">colou?r</button>
+                <button class="chip" data-regex="a(b|c)*d" data-text="abcbcd">a(b|c)*d</button>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playPauseBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">⏭ Passo singolo</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Ricomincia</button>
+            </div>
+
+            <div class="tape-box" id="tapeBox"></div>
+
+            <div class="states-box">
+                <div class="states-label">Stati attivi dell'automa in questo momento (l'automa ne segue più di uno
+                    contemporaneamente)</div>
+                <div class="states-row" id="statesRow"></div>
+            </div>
+
+            <p class="verdict" id="verdict"></p>
+
+            <div class="quick-test-box">
+                <h2 class="section-title">Prova rapida su più stringhe</h2>
+                <div class="quick-test-row" id="quickTestRow"></div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Ogni espressione regolare si trasforma in un <strong>automa a stati finiti non
+                            deterministico</strong> (NFA): non un solo percorso, ma un insieme di "possibilità"
+                        aperte contemporaneamente.</li>
+                    <li>• Ad ogni carattere letto, l'insieme degli stati possibili si aggiorna: alcune possibilità
+                        muoiono (nessuna transizione valida), altre se ne aprono nuove.</li>
+                    <li>• La stringa è accettata se, dopo aver letto l'ultimo carattere, lo stato di accettazione fa
+                        parte dell'insieme degli stati ancora "vivi".</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché "non deterministico"? Il computer non deve scegliere una
+                    strada? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Un automa <strong>deterministico</strong> (DFA) ha, per ogni stato e ogni carattere, al
+                        massimo un'unica transizione possibile: sempre una sola strada. Un automa <strong>non
+                            deterministico</strong> (NFA), come quello costruito qui, può avere più transizioni
+                        possibili per lo stesso carattere — invece di dover "indovinare" quale seguire, questa
+                        pagina le segue semplicemente <em>tutte insieme</em>, tenendo traccia dell'intero insieme di
+                        stati raggiungibili. È un trucco elegante: si dimostra che ogni NFA può sempre essere
+                        trasformato in un DFA equivalente (le sue transizioni diventano gli insiemi di stati), ma
+                        costruire direttamente l'NFA da un'espressione regolare (la cosiddetta <strong>costruzione
+                            di Thompson</strong>, usata in questa pagina) è molto più semplice e diretto.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

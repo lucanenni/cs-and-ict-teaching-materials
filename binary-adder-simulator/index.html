@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sommatore binario</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Sommatore binario</h1>
+            <p class="subtitle">Come poche porte logiche, messe insieme, riescono a fare un'addizione — un bit alla
+                volta</p>
+
+            <div class="mode-toggle">
+                <button class="mode-btn active" id="halfModeBtn">1️⃣ Semisommatore</button>
+                <button class="mode-btn" id="fullModeBtn">2️⃣ Sommatore completo</button>
+                <button class="mode-btn" id="multiModeBtn">3️⃣ Somma di due numeri</button>
+            </div>
+
+            <p class="hint" id="hintText"></p>
+
+            <div id="halfMode">
+                <div class="circuit-box" id="halfCircuitBox"></div>
+                <div class="table-section">
+                    <h2 class="section-title">Tabella di verità</h2>
+                    <table class="truth-table" id="halfTruthTable"></table>
+                </div>
+            </div>
+
+            <div id="fullMode" class="hidden">
+                <div class="circuit-box" id="fullCircuitBox"></div>
+                <div class="table-section">
+                    <h2 class="section-title">Tabella di verità</h2>
+                    <table class="truth-table" id="fullTruthTable"></table>
+                </div>
+            </div>
+
+            <div id="multiMode" class="hidden">
+                <div class="multi-numbers" id="multiNumbers"></div>
+                <div class="controls">
+                    <button class="btn btn-primary" id="playPauseBtn">▶ Avvia</button>
+                    <button class="btn btn-secondary" id="stepBtn">⏭ Passo singolo</button>
+                    <button class="btn btn-secondary" id="resetMultiBtn">↺ Ricomincia</button>
+                </div>
+                <p class="step-caption" id="stepCaption"></p>
+                <div class="ripple-box" id="rippleBox"></div>
+                <div class="sum-result" id="sumResult"></div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list" id="helpList"></ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché serve un "riporto"? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Esattamente come nell'addizione decimale in colonna (1 + 9 = 10: scrivi 0, riporti 1), sommare
+                        due bit può produrre un risultato che non ci sta in un solo bit: 1 + 1 = 10 in binario. Il
+                        <strong>riporto</strong> (carry) porta quell'eccedenza alla colonna successiva, più
+                        significativa. Un <strong>semisommatore</strong> calcola somma e riporto per due bit, ma non
+                        sa cosa fare di un eventuale riporto in arrivo dalla colonna precedente — per quello serve un
+                        <strong>sommatore completo</strong>, che accetta anche un riporto in ingresso. Concatenando
+                        tanti sommatori completi, uno per colonna, con il riporto in uscita di ognuno collegato al
+                        riporto in ingresso del successivo, si ottiene un circuito capace di sommare numeri binari
+                        di qualunque lunghezza — è essenzialmente così che funziona l'unità aritmetica di un vero
+                        processore.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

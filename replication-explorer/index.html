@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Replicazione: primario, repliche e lag</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Replicazione: primario, repliche e lag</h1>
+            <p class="subtitle">Le scritture vanno sempre al server primario, che poi propaga la modifica alle
+                repliche — non all'istante. Se leggi da una replica troppo presto, rischi di leggere un valore
+                già superato</p>
+
+            <div class="clock-row">Tempo simulato: <strong id="clockValue">0</strong>
+                <button class="btn btn-secondary btn-inline" id="advanceBtn">⏱ Avanza di 1 tick</button>
+            </div>
+
+            <div class="setup-row">
+                <label for="valueInput">Nuovo valore da scrivere (es. stato di un ordine)</label>
+                <div class="write-row">
+                    <input type="text" id="valueInput" value="Spedito" maxlength="30">
+                    <button class="btn btn-primary" id="writeBtn">Scrivi sul primario</button>
+                </div>
+            </div>
+
+            <div class="nodes-row">
+                <div class="primary-card">
+                    <div class="primary-name">Primario</div>
+                    <div class="primary-value" id="primaryValue"></div>
+                    <button class="btn btn-secondary" id="readPrimaryBtn">Leggi da qui</button>
+                </div>
+                <div class="replicas-grid" id="replicasGrid"></div>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-secondary" id="resetBtn">↺ Reimposta tutto</button>
+            </div>
+
+            <h2 class="section-title">Cronologia delle letture</h2>
+            <div class="table-wrap">
+                <table class="log-table">
+                    <thead><tr><th>t</th><th>Letto da</th><th>Valore restituito</th><th>Esito</th></tr></thead>
+                    <tbody id="logBody"></tbody>
+                </table>
+                <p class="empty-text" id="emptyLogText">Nessuna lettura ancora effettuata.</p>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Tutte le scritture vanno sempre e solo al <strong>primario</strong>: è l'unica copia
+                        sempre garantita aggiornata.</li>
+                    <li>• Le <strong>repliche</strong> ricevono la modifica con un ritardo (il "lag di
+                        replica"), spesso diverso da replica a replica — qui una è vicina (ritardo breve) e una è
+                        lontana (ritardo più lungo, come capiterebbe a un data center su un altro continente).</li>
+                    <li>• Leggere da una replica prima che il ritardo sia passato restituisce un valore
+                        <strong>stantio</strong>: non sbagliato in assoluto, ma non più quello attuale.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché non aspettare sempre che tutte le repliche siano aggiornate? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Si potrebbe: si chiama replica <strong>sincrona</strong>, e garantisce che ogni lettura,
+                        ovunque, veda sempre l'ultimo valore scritto. Il prezzo è che ogni scrittura deve aspettare
+                        la conferma di tutte le repliche prima di considerarsi completata — se una replica è
+                        lontana o momentaneamente irraggiungibile, ogni scrittura ne risente, anche quelle dirette
+                        al primario. La maggior parte dei sistemi usa invece repliche <strong>asincrone</strong>
+                        (quello mostrato qui) proprio per non far pagare a ogni scrittura il tempo di propagazione:
+                        è un compromesso deliberato tra velocità e coerenza immediata, spesso accettabile quando
+                        leggere un dato di qualche istante fa non è un problema serio.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

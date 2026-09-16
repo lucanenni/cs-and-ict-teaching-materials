@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il gioco della vita di Conway</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Il gioco della vita di Conway</h1>
+            <p class="subtitle">Quattro regole semplicissime, applicate a milioni di celle contemporaneamente,
+                bastano a generare comportamenti complessi e imprevedibili</p>
+
+            <div class="preset-row">
+                <span class="presets-label">Pattern:</span>
+                <button class="chip" data-preset="glider">Aliante</button>
+                <button class="chip" data-preset="blinker">Lampeggiatore</button>
+                <button class="chip" data-preset="toad">Rospo</button>
+                <button class="chip" data-preset="beacon">Faro</button>
+                <button class="chip" data-preset="pulsar">Pulsar</button>
+                <button class="chip" data-preset="gun">Cannone di alianti</button>
+                <button class="chip" data-preset="random">🔀 Casuale</button>
+                <button class="chip" data-preset="empty">↺ Vuoto</button>
+            </div>
+
+            <div class="canvas-box">
+                <canvas id="lifeCanvas" width="600" height="400"></canvas>
+            </div>
+            <p class="hint">Clicca sulle celle per accenderle o spegnerle a mano, poi premi Avvia.</p>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playPauseBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">⏭ Passo singolo</button>
+            </div>
+
+            <label for="speedSlider">Velocità: <span id="speedValue" class="value-badge"></span></label>
+            <input type="range" id="speedSlider" min="50" max="600" step="25" value="150">
+
+            <div class="stats-row" id="statsRow"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Ogni cella ha 8 vicine. Una cella <strong>viva</strong> con 2 o 3 vicine vive sopravvive;
+                        con meno vicine "muore di solitudine", con più "muore di sovraffollamento".</li>
+                    <li>• Una cella <strong>morta</strong> con esattamente 3 vicine vive torna in vita ("nasce").</li>
+                    <li>• Tutte le celle si aggiornano <strong>simultaneamente</strong> ad ogni generazione, in base
+                        allo stato del turno precedente — nessuna cella "sa" cosa hanno appena deciso le altre.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché si dice che il gioco della vita è "Turing completo"? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Con pattern sufficientemente elaborati (costruiti combinando aggregati di celle che si
+                        comportano come "fili" per trasportare segnali e altri che agiscono come porte logiche), si
+                        può dimostrare che il gioco della vita è in grado di simulare <strong>qualunque</strong>
+                        calcolo che un computer generico possa eseguire — incluso, con pazienza, un altro gioco
+                        della vita al suo interno. È un esempio estremo di come regole locali semplicissime possano
+                        generare, in aggregato, una complessità di calcolo pari a quella di un intero computer:
+                        un'idea centrale nello studio dei <strong>sistemi complessi</strong> e dell'emergenza.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

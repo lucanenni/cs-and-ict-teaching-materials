@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piani di esecuzione: quando l'indice non conviene</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Piani di esecuzione: quando l'indice non conviene</h1>
+            <p class="subtitle">Una tabella di 1000 righe, un indice disponibile su una colonna. Il pianificatore
+                di query deve scegliere: leggerle tutte (<em>scansione completa</em>) o usare l'indice
+                (<em>ricerca indicizzata</em>)? Dipende da <strong>quante righe</strong> soddisfano la condizione</p>
+
+            <div class="setup-row">
+                <label for="selectivitySlider">Righe che soddisfano <code>WHERE colonna = valore</code>: <strong
+                        id="selectivityValue"></strong> su 1000</label>
+                <input type="range" id="selectivitySlider" min="0" max="1000" step="1" value="5">
+            </div>
+            <div class="chip-row" id="presetChips"></div>
+
+            <div class="plans-row">
+                <div class="plan-card" id="seqPlanCard">
+                    <div class="plan-title">Seq Scan (scansione completa)</div>
+                    <div class="plan-explain" id="seqExplain"></div>
+                    <div class="plan-cost-bar"><div class="plan-cost-fill seq" id="seqCostFill"></div></div>
+                    <div class="plan-cost-label" id="seqCostLabel"></div>
+                </div>
+                <div class="plan-card" id="idxPlanCard">
+                    <div class="plan-title">Index Scan (ricerca indicizzata)</div>
+                    <div class="plan-explain" id="idxExplain"></div>
+                    <div class="plan-cost-bar"><div class="plan-cost-fill idx" id="idxCostFill"></div></div>
+                    <div class="plan-cost-label" id="idxCostLabel"></div>
+                </div>
+            </div>
+
+            <div class="verdict-box" id="verdictBox"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Una <strong>scansione completa</strong> legge ogni riga della tabella una volta, in
+                        blocco: il suo costo non dipende da quante righe soddisfano la condizione, perché deve
+                        comunque leggerle tutte per controllare.</li>
+                    <li>• Una <strong>ricerca indicizzata</strong> paga un piccolo costo fisso per attraversare
+                        l'indice (come visto in
+                        <a href="../index-btree-explorer/">index-btree-explorer</a>), ma poi deve fare un accesso
+                        separato alla tabella per <em>ogni singola riga</em> che soddisfa la condizione — un
+                        accesso "sparso", più costoso per riga di una lettura in blocco.</li>
+                    <li>• Per questo l'indice vince nettamente quando le righe cercate sono poche, ma perde terreno
+                        man mano che aumentano: oltre una certa soglia, leggere tutto in blocco costa meno che
+                        saltare qua e là.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Il database controlla ogni volta quante righe corrispondono? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Non esattamente: calcolarlo con precisione richiederebbe già di eseguire la query. I database
+                        reali mantengono delle <strong>statistiche</strong> aggiornate periodicamente su ogni
+                        tabella e indice (quanti valori distinti ha una colonna, come sono distribuiti...) e le
+                        usano per <em>stimare</em> quante righe corrisponderanno a una condizione, prima di
+                        eseguirla. Se quelle statistiche sono vecchie o imprecise — per esempio dopo aver inserito
+                        moltissime nuove righe senza aggiornarle — il pianificatore può scegliere il piano
+                        sbagliato: è uno dei motivi per cui i comandi che ricalcolano le statistiche (come
+                        <code>ANALYZE</code> in PostgreSQL) fanno parte della normale manutenzione di un
+                        database.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
