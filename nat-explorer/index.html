@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAT: un solo IP pubblico per tutta la rete</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>NAT: un solo IP pubblico per tutta la rete</h1>
+            <p class="subtitle">Il tuo router ha un solo indirizzo IP pubblico, ma dietro ci sono diversi
+                dispositivi con indirizzi privati. Guarda come il NAT traduce ogni connessione in uscita — e
+                perché un pacchetto non richiesto dall'esterno viene semplicemente scartato</p>
+
+            <div class="setup-row">
+                <div class="setup-group">
+                    <label>Dispositivo</label>
+                    <div class="chip-row" id="deviceChips"></div>
+                </div>
+                <div class="setup-group">
+                    <label>Destinazione su internet</label>
+                    <div class="chip-row" id="remoteChips"></div>
+                </div>
+            </div>
+
+            <div class="diagram-box">
+                <div class="node-row">
+                    <div class="node" id="node-device">
+                        <div class="node-icon" id="deviceIcon">💻</div>
+                        <div class="node-label" id="deviceLabel">Laptop</div>
+                        <div class="node-sub" id="deviceSub">192.168.1.10</div>
+                    </div>
+                    <div class="edge" id="edge-device-router"></div>
+                    <div class="node" id="node-router">
+                        <div class="node-icon">🛜</div>
+                        <div class="node-label">Router (NAT)</div>
+                        <div class="node-sub">203.0.113.5</div>
+                    </div>
+                    <div class="edge" id="edge-router-internet"></div>
+                    <div class="node" id="node-internet">
+                        <div class="node-icon" id="internetIcon">🌍</div>
+                        <div class="node-label" id="internetLabel">Sito web</div>
+                        <div class="node-sub" id="internetSub">198.51.100.10</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-panel" id="stepPanel">Scegli dispositivo e destinazione, poi avvia una connessione.</div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="connectBtn">➕ Avvia connessione in uscita</button>
+                <button class="btn btn-secondary" id="playPauseBtn" disabled>▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn" disabled>Passo singolo →</button>
+            </div>
+
+            <h2 class="section-title">Tabella di traduzione NAT</h2>
+            <div class="table-wrap">
+                <table class="nat-table">
+                    <thead>
+                        <tr>
+                            <th>Dispositivo</th>
+                            <th>IP:porta privata</th>
+                            <th>IP:porta pubblica</th>
+                            <th>Destinazione</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="natBody"></tbody>
+                </table>
+                <p class="empty-text" id="emptyText">Nessuna connessione attiva.</p>
+            </div>
+
+            <div class="inbound-box">
+                <h2 class="section-title">Un pacchetto arriva dall'esterno...</h2>
+                <p class="hint-text">Qualcuno su internet manda un pacchetto all'IP pubblico del router, su una
+                    certa porta. Il router lo lascia passare solo se quella porta corrisponde a una connessione
+                    già aperta da dentro.</p>
+                <div class="controls">
+                    <button class="btn btn-secondary" id="tryActiveBtn">Prova su una porta già aperta</button>
+                    <button class="btn btn-secondary" id="tryRandomBtn">Prova su una porta mai aperta</button>
+                </div>
+                <p class="inbound-result" id="inboundResult"></p>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Un indirizzo <strong>privato</strong> (es. <code>192.168.1.x</code>) ha senso solo dentro
+                        la tua rete: nessun router di internet saprebbe dove instradarlo.</li>
+                    <li>• Quando un dispositivo interno apre una connessione verso internet, il router sostituisce
+                        mittente e porta con il proprio <strong>IP pubblico</strong> e una porta pubblica libera, e
+                        registra la corrispondenza nella tabella NAT (questa variante si chiama più precisamente
+                        <strong>NAPT</strong>, Network Address <em>and Port</em> Translation).</li>
+                    <li>• Quando arriva la risposta, il router consulta la tabella per sapere a quale dispositivo
+                        interno — e a quale porta — inoltrarla.</li>
+                    <li>• Un pacchetto che arriva dall'esterno su una porta che <em>non</em> compare nella tabella
+                        non ha nessuna connessione a cui appartenere: il router lo scarta.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché questo protegge (un po') la rete interna? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Il NAT non nasce come misura di sicurezza — è stato inventato per far durare più a lungo gli
+                        indirizzi IPv4, che sono un numero limitato — ma come effetto collaterale funziona un po'
+                        come un <strong>buttafuori</strong>: un dispositivo interno può sempre iniziare lui una
+                        connessione verso l'esterno, ma nessuno da fuori può contattare direttamente un dispositivo
+                        interno se prima non è stato lui a "aprire la porta". È lo stesso motivo per cui, per far
+                        funzionare un server di giochi o una videocamera di sorveglianza raggiungibile dall'esterno,
+                        spesso serve configurare manualmente un <strong>port forwarding</strong> sul router: si
+                        dice esplicitamente "ogni pacchetto che arriva sulla porta X, mandalo sempre al dispositivo
+                        Y", aggirando la regola "nessuna connessione, nessun inoltro".</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

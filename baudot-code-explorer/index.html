@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il codice Baudot</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Il codice Baudot</h1>
+            <p class="subtitle">Come si scriveva testo con soli 5 bit, prima di ASCII e Unicode — il codice dei
+                vecchi telescriventi</p>
+
+            <div class="mode-toggle">
+                <button class="mode-btn active" id="tableModeBtn">🔤 Tavola dei codici</button>
+                <button class="mode-btn" id="encodeModeBtn">✏️ Codifica un testo</button>
+            </div>
+
+            <div id="tableMode">
+                <p class="hint">Accendi e spegni i 5 bit, poi scegli lo stato "Lettere" o "Cifre": lo stesso identico
+                    codice significa cose diverse a seconda dello stato!</p>
+
+                <div class="bits-box" id="bitsBox"></div>
+
+                <div class="shift-toggle" id="shiftToggle">
+                    <button class="shift-btn active" data-shift="letters">Stato: Lettere (LTRS)</button>
+                    <button class="shift-btn" data-shift="figures">Stato: Cifre (FIGS)</button>
+                </div>
+
+                <div class="result-box" id="resultBox"></div>
+
+                <div class="code-table-wrapper">
+                    <table class="code-table" id="codeTable">
+                        <thead>
+                            <tr>
+                                <th>Codice</th>
+                                <th>Lettere</th>
+                                <th>Cifre</th>
+                            </tr>
+                        </thead>
+                        <tbody id="codeTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="encodeMode" class="hidden">
+                <label for="textInput">Scrivi qualcosa (solo lettere, cifre e punteggiatura di base):</label>
+                <input type="text" id="textInput" maxlength="20" placeholder="Scrivi qui..." value="SOS2026">
+
+                <div class="presets-row">
+                    <span class="presets-label">Prova:</span>
+                    <button class="chip" data-text="CIAO">CIAO</button>
+                    <button class="chip" data-text="SOS2026">SOS2026</button>
+                    <button class="chip" data-text="HELLO WORLD">HELLO WORLD</button>
+                    <button class="chip" data-text="A1B2C3">A1B2C3</button>
+                    <button class="chip chip-fun" data-text="X&amp;Y">X&amp;Y 🎵</button>
+                </div>
+
+                <p class="fun-fact">🎵 Curiosità: la copertina dell'album <em>X&amp;Y</em> dei Coldplay (2005) traduce
+                    proprio queste tre lettere in una fila di blocchi colorati, una colonna per carattere, seguendo
+                    il codice Baudot — premi il chip qui sopra per vedere la stessa identica sequenza di codici.</p>
+
+                <p class="error-text hidden" id="errorText"></p>
+
+                <div class="totals-panel" id="totalsPanel"></div>
+
+                <div class="blocks-box" id="blocksBox"></div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list" id="helpList"></ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché non bastano 5 bit per lettere E cifre insieme? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>5 bit danno solo 2⁵ = 32 combinazioni possibili — troppo poche per 26 lettere <em>più</em> 10
+                        cifre <em>più</em> la punteggiatura. La soluzione del Baudot fu riusare gli stessi 32 codici
+                        due volte, con due significati diversi, proprio come il tasto <strong>Maiusc</strong> di una
+                        tastiera: due codici speciali (LTRS e FIGS) dicono al ricevitore "da ora in poi, interpreta i
+                        codici seguenti nell'altro modo". Il prezzo da pagare è che ogni volta che il testo alterna
+                        lettere e cifre, serve un codice extra solo per cambiare modalità — per questo la modalità
+                        "Codifica un testo" qui sopra mostra quanti bit in più costa mescolare le due cose. Le
+                        codifiche moderne come UTF-8 (vedi il progetto "Dal testo ai byte" in questa raccolta) non
+                        hanno più bisogno di questo trucco: ogni carattere si riconosce da solo, senza stati
+                        nascosti.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

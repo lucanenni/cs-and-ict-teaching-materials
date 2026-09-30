@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Porte logiche</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Porte logiche</h1>
+            <p class="subtitle">Accendi e spegni gli input e guarda come ogni porta logica decide l'output</p>
+
+            <label for="gateSelect">Porta logica:</label>
+            <select id="gateSelect">
+                <option value="AND">AND</option>
+                <option value="OR">OR</option>
+                <option value="NOT">NOT</option>
+                <option value="XOR">XOR</option>
+                <option value="NAND">NAND</option>
+                <option value="NOR">NOR</option>
+                <option value="COMBO">Circuito combinato (2 porte)</option>
+            </select>
+
+            <div class="circuit-box" id="circuitBox"></div>
+
+            <div class="table-section">
+                <h2 class="section-title">Tabella di verità</h2>
+                <table class="truth-table" id="truthTable"></table>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list" id="gateExplainList"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

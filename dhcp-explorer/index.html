@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DHCP: assegnazione automatica degli IP</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>DHCP: assegnazione automatica degli IP</h1>
+            <p class="subtitle">Un dispositivo che si collega alla rete non ha ancora un indirizzo IP. Guarda la
+                "trattativa" a quattro messaggi (DORA) con cui un server DHCP gliene assegna uno da un pool
+                limitato — e cosa succede quando il pool finisce</p>
+
+            <div class="pool-box">
+                <div class="pool-header">
+                    <span>Pool di indirizzi del server DHCP</span>
+                    <span id="poolCount" class="pool-count"></span>
+                </div>
+                <div class="pool-dots" id="poolDots"></div>
+            </div>
+
+            <div class="diagram-box">
+                <div class="node-row">
+                    <div class="node" id="node-device">
+                        <div class="node-icon" id="deviceIcon">💻</div>
+                        <div class="node-label" id="deviceLabel">Nuovo dispositivo</div>
+                    </div>
+                    <div class="edge" id="edge-device-dhcp"></div>
+                    <div class="node" id="node-dhcp">
+                        <div class="node-icon">🗄️</div>
+                        <div class="node-label">Server DHCP</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-panel" id="stepPanel">Premi "Connetti un nuovo dispositivo" per iniziare.</div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="connectBtn">➕ Connetti un nuovo dispositivo</button>
+                <button class="btn btn-secondary" id="playPauseBtn" disabled>▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn" disabled>Passo singolo →</button>
+            </div>
+            <div class="controls">
+                <button class="btn btn-tertiary" id="resetBtn">↺ Reimposta tutto</button>
+            </div>
+
+            <h2 class="section-title">Tabella dei lease</h2>
+            <div class="table-wrap">
+                <table class="lease-table">
+                    <thead>
+                        <tr>
+                            <th>Dispositivo</th>
+                            <th>Indirizzo MAC</th>
+                            <th>IP assegnato</th>
+                            <th>Durata lease</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaseBody"></tbody>
+                </table>
+                <p class="empty-text" id="emptyText">Nessun dispositivo ha ancora un indirizzo.</p>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• <strong>DHCPDISCOVER</strong>: il dispositivo, senza ancora un IP, manda un messaggio in
+                        <em>broadcast</em> a tutta la rete locale: "c'è un server DHCP?".</li>
+                    <li>• <strong>DHCPOFFER</strong>: un server DHCP che ha un indirizzo libero nel suo pool lo
+                        offre, insieme alla durata del prestito ("lease").</li>
+                    <li>• <strong>DHCPREQUEST</strong>: il dispositivo accetta l'offerta e la richiede
+                        formalmente, di nuovo in broadcast — così, se più server avessero risposto, gli altri
+                        sanno che quell'indirizzo non è più disponibile.</li>
+                    <li>• <strong>DHCPACK</strong>: il server conferma e registra l'assegnazione. Da qui in poi
+                        DHCPDISCOVER/OFFER/REQUEST/ACK si ricordano spesso con l'acronimo <strong>DORA</strong>.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché un IP è "in prestito" e non permanente? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Un indirizzo assegnato via DHCP non è tuo per sempre: è un <strong>prestito a tempo</strong>
+                        (il "lease", spesso 24 ore su una rete domestica). Se il dispositivo resta collegato, di
+                        solito lo rinnova automaticamente prima della scadenza; se si disconnette e non lo rinnova,
+                        l'indirizzo torna libero e può essere assegnato a qualcun altro. È lo stesso motivo per cui
+                        qui puoi "disconnettere" un dispositivo dalla tabella: liberi il suo indirizzo nel pool,
+                        esattamente come farebbe una scadenza di lease non rinnovata.</p>
+                    <p>Il pool di questa pagina ha solo 5 indirizzi apposta: nella vita reale un router domestico
+                        ne ha normalmente centinaia disponibili, ma il principio — e il problema quando finiscono —
+                        è identico.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

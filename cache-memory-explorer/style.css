@@ -1,0 +1,369 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(to bottom right, #f0fdf4, #ecfeff);
+    min-height: 100vh;
+    padding: 1.5rem;
+}
+
+.container {
+    max-width: 62rem;
+    margin: 0 auto;
+}
+
+.card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+.presets-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.presets-label {
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+.chip {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 9999px;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    color: #15803d;
+    cursor: pointer;
+}
+
+.chip:hover {
+    background: #dcfce7;
+}
+
+.chip.active {
+    background: #15803d;
+    border-color: #15803d;
+    color: white;
+}
+
+.controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    flex: 1;
+    min-width: 8rem;
+    font-weight: 600;
+    padding: 0.7rem 1.2rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.btn-primary {
+    background-color: #15803d;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #166534;
+}
+
+.btn-primary:disabled {
+    background-color: #e5e7eb;
+    color: #9ca3af;
+    cursor: not-allowed;
+}
+
+.btn-secondary {
+    background-color: #e5e7eb;
+    color: #374151;
+}
+
+.btn-secondary:hover {
+    background-color: #d1d5db;
+}
+
+.speed-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.speed-label {
+    margin-bottom: 0;
+    white-space: nowrap;
+}
+
+.speed-row input[type="range"] {
+    flex: 1;
+}
+
+.speed-value {
+    font-size: 0.78rem;
+    color: #6b7280;
+    white-space: nowrap;
+    min-width: 6rem;
+    text-align: right;
+}
+
+.access-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+.access-label {
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+.access-value {
+    font-family: monospace;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #1f2937;
+}
+
+.access-result {
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0.15rem 0.6rem;
+    border-radius: 9999px;
+}
+
+.access-result.hit {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.access-result.miss {
+    background: #fef2f2;
+    color: #b91c1c;
+}
+
+.stats-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.stat-box {
+    flex: 1;
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    text-align: center;
+}
+
+.stat-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.3rem;
+}
+
+.stat-value {
+    font-family: monospace;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #1f2937;
+}
+
+.stat-value.hit {
+    color: #15803d;
+}
+
+.stat-value.miss {
+    color: #b91c1c;
+}
+
+.mem-section {
+    margin-bottom: 1.25rem;
+}
+
+.mem-label {
+    font-size: 0.78rem;
+    color: #6b7280;
+    margin-bottom: 0.6rem;
+}
+
+.mem-grid {
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    gap: 0.25rem;
+}
+
+.mem-cell {
+    aspect-ratio: 1;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: monospace;
+    font-size: 0.62rem;
+    color: #9ca3af;
+}
+
+.mem-cell.block-boundary {
+    border-left: 2px solid #d1d5db;
+}
+
+.mem-cell.current {
+    background: #15803d;
+    border-color: #15803d;
+    color: white;
+    font-weight: 700;
+}
+
+.mem-cell.cached {
+    background: #dcfce7;
+    border-color: #86efac;
+    color: #15803d;
+}
+
+.cache-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.cache-line {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #f9fafb;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.35rem;
+    padding: 0.5rem 0.75rem;
+    font-family: monospace;
+    font-size: 0.78rem;
+}
+
+.cache-line.active {
+    border-color: #15803d;
+    background: #f0fdf4;
+}
+
+.cache-line .idx {
+    color: #9ca3af;
+    min-width: 3.5rem;
+}
+
+.cache-line .tag {
+    color: #1f2937;
+    min-width: 6rem;
+}
+
+.cache-line .block {
+    color: #6b7280;
+}
+
+.cache-line.empty .tag,
+.cache-line.empty .block {
+    color: #d1d5db;
+}
+
+.help-panel {
+    background-color: #f0fdf4;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-top: 1.25rem;
+}
+
+.help-title {
+    font-weight: 600;
+    color: #14532d;
+    margin-bottom: 0.5rem;
+}
+
+.help-list {
+    font-size: 0.875rem;
+    color: #14532d;
+    list-style: none;
+}
+
+.help-list li {
+    margin-bottom: 0.35rem;
+}
+
+.btn-link {
+    display: block;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #15803d;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.btn-link:hover {
+    color: #14532d;
+}
+
+.deep-dive-panel {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #bbf7d0;
+    font-size: 0.875rem;
+    color: #14532d;
+    line-height: 1.6;
+}
+
+.deep-dive-panel code {
+    background: #dcfce7;
+    padding: 0.1rem 0.3rem;
+    border-radius: 0.25rem;
+}
+
+.hidden {
+    display: none;
+}

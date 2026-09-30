@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain: una catena di hash</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Blockchain: una catena di hash</h1>
+            <p class="subtitle">Perché modificare un solo blocco nel passato "rompe" tutta la catena che viene
+                dopo — con hash SHA-256 veri, calcolati dal vero nel browser</p>
+
+            <div class="chain-stats" id="chainStats"></div>
+
+            <div class="blocks-row" id="blocksRow"></div>
+
+            <div class="controls">
+                <button class="btn btn-secondary" id="resetBtn">↺ Ricomincia da capo</button>
+            </div>
+
+            <p class="hint">Prova a cambiare il testo di un blocco nel mezzo: guarda i blocchi successivi diventare
+                rossi. Poi prova a rimetterli a posto premendo "⛏️ Mina" su ciascuno, in ordine.</p>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Ogni blocco contiene dei dati, un numero chiamato <strong>nonce</strong>, e l'hash del
+                        blocco precedente. Il suo stesso hash si calcola su <em>tutto</em> questo insieme.</li>
+                    <li>• Un blocco è considerato "valido" (minato) solo se il suo hash inizia con
+                        <strong>"00"</strong> — una regola arbitraria scelta qui solo per rendere visibile lo
+                        sforzo di calcolo: trovare un nonce che la soddisfi richiede provarne molti, uno alla
+                        volta, senza scorciatoie (è l'idea alla base del <strong>proof of work</strong>).</li>
+                    <li>• Cambiare anche un solo carattere nei dati di un blocco cambia completamente il suo hash
+                        (l'effetto valanga, visto anche in hash-avalanche-explorer) — e siccome ogni blocco
+                        successivo include l'hash di quello precedente, il cambiamento si propaga in avanti,
+                        invalidando tutta la catena da quel punto in poi.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché questo rende la blockchain difficile da falsificare? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>In questa pagina, "riparare" la catena dopo una modifica richiede solo qualche istante: basta
+                        ri-minare ogni blocco rotto, uno dopo l'altro. In una vera blockchain, però, non sei l'unico
+                        a lavorare sulla catena: migliaia di altri partecipanti stanno contemporaneamente provando
+                        a estendere la catena onesta con nuovi blocchi. Per far accettare una versione alterata
+                        della storia, un attaccante dovrebbe ri-minare non solo il blocco modificato e tutti quelli
+                        successivi, ma farlo <strong>più in fretta di tutta la rete onesta messa insieme</strong> —
+                        da cui il nome informale "attacco del 51%". Più tempo è passato dal blocco che si vuole
+                        alterare (cioè più blocchi ci sono già sopra), più questo diventa proibitivo: è per questo
+                        che si dice che le transazioni "si consolidano" con il passare del tempo.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

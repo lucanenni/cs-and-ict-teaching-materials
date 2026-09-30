@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cammino minimo (Dijkstra)</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Cammino minimo (Dijkstra)</h1>
+            <p class="subtitle">Non tutte le strade costano uguale: qui ogni terreno ha un costo diverso da
+                attraversare, e l'algoritmo di Dijkstra trova sempre il percorso di costo <strong>totale</strong>
+                più basso — non quello con meno passi</p>
+
+            <div class="legend-row">
+                <button class="terrain-btn" data-terrain="grass">🟩 Erba (costo 1)</button>
+                <button class="terrain-btn" data-terrain="mud">🟫 Fango (costo 3)</button>
+                <button class="terrain-btn" data-terrain="water">🟦 Acqua (costo 5)</button>
+                <button class="terrain-btn" data-terrain="wall">⬛ Muro (invalicabile)</button>
+            </div>
+            <p class="hint-text">Clicca sulle celle della griglia per dipingere il terreno selezionato sopra.</p>
+
+            <div class="presets-row">
+                <span class="presets-label">Prova:</span>
+                <button class="chip" data-preset="empty">Vuoto</button>
+                <button class="chip" data-preset="river">Fiume da aggirare</button>
+                <button class="chip" data-preset="swamp">Palude vs muro</button>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="runBtn">▶ Trova il percorso</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Pulisci</button>
+            </div>
+
+            <div class="speed-row">
+                <label for="speedSlider" class="speed-label">Velocità</label>
+                <input type="range" id="speedSlider" min="10" max="150" step="10" value="40">
+                <span id="speedValue" class="speed-value"></span>
+            </div>
+
+            <div class="grid-wrap">
+                <div id="grid" class="grid"></div>
+            </div>
+
+            <p class="status-text" id="statusText"></p>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• L'algoritmo mantiene per ogni cella la <strong>distanza minima conosciuta finora</strong>
+                        dalla partenza, e ad ogni passo sceglie di espandere la cella non ancora visitata con la
+                        distanza più bassa — mai una a caso.</li>
+                    <li>• Quando espande una cella, controlla se passando da lì si arriva alle celle vicine con un
+                        costo <em>più basso</em> di quello già conosciuto: se sì, lo aggiorna ("rilassamento").</li>
+                    <li>• Proprio perché sceglie sempre la cella più economica da espandere, la prima volta che
+                        raggiunge la destinazione quella distanza è garantita ottima — non serve continuare a
+                        cercare oltre.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">In cosa differisce da BFS/DFS? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>BFS (visto in <a href="../pathfinding-visualizer/">pathfinding-visualizer</a>) trova il
+                        cammino con <strong>meno passi</strong>, ed è corretto solo quando ogni passo costa uguale.
+                        Qui i terreni hanno costi diversi, quindi il percorso più breve in numero di celle
+                        potrebbe non essere il più economico: attraversare 3 celle d'erba (costo 3) conviene più
+                        di attraversarne una sola d'acqua (costo 5). Dijkstra generalizza BFS a questo caso: usa
+                        una <strong>coda con priorità</strong> ordinata per distanza invece di una semplice coda
+                        FIFO, così espande sempre la cella più economica, non la più vicina in numero di passi. Se
+                        tutti i costi fossero 1, Dijkstra ed espansione BFS produrrebbero esattamente lo stesso
+                        risultato.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

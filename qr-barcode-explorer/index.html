@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codici a barre e codici 2D</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Codici a barre e codici 2D</h1>
+            <p class="subtitle">Come si impacchetta del testo in barre o quadratini — e la differenza tra
+                <em>rilevare</em> un errore e riuscire davvero a <em>correggerlo</em></p>
+
+            <div class="mode-toggle">
+                <button class="mode-btn active" id="barcodeBtn">▮▯ Codice a barre (1D)</button>
+                <button class="mode-btn" id="matrixBtn">▦ Codice 2D con correzione d'errore</button>
+            </div>
+
+            <div id="barcodeMode">
+                <label for="barcodeInput">Testo (lettere maiuscole, cifre, spazio e alcuni simboli)</label>
+                <input type="text" id="barcodeInput" maxlength="10" value="CIAO42">
+                <p class="note" id="barcodeNote"></p>
+
+                <div class="barcode-box">
+                    <svg id="barcodeSvg" viewBox="0 0 600 140" xmlns="http://www.w3.org/2000/svg"></svg>
+                </div>
+
+                <div class="controls">
+                    <button class="btn btn-secondary" id="corruptBarBtn">⚡ Danneggia una barra a caso</button>
+                    <button class="btn btn-primary" id="decodeBarBtn">🔍 Decodifica</button>
+                    <button class="btn btn-secondary" id="resetBarBtn">↺ Ripristina</button>
+                </div>
+                <p class="decode-result" id="barcodeResult"></p>
+            </div>
+
+            <div id="matrixMode" class="hidden">
+                <label for="matrixInput">Testo breve (lettere maiuscole, cifre, spazio)</label>
+                <input type="text" id="matrixInput" maxlength="6" value="CIAO">
+                <p class="note">Ogni gruppo di 4 bit dei dati è protetto da un vero <strong>codice di Hamming
+                        (7,4)</strong>: clicca sui quadratini dei dati (non sugli angoli) per "danneggiarli", poi
+                    prova a decodificare.</p>
+
+                <div class="matrix-box">
+                    <svg id="matrixSvg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg"></svg>
+                </div>
+
+                <div class="controls">
+                    <button class="btn btn-primary" id="decodeMatrixBtn">🔍 Decodifica</button>
+                    <button class="btn btn-secondary" id="resetMatrixBtn">↺ Ripristina</button>
+                </div>
+                <p class="decode-result" id="matrixResult"></p>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list" id="helpList"></ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché i QR code veri hanno "occhi" negli angoli? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>I tre quadrati concentrici agli angoli (qui riprodotti in versione semplificata) si chiamano
+                        <strong>pattern di ricerca</strong>: hanno un rapporto di proporzioni riconoscibile da
+                        qualunque angolazione, e servono a una fotocamera per capire dov'è il codice, quanto è
+                        ruotato e quanto è inclinato, prima ancora di leggerne il contenuto. I veri QR code
+                        aggiungono anche una vera correzione d'errore Reed-Solomon (molto più potente di Hamming,
+                        capace di ricostruire il codice anche se fino al 30% è illeggibile) — qui usiamo Hamming
+                        perché è più semplice da seguire passo passo, ma il principio — aggiungere ridondanza
+                        matematica per sopravvivere a danni fisici — è lo stesso.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

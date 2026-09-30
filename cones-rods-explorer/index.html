@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel contro coni e bastoncelli</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Pixel contro coni e bastoncelli</h1>
+            <p class="subtitle">Perché bastano tre colori per ingannare l'occhio umano — un pixel non riproduce mai
+                la luce vera, solo l'effetto che fa sui tuoi recettori</p>
+
+            <div class="mode-toggle">
+                <button class="mode-btn active" id="metamerismBtn">🌈 Perché bastano 3 colori</button>
+                <button class="mode-btn" id="densityBtn">👁️ Densità nella retina</button>
+                <button class="mode-btn" id="colorblindBtn">🎨 Simulatore di daltonismo</button>
+            </div>
+
+            <div id="metamerismMode">
+                <p class="hint">Il tuo occhio ha tre tipi di cono (L, M, S), sensibili a lunghezze d'onda diverse.
+                    Sposta lo slider della luce "pura" qui sotto, poi prova a riprodurre le stesse tre barre
+                    mescolando rosso, verde e blu: se ci riesci, il tuo cervello non potrà più distinguerle,
+                    anche se la luce è fisicamente diversa.</p>
+
+                <div class="compare-grid">
+                    <div class="compare-col">
+                        <div class="compare-title">Luce "pura" a una singola lunghezza d'onda</div>
+                        <label for="wavelengthSlider">Lunghezza d'onda: <span id="wavelengthValue"
+                                class="value-badge"></span></label>
+                        <input type="range" id="wavelengthSlider" min="400" max="700" step="1" value="580">
+                        <div class="swatch" id="pureSwatch"></div>
+                        <div class="cone-bars" id="pureBars"></div>
+                    </div>
+                    <div class="compare-col">
+                        <div class="compare-title">La tua mescola RGB (come su uno schermo)</div>
+                        <label for="rSlider">R: <span id="rValue" class="value-badge"></span></label>
+                        <input type="range" id="rSlider" min="0" max="255" step="1" value="255">
+                        <label for="gSlider">G: <span id="gValue" class="value-badge"></span></label>
+                        <input type="range" id="gSlider" min="0" max="255" step="1" value="200">
+                        <label for="bSlider">B: <span id="bValue" class="value-badge"></span></label>
+                        <input type="range" id="bSlider" min="0" max="255" step="1" value="0">
+                        <div class="swatch" id="rgbSwatch"></div>
+                        <div class="cone-bars" id="rgbBars"></div>
+                    </div>
+                </div>
+                <p class="match-note" id="matchNote"></p>
+            </div>
+
+            <div id="densityMode" class="hidden">
+                <p class="hint">I coni (colore) si concentrano al centro della retina (la fovea); i bastoncelli
+                    (luce/buio, niente colore) dominano tutto intorno. È per questo che nella visione periferica il
+                    colore "si spegne" — prova a fissare il punto al centro e nota quanto è difficile riconoscere il
+                    colore di qualcosa che tieni ai lati del tuo campo visivo, senza spostare gli occhi.</p>
+                <div class="chart-box">
+                    <svg id="densitySvg" viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg"></svg>
+                </div>
+                <div class="blindspot-box">
+                    <div class="blindspot-title">Bonus: trova il tuo punto cieco</div>
+                    <p>Chiudi l'occhio sinistro. Con l'occhio destro fissa la <strong>croce</strong> e avvicina o
+                        allontana lentamente lo schermo: a una certa distanza il <strong>pallino</strong> a destra
+                        sparirà — è il punto dove il nervo ottico esce dalla retina, senza recettori.</p>
+                    <div class="blindspot-demo">
+                        <div class="blindspot-cross">✛</div>
+                        <div class="blindspot-dot"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="colorblindMode" class="hidden">
+                <p class="hint">Queste sono simulazioni approssimate (matrici di trasformazione comuni, non un
+                    modello medico preciso) di come apparirebbe la stessa immagine mancando uno dei tre tipi di
+                    cono.</p>
+                <div class="cb-grid" id="cbGrid"></div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list" id="helpList"></ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché gli schermi usano proprio R, G, B? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Perché l'occhio umano è <strong>tricromatico</strong>: ha esattamente tre tipi di cono. Uno
+                        schermo non ha bisogno di riprodurre lo spettro reale della luce che vede un oggetto — gli
+                        basta produrre la stessa combinazione di stimoli sui tuoi tre tipi di cono che produrrebbe
+                        quella luce reale. Tre "manopole" (rosso, verde, blu) sono sufficienti per raggiungere quasi
+                        ogni combinazione di stimoli che l'occhio umano sa distinguere: è un trucco che sfrutta un
+                        limite della biologia, non una necessità della fisica della luce (che ha infinite lunghezze
+                        d'onda possibili, non solo tre). Vedi anche
+                        <a href="../pixel-art-rgb-explorer/">pixel-art-rgb-explorer</a> e
+                        <a href="../color-synthesis-explorer/">color-synthesis-explorer</a> in questa raccolta.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

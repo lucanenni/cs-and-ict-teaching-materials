@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sessioni, cookie e token</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Sessioni, cookie e token</h1>
+            <p class="subtitle">Come un sito "si ricorda" che hai fatto login, dato che ogni richiesta HTTP è per
+                natura senza memoria di quelle precedenti</p>
+
+            <div class="mode-toggle">
+                <button class="mode-btn active" id="sessionModeBtn">🍪 Sessione con cookie</button>
+                <button class="mode-btn" id="tokenModeBtn">🔑 Token firmato (JWT-style)</button>
+            </div>
+
+            <div id="sessionMode">
+                <div class="login-row">
+                    <input type="text" id="sessionUserInput" placeholder="Nome utente..." value="mario">
+                    <button class="btn btn-primary" id="sessionLoginBtn">Accedi</button>
+                    <button class="btn btn-secondary" id="sessionLogoutBtn">Esci</button>
+                </div>
+
+                <div class="server-box">
+                    <div class="server-title">🖥️ Tabella delle sessioni (lato server)</div>
+                    <div class="server-table" id="sessionsTableBox"></div>
+                </div>
+
+                <div class="cookie-box">
+                    <div class="cookie-title">🍪 Cookie nel browser</div>
+                    <input type="text" id="cookieValueInput" class="mono-input">
+                    <button class="btn btn-secondary" id="sendCookieBtn">📨 Simula una richiesta con questo
+                        cookie</button>
+                </div>
+                <p class="result-text" id="sessionResult"></p>
+            </div>
+
+            <div id="tokenMode" class="hidden">
+                <div class="login-row">
+                    <input type="text" id="tokenUserInput" placeholder="Nome utente..." value="mario">
+                    <select id="roleSelect">
+                        <option value="utente">utente</option>
+                        <option value="amministratore">amministratore</option>
+                    </select>
+                    <button class="btn btn-primary" id="tokenLoginBtn">Accedi</button>
+                </div>
+
+                <div class="token-box">
+                    <div class="token-title">🔑 Il tuo token</div>
+                    <div class="token-value mono-input" id="tokenValueBox">—</div>
+                    <div class="token-decoded" id="tokenDecodedBox"></div>
+                </div>
+
+                <div class="controls">
+                    <button class="btn btn-secondary" id="verifyTokenBtn">✓ Verifica questo token</button>
+                    <button class="btn btn-secondary" id="tamperTokenBtn">😈 Prova a modificare il ruolo (senza il
+                        segreto)</button>
+                </div>
+                <p class="result-text" id="tokenResult"></p>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list" id="helpList"></ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Quale dei due è "migliore"? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Dipende. Le <strong>sessioni</strong> danno al server il controllo totale e immediato: basta
+                        cancellare una riga dalla tabella per invalidare un accesso all'istante — ottimo per
+                        sicurezza e per un logout che funziona davvero subito. Il costo è che il server deve
+                        mantenere quella tabella, il che diventa scomodo quando le richieste sono distribuite su
+                        tanti server diversi (serve condividerla, es. con un database centrale). I <strong>token
+                            firmati</strong> non richiedono nessuna tabella: qualunque server con la stessa chiave
+                        segreta può verificarli da solo, il che li rende comodi per sistemi distribuiti — ma proprio
+                        per questo, invalidare un singolo token prima della sua scadenza naturale è difficile (serve
+                        comunque una qualche forma di "lista nera", che riporta il problema da cui si voleva
+                        scappare). Sistemi reali spesso usano token a vita breve, rinnovati periodicamente, come
+                        compromesso.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

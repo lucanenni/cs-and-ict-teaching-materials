@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reti — Reti e sicurezza</title>
+    <link rel="stylesheet" href="../assets/style.css" />
+</head>
+
+<body>
+    <div class="page">
+        <a class="back-link" href="networking-security.html">← Torna a Reti e sicurezza</a>
+
+        <header>
+            <div class="header-icon">🌐</div>
+            <h1>Reti</h1>
+            <p class="subtitle">Come un pacchetto attraversa la rete, come si chiamano e indirizzano i computer, e
+                come si apre un canale sicuro tra due di essi.</p>
+        </header>
+
+        <main class="projects">
+            <a class="card" href="../network-packet-journey/">
+                <div class="card-title">Il viaggio di un pacchetto</div>
+                <p class="card-description">Cosa succede davvero, passo dopo passo, quando il tuo browser carica un
+                    sito: dal DNS al server e ritorno.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../ip-subnetting-explorer/">
+                <div class="card-title">Indirizzamento IP e subnetting</div>
+                <p class="card-description">Come un indirizzo IP si divide in una parte "di rete" e una "di host" —
+                    e cosa significa scrivere /24.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../public-private-ip-explorer/">
+                <div class="card-title">IP pubblico e IP privato</div>
+                <p class="card-description">Perché milioni di case possono avere tutte lo stesso 192.168.1.1 — e
+                    come un router condivide un solo IP pubblico tra più dispositivi (NAT).</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../tls-handshake-explorer/">
+                <div class="card-title">Handshake TLS/HTTPS</div>
+                <p class="card-description">La sequenza reale dei messaggi che aprono un canale https://, con un
+                    vero scambio di chiavi ECDHE e una vera cifratura finale.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../dns-domain-explorer/">
+                <div class="card-title">Gerarchia dei domini (DNS)</div>
+                <p class="card-description">Scomponi un nome di dominio nei suoi livelli e guarda un resolver
+                    risolverlo passo dopo passo, per deleghe successive.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../dhcp-explorer/">
+                <div class="card-title">DHCP: assegnazione automatica degli IP</div>
+                <p class="card-description">Guarda la trattativa a quattro messaggi (DORA) con cui un dispositivo
+                    ottiene un indirizzo IP — e cosa succede quando il pool finisce.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../nat-explorer/">
+                <div class="card-title">NAT: un solo IP pubblico per tutta la rete</div>
+                <p class="card-description">Guarda come il router traduce ogni connessione in uscita — e perché un
+                    pacchetto non richiesto dall'esterno viene scartato.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../traceroute-explorer/">
+                <div class="card-title">Traceroute: mappare la strada di un pacchetto</div>
+                <p class="card-description">Scopri, un hop alla volta, tutti i router attraversati sfruttando il
+                    campo TTL — esattamente come fa il comando reale.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../osi-layers-explorer/">
+                <div class="card-title">Incapsulamento a strati (OSI / TCP-IP)</div>
+                <p class="card-description">Scrivi un messaggio e guardalo scendere la pila a 5 livelli guadagnando
+                    un header a ogni passo, poi risalire sul destinatario perdendoli uno a uno.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../arp-explorer/">
+                <div class="card-title">ARP: chi ha questo IP?</div>
+                <p class="card-description">Scopri come un dispositivo trova il MAC associato a un IP sulla rete
+                    locale — una domanda in broadcast, una risposta di chi lo possiede.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../firewall-rules-explorer/">
+                <div class="card-title">Regole firewall: l'ordine conta</div>
+                <p class="card-description">Un pacchetto testato contro una lista di regole, che si ferma alla
+                    prima corrispondenza — e come l'ordine può vanificare una regola più specifica.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../load-balancer-explorer/">
+                <div class="card-title">Load balancer: Round Robin vs Least Connections</div>
+                <p class="card-description">Le stesse richieste distribuite su 3 server con due strategie a
+                    confronto, per vedere cosa succede quando una richiesta dura più delle altre.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../cdn-cache-explorer/">
+                <div class="card-title">CDN: cache hit, cache miss e invalidazione</div>
+                <p class="card-description">Guarda una richiesta viaggiare fino all'origine la prima volta, e
+                    tornare quasi istantanea dalla cache le volte successive — finché non scade.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+        </main>
+
+        <footer>
+            <p>Codice sorgente su <a href="https://github.com/lucanenni/cs-and-ict-teaching-materials">GitHub</a></p>
+        </footer>
+    </div>
+</body>
+
+</html>

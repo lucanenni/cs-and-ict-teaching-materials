@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crittografia a chiave pubblica</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Crittografia a chiave pubblica</h1>
+            <p class="subtitle">Come si può chiudere un messaggio in modo che solo una persona precisa possa aprirlo
+                — senza mai essersi scambiati un segreto prima</p>
+
+            <div class="mode-toggle">
+                <button class="mode-btn active" id="secretModeBtn">🔒 Messaggio segreto</button>
+                <button class="mode-btn" id="signModeBtn">✍️ Firma digitale</button>
+            </div>
+
+            <div class="diagram-box">
+                <div class="actor-row">
+                    <div class="actor-col" id="col-alice">
+                        <div class="actor-icon">👩</div>
+                        <div class="actor-name">Alice</div>
+                        <div class="actor-content" id="content-alice"></div>
+                    </div>
+                    <div class="actor-col" id="col-public">
+                        <div class="actor-icon">🌐</div>
+                        <div class="actor-name">Canale pubblico <span class="eve-tag">👁️ Eve vede tutto</span></div>
+                        <div class="actor-content" id="content-public"></div>
+                    </div>
+                    <div class="actor-col" id="col-bob">
+                        <div class="actor-icon">👨</div>
+                        <div class="actor-name">Bob</div>
+                        <div class="actor-content" id="content-bob"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-panel" id="stepPanel"></div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playPauseBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">⏭ Passo singolo</button>
+                <button class="btn btn-secondary" id="resetBtn">↻ Ricomincia</button>
+            </div>
+
+            <div class="compare-box">
+                <div class="compare-col">
+                    <div class="compare-title">🔑 Crittografia simmetrica</div>
+                    <p>Una sola chiave, condivisa, chiude e apre entrambe. Veloce — ma le due parti devono già
+                        essersi accordate sulla chiave in segreto <em>prima</em> di comunicare. Come farlo su un
+                        canale che qualcuno potrebbe ascoltare? È il problema che risolve lo scambio di chiavi
+                        Diffie-Hellman.</p>
+                </div>
+                <div class="compare-col">
+                    <div class="compare-title">🔓🔑 Crittografia a chiave pubblica</div>
+                    <p>Due chiavi collegate: una pubblica, una privata. Niente da scambiarsi in segreto prima — ma è
+                        più lenta. Nella pratica (es. HTTPS) si usano insieme: la chiave pubblica serve solo a
+                        scambiarsi in sicurezza una chiave simmetrica temporanea, poi si continua con quella, più
+                        veloce.</p>
+                </div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list" id="helpList"></ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Cosa impedisce a Eve di violarlo? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Le due chiavi non sono numeri scelti a caso e slegati tra loro: sono legate da un problema
+                        matematico facile da fare in un verso e difficilissimo da invertire senza conoscere un
+                        pezzo d'informazione in più (lo stesso tipo di asimmetria alla base dello scambio di chiavi
+                        Diffie-Hellman, in questa stessa raccolta — lì è il logaritmo discreto, qui tipicamente è la
+                        fattorizzazione di numeri molto grandi). Conoscere la chiave pubblica non basta a ricavare
+                        quella privata in un tempo ragionevole, anche disponendo di computer potentissimi: è proprio
+                        questa "porta che si apre facile solo in un senso" a rendere sicuro tutto il sistema.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

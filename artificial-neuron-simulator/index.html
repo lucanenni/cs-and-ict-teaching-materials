@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulazione neurone artificiale</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <h1>Simulazione di un neurone artificiale</h1>
+        <p class="subtitle">Modifica gli input e i pesi per vedere come funziona un neurone</p>
+
+        <div class="main-content">
+            <div class="controls-section">
+                <h2 class="section-title">Condizioni da valutare</h2>
+
+                <div class="input-group">
+                    <label id="statement1">È nuvoloso</label>
+                    <div class="switch-container">
+                        <label class="switch">
+                            <input type="checkbox" id="input1">
+                            <span class="slider"></span>
+                        </label>
+                        <span class="switch-label" id="input1Label">NO</span>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <label style="font-size: 0.9em; color: #666;">Importanza (peso): <span
+                                class="value-display" id="weight1Value">0.5</span></label>
+                        <input type="range" id="weight1" min="-2" max="2" step="0.1" value="0.5">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label id="statement2">Ho l'ombrello</label>
+                    <div class="switch-container">
+                        <label class="switch">
+                            <input type="checkbox" id="input2" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <span class="switch-label" id="input2Label">SÌ</span>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <label style="font-size: 0.9em; color: #666;">Importanza (peso): <span
+                                class="value-display" id="weight2Value">0.8</span></label>
+                        <input type="range" id="weight2" min="-2" max="2" step="0.1" value="0.8">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label id="statement3">Piove forte</label>
+                    <div class="switch-container">
+                        <label class="switch">
+                            <input type="checkbox" id="input3">
+                            <span class="slider"></span>
+                        </label>
+                        <span class="switch-label" id="input3Label">NO</span>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <label style="font-size: 0.9em; color: #666;">Importanza (peso): <span
+                                class="value-display" id="weight3Value">1.5</span></label>
+                        <input type="range" id="weight3" min="-2" max="2" step="0.1" value="1.5">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="bias">Soglia di decisione (bias): <span class="value-display"
+                            id="biasValue">-0.5</span></label>
+                    <input type="range" id="bias" min="-3" max="3" step="0.1" value="-0.5">
+                    <p style="font-size: 0.85em; color: #666; margin-top: 5px;">Valori negativi facilitano l'uscita,
+                        positivi la ostacolano</p>
+                </div>
+
+                <div class="input-group">
+                    <label for="activation">Funzione di attivazione:</label>
+                    <select id="activation">
+                        <option value="step">Step (gradino) - Decisione netta</option>
+                        <option value="sigmoid">Sigmoide - Probabilità</option>
+                        <option value="relu">ReLU</option>
+                        <option value="tanh">Tanh</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="scenario">Scenario decisionale:</label>
+                    <select id="scenario">
+                        <option value="weather">Uscire con il meteo incerto</option>
+                        <option value="movie">Guardare un film</option>
+                        <option value="study">Studiare per l'esame</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="visualization">
+                <h2 class="section-title">Rappresentazione grafica</h2>
+                <canvas id="neuronCanvas" role="img" aria-label="Schema del neurone con input, pesi e output"></canvas>
+
+                <div class="output-section" style="margin-top: 20px;">
+                    <div class="output-label">Decisione del neurone</div>
+                    <div class="output-value" id="outputValue" aria-live="polite">NO</div>
+                    <div id="decisionText" style="font-size: 1.2em; margin: 10px 0;" aria-live="polite"></div>
+                    <div class="formula" id="formulaDisplay"></div>
+                </div>
+
+                <div class="info-box" style="margin-top: 20px;">
+                    <strong>Come funziona:</strong> Il neurone prende decisioni basandosi sulle condizioni (input
+                    binari: 0 o 1). Ogni condizione ha un'importanza (peso) che indica quanto influenza la decisione
+                    finale. Il neurone somma i valori (condizione × peso), aggiunge la soglia (bias) e applica una
+                    funzione di attivazione per decidere. Prova a modificare le condizioni e i pesi per vedere come
+                    cambia la decisione!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

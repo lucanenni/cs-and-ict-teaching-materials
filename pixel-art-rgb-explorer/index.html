@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Come un'immagine diventa pixel</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Come un'immagine diventa pixel</h1>
+            <p class="subtitle">Ogni immagine digitale è solo una griglia di numeri: dipingi e scoprilo tu
+                stesso</p>
+
+            <div class="palette-row" id="paletteRow"></div>
+            <div class="custom-color-row">
+                <label for="customColor">Colore personalizzato:</label>
+                <input type="color" id="customColor" value="#3b82f6">
+            </div>
+
+            <div class="grid-box">
+                <div class="pixel-grid" id="pixelGrid"></div>
+            </div>
+
+            <div class="pixel-info" id="pixelInfo">
+                <p class="pixel-info-placeholder">👆 Clicca (o trascina) per dipingere. Passa il mouse su un pixel
+                    per vederne il valore RGB.</p>
+            </div>
+
+            <div class="weight-panel" id="weightPanel"></div>
+
+            <div class="presets-row">
+                <span class="presets-label">Carica esempio:</span>
+                <button class="chip" id="presetHeart">❤️ Cuore</button>
+                <button class="chip" id="presetSmiley">🙂 Faccina</button>
+                <button class="chip" id="presetChecker">🏁 Scacchiera</button>
+                <button class="chip" id="clearGrid">✕ Cancella tutto</button>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Un'immagine digitale è divisa in una griglia di <strong>pixel</strong> ("picture
+                        element"): ogni quadratino è un puntino di colore singolo.</li>
+                    <li>• Ogni pixel è memorizzato come tre numeri da 0 a 255: quanto rosso, quanto verde e quanto
+                        blu contiene — esattamente come nella <a href="../color-synthesis-explorer/">sintesi
+                            additiva del colore</a>.</li>
+                    <li>• Più pixel ha un'immagine (la sua "risoluzione"), più è dettagliata — ma anche più numeri
+                        servono per memorizzarla.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché una vera foto pesa meno di 3 byte per pixel? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Il calcolo di questa pagina (3 byte per pixel) è il peso "grezzo", non compresso — è come
+                        funziona il formato BMP. Formati come JPEG o PNG usano tecniche di <strong>compressione</strong>
+                        per pesare molto meno: sfruttano il fatto che, in una foto reale, i pixel vicini si
+                        assomigliano spesso (il cielo è blu per centinaia di pixel di fila), quindi non serve
+                        scrivere lo stesso numero migliaia di volte. Un'immagine con pochi colori diversi e grandi
+                        aree uniformi (come la scacchiera qui sopra) comprime benissimo; una foto molto dettagliata e
+                        rumorosa molto meno.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
