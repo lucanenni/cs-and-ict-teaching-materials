@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forza ed entropia delle password</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Forza ed entropia delle password</h1>
+            <p class="subtitle">Cosa rende davvero difficile indovinare una password — e cosa, sorprendentemente,
+                non basta</p>
+
+            <p class="privacy-note">🔒 Tutto qui avviene solo nel tuo browser: niente viene inviato da nessuna
+                parte. Comunque, per abitudine, <strong>non scrivere una password che usi davvero</strong> — usane
+                una inventata sul momento.</p>
+
+            <label for="pwInput">Prova una password:</label>
+            <input type="text" id="pwInput" maxlength="40" placeholder="Scrivi qui..." autocomplete="off"
+                spellcheck="false" value="Sole2024">
+
+            <div class="presets-row">
+                <span class="presets-label">Prova:</span>
+                <button class="chip" data-pw="123456">123456</button>
+                <button class="chip" data-pw="password">password</button>
+                <button class="chip" data-pw="Sole2024">Sole2024</button>
+                <button class="chip" data-pw="xK9#mQ2!vL7z">xK9#mQ2!vL7z</button>
+                <button class="chip" data-pw="cavallo tavolo lampada nuvola">cavallo tavolo lampada nuvola</button>
+            </div>
+
+            <div class="common-warning hidden" id="commonWarning"></div>
+
+            <div class="strength-box">
+                <div class="strength-bar-container">
+                    <div class="strength-bar" id="strengthBar"></div>
+                </div>
+                <div class="strength-label" id="strengthLabel"></div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-label">Lunghezza</div>
+                    <div class="stat-value" id="statLength"></div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Alfabeto usato</div>
+                    <div class="stat-value" id="statCharset"></div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Spazio delle possibilità</div>
+                    <div class="stat-value" id="statKeyspace"></div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Entropia</div>
+                    <div class="stat-value" id="statEntropy"></div>
+                </div>
+            </div>
+
+            <div class="charset-badges" id="charsetBadges"></div>
+
+            <div class="crack-section">
+                <h2 class="section-title">Quanto tempo servirebbe per indovinarla a forza bruta?</h2>
+                <label for="speedSlider">Velocità di tentativi dell'attaccante: <span id="speedLabel"
+                        class="value-badge"></span></label>
+                <input type="range" id="speedSlider" min="0" max="4" step="1" value="2">
+                <div class="crack-time" id="crackTime"></div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Lo <strong>spazio delle possibilità</strong> è il numero di password diverse che si
+                        potrebbero scrivere con quell'alfabeto e quella lunghezza: (dimensione dell'alfabeto)
+                        elevato alla lunghezza.</li>
+                    <li>• L'<strong>entropia</strong> (in bit) è solo un altro modo di misurare la stessa cosa, su
+                        scala logaritmica: ogni bit in più raddoppia il numero di tentativi necessari in media.</li>
+                    <li>• Aggiungere <strong>lunghezza</strong> aumenta l'entropia molto più velocemente che
+                        aggiungere <strong>varietà di simboli</strong>: quattro parole a caso battono spesso una
+                        password corta piena di simboli, ed è anche più facile da ricordare.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché il calcolo dell'entropia non basta da solo? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Il calcolo qui sopra assume che un attaccante debba provare <em>ogni</em> combinazione
+                        possibile, una per una, alla cieca. Nella realtà, quasi nessun attacco funziona così: chi
+                        ruba le password prova prima le liste delle password più comuni (rubate da altri siti nel
+                        corso degli anni, spesso milioni di voci), poi parole di dizionario, nomi propri, date, e le
+                        loro combinazioni più ovvie — "Password123!" ha un'entropia teorica discreta, ma è comunque
+                        tra le prime cose che un attaccante prova, perché è un pattern estremamente comune. Per
+                        questo la pagina segnala esplicitamente le password comuni qui sopra, indipendentemente dal
+                        loro punteggio di entropia: la vera forza di una password dipende sia da quanto è
+                        <em>lunga e imprevedibile</em>, sia da quanto è <em>tipica</em> di ciò che le persone
+                        scelgono di solito.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

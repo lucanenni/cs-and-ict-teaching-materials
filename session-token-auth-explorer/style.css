@@ -1,0 +1,262 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(to bottom right, #fdf2f8, #fce7f3);
+    min-height: 100vh;
+    padding: 1.5rem;
+}
+
+.container {
+    max-width: 58rem;
+    margin: 0 auto;
+}
+
+.card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+.mode-toggle {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.mode-btn {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid #fbcfe8;
+    background: white;
+    color: #9d174d;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.mode-btn:hover {
+    background: #fdf2f8;
+}
+
+.mode-btn.active {
+    background: #db2777;
+    border-color: #db2777;
+    color: white;
+}
+
+.login-row {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+}
+
+.login-row input,
+.login-row select {
+    flex: 1;
+    min-width: 8rem;
+    padding: 0.6rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.login-row input:focus,
+.login-row select:focus {
+    outline: none;
+    border-color: #db2777;
+}
+
+.btn {
+    font-weight: 600;
+    padding: 0.6rem 1.1rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+.btn-primary {
+    background-color: #db2777;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #be185d;
+}
+
+.btn-secondary {
+    background-color: #e5e7eb;
+    color: #374151;
+}
+
+.btn-secondary:hover {
+    background-color: #d1d5db;
+}
+
+.server-box,
+.token-box {
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.server-title,
+.token-title,
+.cookie-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.6rem;
+}
+
+.server-table {
+    font-family: monospace;
+    font-size: 0.8rem;
+    color: #374151;
+}
+
+.server-row {
+    padding: 0.3rem 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.server-row:last-child {
+    border-bottom: none;
+}
+
+.cookie-box {
+    background: #fdf2f8;
+    border-radius: 0.5rem;
+    padding: 0.9rem;
+    margin-bottom: 0.75rem;
+}
+
+.mono-input {
+    width: 100%;
+    padding: 0.55rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.4rem;
+    font-family: monospace;
+    font-size: 0.8rem;
+    margin-bottom: 0.6rem;
+    word-break: break-all;
+}
+
+.token-value {
+    background: white;
+    min-height: 2.2rem;
+    display: flex;
+    align-items: center;
+}
+
+.token-decoded {
+    font-family: monospace;
+    font-size: 0.78rem;
+    color: #6b7280;
+    white-space: pre-wrap;
+}
+
+.controls {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.result-text {
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 0.85rem 1rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #374151;
+    min-height: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.result-text.ok {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.result-text.fail {
+    background: #fef2f2;
+    color: #b91c1c;
+}
+
+.help-panel {
+    background-color: #fdf2f8;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.help-title {
+    font-weight: 600;
+    color: #9d174d;
+    margin-bottom: 0.5rem;
+}
+
+.help-list {
+    font-size: 0.875rem;
+    color: #9d174d;
+    list-style: none;
+}
+
+.help-list li {
+    margin-bottom: 0.35rem;
+}
+
+.btn-link {
+    display: block;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #db2777;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.btn-link:hover {
+    color: #9d174d;
+}
+
+.deep-dive-panel {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #fbcfe8;
+    font-size: 0.875rem;
+    color: #9d174d;
+    line-height: 1.6;
+}
+
+.hidden {
+    display: none;
+}

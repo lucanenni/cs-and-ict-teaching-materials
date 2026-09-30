@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARP: chi ha questo IP?</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>ARP: chi ha questo IP?</h1>
+            <p class="subtitle">Per mandare un frame Ethernet non basta conoscere l'IP del destinatario: serve il
+                suo indirizzo <strong>MAC</strong>. Sulla rete locale lo si scopre gridando la domanda a tutti, e
+                ascoltando chi risponde</p>
+
+            <div class="setup-row">
+                <label>Manda un pacchetto a:</label>
+                <div class="chip-row" id="destChips"></div>
+            </div>
+
+            <div class="diagram-box">
+                <div class="node-row" id="nodeRow"></div>
+            </div>
+
+            <div class="step-panel" id="stepPanel">Scegli una destinazione qui sopra per iniziare.</div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playPauseBtn" disabled>▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn" disabled>Passo singolo →</button>
+                <button class="btn btn-secondary" id="clearCacheBtn">🗑️ Svuota cache ARP</button>
+            </div>
+
+            <h2 class="section-title">Cache ARP del Laptop</h2>
+            <div class="table-wrap">
+                <table class="arp-table">
+                    <thead><tr><th>IP</th><th>MAC</th><th>Scade tra</th></tr></thead>
+                    <tbody id="arpBody"></tbody>
+                </table>
+                <p class="empty-text" id="emptyText">Cache vuota: nessun indirizzo ancora risolto.</p>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• <strong>ARP Request</strong>: il mittente manda in <em>broadcast</em> a tutta la rete
+                        locale "Chi ha questo IP? Dimmelo al mio MAC" — lo ricevono tutti i dispositivi, ma solo
+                        chi possiede davvero quell'IP deve rispondere.</li>
+                    <li>• <strong>ARP Reply</strong>: il proprietario dell'IP risponde da solo, in
+                        <em>unicast</em> (non serve dirlo a tutti): "Sono io, il mio MAC è questo".</li>
+                    <li>• Il mittente salva la coppia IP→MAC in una <strong>cache ARP</strong>, per non dover
+                        rifare la stessa domanda a ogni pacchetto — ma la voce scade dopo un po', per accorgersi se
+                        quell'IP passa a un altro dispositivo (es. un cambio di scheda di rete).</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">E se la destinazione non è sulla rete locale? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>ARP funziona solo dentro la stessa rete locale: un broadcast non attraversa i router. Per
+                        una destinazione fuori rete (come un sito su internet), il dispositivo non fa mai ARP per
+                        quell'IP lontano — sarebbe inutile, il broadcast non arriverebbe da nessuna parte. Fa invece
+                        ARP per il MAC del proprio <strong>gateway</strong> (il router di casa) e gli consegna il
+                        frame: sarà il gateway a occuparsi di instradarlo oltre, verso il resto di internet, come
+                        visto in <a href="../network-packet-journey/">network-packet-journey</a> e
+                        <a href="../ip-subnetting-explorer/">ip-subnetting-explorer</a>. Prova il chip "8.8.8.8" qui
+                        sopra per vederlo in azione.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

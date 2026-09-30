@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il codice Baudot nella copertina di X&Y</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Il codice Baudot nella copertina di X&amp;Y</h1>
+            <p class="subtitle">Nel 2005 i Coldplay hanno nascosto un vero codice binario in copertina — costruisci
+                il tuo blocco colorato e prova a decifrarlo</p>
+
+            <div class="fact-box">
+                🎵 La copertina dell'album <em>X&amp;Y</em> dei Coldplay traduce il titolo in una fila di blocchi
+                colorati e vuoti, una colonna per carattere, seguendo il <strong>codice Baudot</strong> (lo stesso
+                visto in <a href="../baudot-code-explorer/">baudot-code-explorer</a>): blocco pieno = 1, vuoto = 0.
+            </div>
+
+            <label for="textInput">Scrivi una parola breve</label>
+            <input type="text" id="textInput" maxlength="8" placeholder="Scrivi qui..." value="X&amp;Y">
+
+            <div class="presets-row">
+                <span class="presets-label">Prova:</span>
+                <button class="chip" data-text="X&amp;Y">X&amp;Y (la copertina vera)</button>
+                <button class="chip" data-text="CIAO">CIAO</button>
+                <button class="chip" data-text="SOS">SOS</button>
+            </div>
+
+            <div class="puzzle-toggle">
+                <label class="switch-label">
+                    <input type="checkbox" id="revealToggle" checked>
+                    Mostra le etichette (spegni per provare a decifrare tu stesso)
+                </label>
+            </div>
+
+            <div class="cover-box" id="coverBox"></div>
+
+            <p class="error-text hidden" id="errorText"></p>
+            <div class="decoded-panel" id="decodedPanel"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Ogni colonna è un codice Baudot a 5 bit: dall'alto in basso, blocco colorato = 1, casella
+                        vuota = 0.</li>
+                    <li>• Il Baudot usa solo 32 codici per lettere <strong>e</strong> cifre/simboli, riusando gli
+                        stessi codici due volte grazie a due colonne speciali di "cambio stato" (LTRS e FIGS) — le
+                        vedi evidenziate qui sotto quando compare un simbolo come "&amp;".</li>
+                    <li>• Con lo switch spento, il messaggio è puro segnale visivo: nessuna etichetta, esattamente
+                        come lo vedrebbe chi guarda la copertina senza conoscere il codice Baudot.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché proprio il codice Baudot, e non binario "normale"? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Il Baudot (nella sua revisione ITA2) era lo standard reale usato dai telescriventi per gran
+                        parte del '900, prima di ASCII e Unicode: un riferimento storico riconoscibile per chi si
+                        occupa di telecomunicazioni, perfetto per un easter egg discografico. Il design della
+                        copertina (di Tappin Gofton) sfrutta esattamente l'idea centrale di questa raccolta: un
+                        blocco colorato non è "1" per natura, lo diventa solo perché qualcuno — qui, chi ha
+                        progettato la copertina — ha scelto una convenzione e l'ha applicata in modo coerente.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

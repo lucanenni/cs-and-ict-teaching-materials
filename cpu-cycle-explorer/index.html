@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ciclo fetch-decode-execute</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Ciclo fetch-decode-execute</h1>
+            <p class="subtitle">Ogni istruzione che un processore esegue passa sempre dagli stessi tre passi:
+                <strong>preleva</strong> l'istruzione dalla memoria, <strong>decodifica</strong> cosa significa,
+                <strong>esegue</strong> l'effetto — poi ricomincia da capo, milioni di volte al secondo</p>
+
+            <div class="presets-row">
+                <span class="presets-label">Programma:</span>
+                <button class="chip active" data-program="add">Somma due numeri</button>
+                <button class="chip" data-program="countdown">Conto alla rovescia (con salto)</button>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playPauseBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">⏭ Passo singolo</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Ricomincia</button>
+            </div>
+
+            <div class="speed-row">
+                <label for="speedSlider" class="speed-label">Velocità</label>
+                <input type="range" id="speedSlider" min="100" max="1200" step="50" value="600">
+                <span id="speedValue" class="speed-value"></span>
+            </div>
+
+            <div class="phase-row" id="phaseRow">
+                <div class="phase-box" data-phase="FETCH">
+                    <div class="phase-name">1. FETCH</div>
+                    <div class="phase-desc">preleva l'istruzione da mem[PC]</div>
+                </div>
+                <div class="phase-box" data-phase="DECODE">
+                    <div class="phase-name">2. DECODE</div>
+                    <div class="phase-desc">capisce operazione e operando</div>
+                </div>
+                <div class="phase-box" data-phase="EXECUTE">
+                    <div class="phase-name">3. EXECUTE</div>
+                    <div class="phase-desc">esegue l'effetto</div>
+                </div>
+            </div>
+
+            <div class="registers-row">
+                <div class="register-box">
+                    <div class="register-label">PC</div>
+                    <div class="register-value" id="pcValue">0</div>
+                </div>
+                <div class="register-box">
+                    <div class="register-label">IR (istruzione)</div>
+                    <div class="register-value" id="irValue">—</div>
+                </div>
+                <div class="register-box">
+                    <div class="register-label">ACC</div>
+                    <div class="register-value" id="accValue">0</div>
+                </div>
+            </div>
+
+            <div class="memory-box">
+                <div class="memory-label">Memoria (istruzioni e dati nello stesso spazio — architettura di von
+                    Neumann)</div>
+                <div class="memory-grid" id="memoryGrid"></div>
+            </div>
+
+            <div class="output-box">
+                <span class="output-label">Output (istruzione OUT):</span>
+                <span class="output-value" id="outputValue">—</span>
+            </div>
+
+            <p class="status-text" id="statusText"></p>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Il <strong>Program Counter (PC)</strong> tiene traccia di dove si trova la prossima
+                        istruzione da eseguire. Durante il fetch, il suo contenuto viene letto dalla memoria e il
+                        PC avanza di uno.</li>
+                    <li>• Il decode interpreta i bit letti come un <strong>codice operativo</strong> (cosa fare) e
+                        un <strong>operando</strong> (su cosa farlo, di solito un indirizzo di memoria).</li>
+                    <li>• Solo nell'execute succede davvero qualcosa: si legge o scrive un valore, si aggiorna
+                        l'accumulatore (ACC), oppure — per i salti — si cambia direttamente il PC.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché istruzioni e dati stanno nella stessa memoria? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Questa è l'<strong>architettura di von Neumann</strong> (1945): un solo spazio di memoria
+                        contiene sia le istruzioni del programma sia i dati su cui lavora, e la CPU non ha modo di
+                        distinguerli se non dal contesto — una cella è "istruzione" solo perché il PC ci punta
+                        durante un fetch. È un'idea potente (un programma può persino modificare se stesso, e i
+                        programmi possono essere trattati come dati — copiati, caricati da disco, scaricati da
+                        internet), ma introduce anche il problema opposto: se il flusso di esecuzione viene dirottato
+                        verso una cella pensata per contenere dati, la CPU la eseguirà comunque come se fosse
+                        codice. È esattamente il principio sfruttato da certe vulnerabilità di sicurezza (come il
+                        buffer overflow), ed è il motivo per cui l'hardware moderno distingue pagine di memoria
+                        "eseguibili" da pagine "non eseguibili".</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

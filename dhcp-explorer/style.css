@@ -1,0 +1,344 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(to bottom right, #eff6ff, #f0fdf4);
+    min-height: 100vh;
+    padding: 1.5rem;
+}
+
+.container {
+    max-width: 56rem;
+    margin: 0 auto;
+}
+
+.card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+.pool-box {
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.pool-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.6rem;
+}
+
+.pool-count {
+    font-weight: 700;
+    color: #1d4ed8;
+}
+
+.pool-dots {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.pool-dot {
+    flex: 1;
+    min-width: 5.5rem;
+    padding: 0.5rem 0.4rem;
+    border-radius: 0.4rem;
+    text-align: center;
+    font-size: 0.7rem;
+    font-family: 'SFMono-Regular', Consolas, Menlo, monospace;
+    font-weight: 700;
+    color: white;
+    background: #9ca3af;
+}
+
+.pool-dot.free {
+    background: #22c55e;
+}
+
+.pool-dot.used {
+    background: #ef4444;
+}
+
+.diagram-box {
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 1.5rem 1rem;
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+}
+
+.node-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20rem;
+    gap: 0;
+}
+
+.node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    flex-shrink: 0;
+    width: 8rem;
+}
+
+.node-icon {
+    width: 3.4rem;
+    height: 3.4rem;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid #d1d5db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: all 0.2s;
+}
+
+.node.active .node-icon {
+    border-color: #2563eb;
+    background: #dbeafe;
+    transform: scale(1.12);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+}
+
+.node-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #4b5563;
+    text-align: center;
+}
+
+.edge {
+    flex: 1;
+    height: 3px;
+    background: #e5e7eb;
+    margin: 0 -0.5rem 1.7rem;
+    min-width: 4rem;
+    transition: background-color 0.2s;
+}
+
+.edge.active {
+    background: #2563eb;
+}
+
+.step-panel {
+    background-color: #eff6ff;
+    border-radius: 0.5rem;
+    padding: 1.1rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.95rem;
+    color: #1e3a8a;
+    line-height: 1.6;
+    min-height: 3rem;
+}
+
+.step-panel .step-counter {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #2563eb;
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    flex: 1;
+    min-width: 8rem;
+    font-weight: 600;
+    padding: 0.7rem 1.2rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.btn:disabled {
+    background-color: #e5e7eb !important;
+    color: #9ca3af !important;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background-color: #1d4ed8;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #1e40af;
+}
+
+.btn-secondary {
+    background-color: #e5e7eb;
+    color: #374151;
+}
+
+.btn-secondary:hover {
+    background-color: #d1d5db;
+}
+
+.btn-tertiary {
+    background: none;
+    border: 1px solid #d1d5db;
+    color: #6b7280;
+    flex: none;
+    min-width: auto;
+    padding: 0.5rem 1rem;
+    font-size: 0.82rem;
+}
+
+.btn-tertiary:hover {
+    background: #f3f4f6;
+}
+
+.section-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.75rem;
+}
+
+.table-wrap {
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+}
+
+.lease-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.lease-table th {
+    text-align: left;
+    padding: 0.5rem 0.6rem;
+    background: #f3f4f6;
+    color: #374151;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.lease-table td {
+    padding: 0.55rem 0.6rem;
+    border-bottom: 1px solid #f3f4f6;
+    font-family: 'SFMono-Regular', Consolas, Menlo, monospace;
+}
+
+.lease-table td.device-name {
+    font-family: inherit;
+}
+
+.release-btn {
+    background: #fee2e2;
+    color: #b91c1c;
+    border: none;
+    border-radius: 0.35rem;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.release-btn:hover {
+    background: #fecaca;
+}
+
+.empty-text {
+    font-size: 0.82rem;
+    color: #9ca3af;
+    text-align: center;
+    padding: 0.75rem 0;
+}
+
+.help-panel {
+    background-color: #eff6ff;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.help-title {
+    font-weight: 600;
+    color: #1e3a8a;
+    margin-bottom: 0.5rem;
+}
+
+.help-list {
+    font-size: 0.875rem;
+    color: #1e3a8a;
+    list-style: none;
+}
+
+.help-list li {
+    margin-bottom: 0.35rem;
+}
+
+.btn-link {
+    display: block;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1d4ed8;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.btn-link:hover {
+    color: #1e3a8a;
+}
+
+.deep-dive-panel {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #bfdbfe;
+    font-size: 0.875rem;
+    color: #1e3a8a;
+    line-height: 1.6;
+}
+
+.deep-dive-panel p+p {
+    margin-top: 0.6rem;
+}
+
+.hidden {
+    display: none;
+}

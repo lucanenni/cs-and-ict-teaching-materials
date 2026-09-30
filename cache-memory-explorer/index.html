@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memoria cache</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Memoria cache</h1>
+            <p class="subtitle">La RAM è troppo lenta per stare al passo con la CPU: la cache è una memoria
+                piccola ma velocissima che tiene una copia dei dati usati di recente. Funziona solo perché i
+                programmi tendono a riusare indirizzi vicini — la <strong>località</strong></p>
+
+            <div class="presets-row">
+                <span class="presets-label">Sequenza di accesso:</span>
+                <button class="chip active" data-pattern="sequential">Sequenziale (buona località)</button>
+                <button class="chip" data-pattern="random">Sparsa (cattiva località)</button>
+                <button class="chip" data-pattern="conflict">In conflitto (thrashing)</button>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playPauseBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">⏭ Passo singolo</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Ricomincia</button>
+            </div>
+
+            <div class="speed-row">
+                <label for="speedSlider" class="speed-label">Velocità</label>
+                <input type="range" id="speedSlider" min="150" max="1500" step="50" value="600">
+                <span id="speedValue" class="speed-value"></span>
+            </div>
+
+            <div class="access-row">
+                <span class="access-label">Accesso a indirizzo:</span>
+                <span class="access-value" id="accessValue">—</span>
+                <span class="access-result" id="accessResult"></span>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-box">
+                    <div class="stat-label">Hit</div>
+                    <div class="stat-value hit" id="hitsValue">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Miss</div>
+                    <div class="stat-value miss" id="missesValue">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Hit rate</div>
+                    <div class="stat-value" id="hitRateValue">—</div>
+                </div>
+            </div>
+
+            <div class="mem-section">
+                <div class="mem-label">Memoria principale (64 indirizzi, raggruppati in blocchi da 4)</div>
+                <div class="mem-grid" id="mainMemGrid"></div>
+            </div>
+
+            <div class="mem-section">
+                <div class="mem-label">Cache (8 linee dirette — ogni linea può contenere un solo blocco alla
+                    volta)</div>
+                <div class="cache-grid" id="cacheGrid"></div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Ogni indirizzo appartiene a un <strong>blocco</strong> di 4 indirizzi consecutivi, e ogni
+                        blocco ha un'unica linea di cache assegnata (indice = indirizzo del blocco modulo 8): è la
+                        cache "a mappatura diretta".</li>
+                    <li>• Se il blocco richiesto è già in quella linea (stesso <strong>tag</strong>), è un
+                        <strong>hit</strong>: velocissimo. Altrimenti è un <strong>miss</strong>: bisogna andare in
+                        RAM, caricare l'intero blocco in cache (anche se serviva un solo indirizzo) e solo allora
+                        rispondere.</li>
+                    <li>• Caricare un blocco intero, non un solo indirizzo, è una scommessa: se il programma
+                        continuerà a leggere indirizzi vicini (buona località), quel blocco servirà altre volte
+                        gratis. Se salta a caso, la scommessa è persa — ed è esattamente quello che mostra il
+                        pattern "sparsa" qui sopra.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Cos'è il "thrashing" nel pattern "in conflitto"? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Nel pattern "in conflitto", gli indirizzi <code>0</code> e <code>32</code> puntano a blocchi
+                        diversi che però condividono <strong>la stessa linea di cache</strong> (0 ÷ 4 = 0, 0 mod 8
+                        = 0; 32 ÷ 4 = 8, 8 mod 8 = 0). Accedendo alternativamente a 0 e 32, ogni accesso sfratta il
+                        blocco caricato dall'accesso precedente: pur riusando ripetutamente solo due indirizzi —
+                        in teoria il caso ideale per una cache — l'hit rate è 0%. Si chiama <strong>miss di
+                            conflitto</strong> (a differenza dei "miss di capacità", dovuti a una cache troppo
+                        piccola per l'intero programma, o dei "miss a freddo", il primo accesso a un dato mai
+                        visto prima). Le cache reali riducono questo problema con l'<strong>associatività</strong>
+                        (più linee possibili per ogni blocco, non una sola), al prezzo di un circuito di ricerca
+                        più complesso.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

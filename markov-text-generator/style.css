@@ -1,0 +1,287 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(to bottom right, #f7fee7, #fefce8);
+    min-height: 100vh;
+    padding: 1.5rem;
+}
+
+.container {
+    max-width: 56rem;
+    margin: 0 auto;
+}
+
+.card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+.btn-link {
+    display: block;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #4d7c0f;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.btn-link:hover {
+    color: #365314;
+}
+
+.corpus-panel {
+    background: #f7fee7;
+    border: 1px solid #d9f99d;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+    color: #365314;
+    line-height: 1.7;
+}
+
+.settings-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 500px) {
+    .settings-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+.setting-group label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+select {
+    width: 100%;
+    padding: 0.65rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+}
+
+select:focus {
+    outline: none;
+    border-color: #65a30d;
+}
+
+.checkbox-container {
+    background: linear-gradient(to right, #f7fee7, #fefce8);
+    border: 1px solid #d9f99d;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+input[type="checkbox"] {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: 0.75rem;
+    cursor: pointer;
+}
+
+.checkbox-text {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+}
+
+.checkbox-text strong {
+    color: #3f6212;
+    font-weight: bold;
+}
+
+.checkbox-hint {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 0.5rem;
+    margin-left: 2rem;
+}
+
+.generated-box {
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+    min-height: 6rem;
+}
+
+.generated-label {
+    font-size: 0.8rem;
+    color: #6b7280;
+    margin-bottom: 0.5rem;
+}
+
+.generated-text {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: #1f2937;
+}
+
+.generated-text .current-word {
+    background-color: #fef08a;
+    padding: 0.1rem 0.3rem;
+    border-radius: 0.25rem;
+}
+
+.weights-panel {
+    background-color: #fefce8;
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+    min-height: 3rem;
+}
+
+.weights-placeholder {
+    font-size: 0.9rem;
+    color: #854d0e;
+}
+
+.weights-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #854d0e;
+    margin-bottom: 0.75rem;
+}
+
+.weight-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.weight-word {
+    min-width: 8rem;
+    font-family: monospace;
+    font-size: 0.9rem;
+    color: #1f2937;
+}
+
+.weight-bar-container {
+    flex: 1;
+    height: 0.6rem;
+    background-color: #fef08a;
+    border-radius: 9999px;
+    overflow: hidden;
+}
+
+.weight-bar {
+    height: 100%;
+    background-color: #65a30d;
+    border-radius: 9999px;
+}
+
+.weight-value {
+    min-width: 3rem;
+    text-align: right;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #854d0e;
+}
+
+.controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    flex: 1;
+    min-width: 8rem;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background-color: #65a30d;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #4d7c0f;
+}
+
+.btn-secondary {
+    background-color: #e5e7eb;
+    color: #374151;
+    flex: none;
+}
+
+.btn-secondary:hover {
+    background-color: #d1d5db;
+}
+
+.help-panel {
+    background-color: #fefce8;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.help-title {
+    font-weight: 600;
+    color: #713f12;
+    margin-bottom: 0.5rem;
+}
+
+.help-list {
+    font-size: 0.875rem;
+    color: #713f12;
+    list-style: none;
+}
+
+.help-list li {
+    margin-bottom: 0.35rem;
+}
+
+.help-list a {
+    color: #4d7c0f;
+}
+
+.hidden {
+    display: none;
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indirizzamento IP e subnetting</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Indirizzamento IP e subnetting</h1>
+            <p class="subtitle">Come un indirizzo IP si divide in una parte "di rete" e una "di host" — e cosa
+                significa davvero scrivere /24</p>
+
+            <div class="ip-row">
+                <div class="octet-group" id="octetGroup"></div>
+                <div class="cidr-group">
+                    <span class="slash">/</span>
+                    <input type="number" id="cidrInput" min="0" max="32" value="24">
+                </div>
+            </div>
+
+            <label for="cidrSlider">Prefisso di rete (CIDR)</label>
+            <input type="range" id="cidrSlider" min="0" max="32" value="24">
+
+            <div class="bits-box" id="bitsBox"></div>
+            <div class="bits-legend">
+                <span class="legend-item"><span class="legend-dot dot-network"></span> bit di rete (fissi per tutti
+                    gli host della sottorete)</span>
+                <span class="legend-item"><span class="legend-dot dot-host"></span> bit di host (identificano il
+                    singolo dispositivo)</span>
+            </div>
+
+            <div class="results-grid" id="resultsGrid"></div>
+
+            <div class="compare-box">
+                <h2 class="section-title">Un altro indirizzo è nella stessa sottorete?</h2>
+                <div class="ip-row">
+                    <div class="octet-group" id="octetGroup2"></div>
+                </div>
+                <p class="compare-result" id="compareResult"></p>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Un indirizzo IPv4 è composto da 32 bit. La <strong>maschera di sottorete</strong> (o il
+                        prefisso /N) dice quanti di quei bit, partendo da sinistra, identificano la
+                        <strong>rete</strong>: il resto identifica il singolo host al suo interno.</li>
+                    <li>• Tutti i dispositivi nella stessa sottorete condividono gli stessi bit di rete — solo i bit
+                        di host cambiano da un dispositivo all'altro. Per questo due router possono decidere se
+                        instradare un pacchetto localmente o mandarlo altrove solo guardando quei bit.</li>
+                    <li>• L'<strong>indirizzo di rete</strong> (tutti i bit host a 0) e l'<strong>indirizzo di
+                            broadcast</strong> (tutti i bit host a 1) sono riservati: non si assegnano mai a un
+                        singolo dispositivo.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché "sprecare" indirizzi dividendo in sottoreti? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Dividere una rete grande in sottoreti più piccole ha vantaggi che valgono lo "spreco" di
+                        qualche indirizzo: isola il traffico (un problema in una sottorete non intasa le altre),
+                        permette regole di sicurezza diverse per gruppi diversi di dispositivi (es. la rete degli
+                        uffici separata da quella degli studenti), e riflette l'organizzazione fisica o logica di
+                        una rete reale (un edificio, un piano, un reparto). Le tabelle di instradamento dei router
+                        di internet funzionano proprio raggruppando milioni di indirizzi in blocchi via via più
+                        grandi grazie a questo stesso meccanismo di prefissi.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

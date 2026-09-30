@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coda con priorità (heap)</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Coda con priorità (heap)</h1>
+            <p class="subtitle">Un <strong>min-heap binario</strong>: una struttura ad albero che tiene sempre il
+                valore più piccolo in cima, pronto in tempo costante — e riesce a restarci in ordine dopo ogni
+                inserimento o estrazione senza mai riordinare tutto da capo</p>
+
+            <div class="input-row">
+                <input type="number" id="valueInput" placeholder="valore" value="42">
+                <button class="btn btn-primary" id="insertBtn">➕ Inserisci</button>
+                <button class="btn btn-primary" id="extractBtn">⬆ Estrai il minimo</button>
+                <button class="btn btn-secondary" id="fillBtn">🎲 Riempi a caso</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Svuota</button>
+            </div>
+
+            <div class="speed-row">
+                <label for="speedSlider" class="speed-label">Velocità animazione</label>
+                <input type="range" id="speedSlider" min="100" max="1000" step="50" value="450">
+                <span id="speedValue" class="speed-value"></span>
+            </div>
+
+            <p class="status-text" id="statusText"></p>
+
+            <div class="array-section">
+                <div class="section-label">Rappresentazione ad array (come vive davvero in memoria)</div>
+                <div class="array-row" id="arrayRow"></div>
+            </div>
+
+            <div class="tree-section">
+                <div class="section-label">Rappresentazione ad albero (per capirlo a colpo d'occhio)</div>
+                <div class="tree-wrapper">
+                    <ul class="tree" id="treeRoot"></ul>
+                </div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• L'unica regola è la <strong>proprietà di heap</strong>: ogni nodo deve essere minore o
+                        uguale ai suoi figli. Non dice nulla sull'ordine tra fratelli — per questo non è
+                        completamente ordinato, ma basta a garantire che la radice sia sempre il minimo.</li>
+                    <li>• <strong>Inserimento</strong>: il nuovo valore entra in fondo all'array, poi "risale"
+                        (sift-up) scambiandosi col genitore finché la proprietà di heap non è di nuovo
+                        rispettata.</li>
+                    <li>• <strong>Estrazione del minimo</strong>: si toglie la radice, l'ultimo elemento prende il
+                        suo posto, poi "scende" (sift-down) scambiandosi col figlio più piccolo finché la proprietà
+                        non è di nuovo rispettata.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché un array, se sembra un albero? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Un albero binario <strong>completo</strong> (riempito livello per livello, da sinistra) ha
+                        una proprietà comoda: si può calcolare la posizione di genitori e figli con la sola
+                        aritmetica, senza bisogno di puntatori veri e propri. Per un nodo all'indice <code>i</code>
+                        di un array (a partire da 0): il genitore è all'indice <code>⌊(i−1)/2⌋</code>, il figlio
+                        sinistro all'indice <code>2i+1</code>, il figlio destro all'indice <code>2i+2</code>. Un
+                        heap è sempre un albero completo (si riempie un livello alla volta), quindi può vivere
+                        interamente in un array — niente memoria sprecata in puntatori, e accesso ai vicini in
+                        tempo costante. È per questo che ogni implementazione reale di coda con priorità (incluse
+                        quelle usate dall'algoritmo di Dijkstra in <a
+                            href="../dijkstra-shortest-path-explorer/">dijkstra-shortest-path-explorer</a>) è, sotto,
+                        un semplice array.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

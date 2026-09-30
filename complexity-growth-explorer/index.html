@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quanto velocemente cresce un algoritmo?</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Quanto velocemente cresce un algoritmo?</h1>
+            <p class="subtitle">Sei modi diversi in cui il "lavoro da fare" può crescere con la dimensione
+                dell'input — e perché la differenza conta moltissimo</p>
+
+            <label for="nSlider">Dimensione dell'input (n) = <span id="nValue" class="value-badge">20</span></label>
+            <input type="range" id="nSlider" min="5" max="50" step="1" value="20">
+
+            <div class="legend-grid" id="legendGrid"></div>
+
+            <div class="chart-box">
+                <svg id="chartSvg" viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg"></svg>
+            </div>
+
+            <div class="table-section">
+                <h2 class="section-title">A n = <span id="tableN"></span>, quante operazioni servono?</h2>
+                <table class="ops-table" id="opsTable"></table>
+                <p class="rate-note">(assumendo un computer capace di 1 miliardo di operazioni al secondo)</p>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• La <strong>notazione O grande</strong> descrive come cresce il numero di operazioni di un
+                        algoritmo al crescere della dimensione dell'input n — non il tempo esatto (che dipende dal
+                        computer), ma la <strong>forma della crescita</strong>.</li>
+                    <li>• Il grafico usa una scala <strong>logaritmica</strong> sull'asse verticale: senza, le curve
+                        più veloci sembrerebbero tutte piatte e indistinguibili accanto a O(2ⁿ), che cresce
+                        troppo in fretta per stare nella stessa scala lineare.</li>
+                    <li>• Sposta lo slider e guarda come, allo stesso n, alcuni algoritmi restano istantanei mentre
+                        altri diventano già impraticabili — è per questo che la complessità conta più della potenza
+                        del computer su cui gira il codice.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Un computer più veloce non risolve il problema? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Non quanto ci si aspetterebbe. Un computer 1000 volte più veloce sposta pochissimo un
+                        algoritmo O(2ⁿ): permette di gestire solo circa 10 elementi in più (perché 2¹⁰ ≈ 1000)
+                        prima di tornare altrettanto lento. Lo stesso computer, su un algoritmo O(n²), permette di
+                        gestire input circa 31 volte più grandi (perché √1000 ≈ 31). La differenza tra le classi di
+                        complessità non si "compra" con hardware migliore: va risolta scegliendo un algoritmo con
+                        una crescita più lenta, quando ne esiste uno per il problema in questione.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

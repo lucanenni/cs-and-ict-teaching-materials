@@ -1,0 +1,249 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(to bottom right, #eff6ff, #fefce8);
+    min-height: 100vh;
+    padding: 1.5rem;
+}
+
+.container {
+    max-width: 62rem;
+    margin: 0 auto;
+}
+
+.card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+.controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    flex: 1;
+    min-width: 10rem;
+    font-weight: 600;
+    padding: 0.7rem 1.2rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 0.88rem;
+}
+
+.btn:disabled {
+    background-color: #e5e7eb !important;
+    color: #9ca3af !important;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background-color: #1d4ed8;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #1e40af;
+}
+
+.btn-secondary {
+    background-color: #e5e7eb;
+    color: #374151;
+    flex: none;
+    min-width: auto;
+}
+
+.btn-secondary:hover {
+    background-color: #d1d5db;
+}
+
+.btn-warn {
+    background-color: #fef3c7;
+    color: #92400e;
+    flex: none;
+    min-width: auto;
+}
+
+.btn-warn:hover {
+    background-color: #fde68a;
+}
+
+.tables-row {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.table-block {
+    flex: 1;
+    min-width: 16rem;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.table-block.wide {
+    flex-basis: 100%;
+}
+
+.table-name {
+    font-family: 'SFMono-Regular', Consolas, Menlo, monospace;
+    font-weight: 700;
+    color: #1d4ed8;
+    margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+}
+
+.data-table th {
+    text-align: left;
+    padding: 0.45rem 0.55rem;
+    background: #f3f4f6;
+    color: #374151;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
+
+.data-table td {
+    padding: 0.45rem 0.55rem;
+    border-bottom: 1px solid #f3f4f6;
+    font-family: 'SFMono-Regular', Consolas, Menlo, monospace;
+    white-space: nowrap;
+}
+
+.data-table td.fk {
+    color: #1d4ed8;
+    font-weight: 700;
+}
+
+.data-table td.inconsistent {
+    background: #fee2e2;
+    color: #b91c1c;
+    font-weight: 700;
+}
+
+.tint-1 {
+    background: #dbeafe;
+}
+
+.tint-2 {
+    background: #fce7f3;
+}
+
+.tint-3 {
+    background: #dcfce7;
+}
+
+.tint-4 {
+    background: #fef3c7;
+}
+
+.anomaly-box {
+    background: #fef2f2;
+    border-radius: 0.5rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.85rem;
+    color: #991b1b;
+    line-height: 1.6;
+}
+
+.anomaly-box.ok {
+    background: #f0fdf4;
+    color: #166534;
+}
+
+.anomaly-box ul {
+    list-style: none;
+    margin-top: 0.4rem;
+}
+
+.sim-result {
+    font-size: 0.85rem;
+    color: #92400e;
+    min-height: 1.3rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.help-panel {
+    background-color: #eff6ff;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.help-title {
+    font-weight: 600;
+    color: #1e3a8a;
+    margin-bottom: 0.5rem;
+}
+
+.help-list {
+    font-size: 0.875rem;
+    color: #1e3a8a;
+    list-style: none;
+}
+
+.help-list li {
+    margin-bottom: 0.35rem;
+}
+
+.btn-link {
+    display: block;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1d4ed8;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.btn-link:hover {
+    color: #1e3a8a;
+}
+
+.deep-dive-panel {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #bfdbfe;
+    font-size: 0.875rem;
+    color: #1e3a8a;
+    line-height: 1.6;
+}
+
+.hidden {
+    display: none;
+}

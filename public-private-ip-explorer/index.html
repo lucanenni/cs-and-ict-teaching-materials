@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP pubblico e IP privato</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>IP pubblico e IP privato</h1>
+            <p class="subtitle">Il tuo laptop, il telefono e la smart TV di casa hanno tutti un indirizzo IP
+                diverso — eppure verso internet sembrano un solo dispositivo, con un solo indirizzo. Ecco perché</p>
+
+            <div class="analogy-row">
+                <div class="analogy-box">
+                    <div class="analogy-emoji">🏢</div>
+                    <div class="analogy-title">Il numero civico</div>
+                    <p>L'IP <strong>pubblico</strong> è come il numero civico di un palazzo: chiunque in città può
+                        usarlo per trovarti da fuori.</p>
+                </div>
+                <div class="analogy-box">
+                    <div class="analogy-emoji">🚪</div>
+                    <div class="analogy-title">Il numero dell'appartamento</div>
+                    <p>L'IP <strong>privato</strong> è come il numero dell'interno: ha senso solo una volta che sei
+                        già dentro il palazzo — fuori, da solo, non porta da nessuna parte.</p>
+                </div>
+            </div>
+
+            <label for="ipInput">Scrivi un indirizzo IPv4</label>
+            <input type="text" id="ipInput" value="192.168.1.42" autocomplete="off">
+            <p class="error-text hidden" id="ipError"></p>
+
+            <div class="presets-row">
+                <span class="presets-label">Prova:</span>
+                <button class="chip" data-ip="192.168.1.1">192.168.1.1 (router di casa)</button>
+                <button class="chip" data-ip="10.0.0.5">10.0.0.5 (rete aziendale)</button>
+                <button class="chip" data-ip="8.8.8.8">8.8.8.8 (DNS di Google)</button>
+                <button class="chip" data-ip="127.0.0.1">127.0.0.1 (loopback)</button>
+                <button class="chip" data-ip="169.254.1.5">169.254.1.5 (link-local)</button>
+                <button class="chip" data-ip="100.64.0.3">100.64.0.3 (CGNAT dell'operatore)</button>
+            </div>
+
+            <div class="result-box" id="resultBox">
+                <span class="result-label" id="resultLabel">Categoria:</span>
+                <span class="result-value" id="resultValue">--</span>
+                <p class="result-detail" id="resultDetail"></p>
+            </div>
+
+            <div class="ranges-box">
+                <div class="ranges-title">Intervalli di riferimento</div>
+                <table id="rangesTable"></table>
+            </div>
+
+            <div class="compare-box">
+                <div class="compare-title">Confronto diretto</div>
+                <table class="compare-table">
+                    <tr>
+                        <th></th>
+                        <th class="col-public">Pubblico</th>
+                        <th class="col-private">Privato</th>
+                    </tr>
+                    <tr>
+                        <td>Chi lo assegna</td>
+                        <td>Il provider Internet (ISP)</td>
+                        <td>Il router, di solito via DHCP</td>
+                    </tr>
+                    <tr>
+                        <td>Unicità</td>
+                        <td>Unico su tutto internet</td>
+                        <td>Può ripetersi in reti diverse (es. quasi ogni router usa 192.168.1.1)</td>
+                    </tr>
+                    <tr>
+                        <td>Visibilità</td>
+                        <td>Raggiungibile da internet</td>
+                        <td>Visibile solo dentro la rete locale</td>
+                    </tr>
+                    <tr>
+                        <td>Cambia nel tempo?</td>
+                        <td>Spesso sì (dinamico); fisso solo con un IP statico, di norma a pagamento</td>
+                        <td>Di solito stabile finché il dispositivo resta connesso</td>
+                    </tr>
+                    <tr>
+                        <td>Effetto collaterale sulla sicurezza</td>
+                        <td>Esposto: qualunque connessione in ingresso non richiesta arriva fin lì</td>
+                        <td>Il NAT del router scarta di norma le connessioni in ingresso non richieste — un
+                            effetto collaterale utile, non un vero firewall</td>
+                    </tr>
+                    <tr>
+                        <td>Quantità disponibile</td>
+                        <td>Limitata: gli indirizzi IPv4 pubblici sono ormai esauriti</td>
+                        <td>Ampia ma comunque finita (gli intervalli RFC 1918 messi insieme fanno circa 17,9
+                            milioni di indirizzi) — riutilizzabile però in ogni singola rete</td>
+                    </tr>
+                    <tr>
+                        <td>Uso tipico</td>
+                        <td>Farsi raggiungere da internet (un sito, un server di posta...)</td>
+                        <td>Comunicazione tra dispositivi della stessa rete locale</td>
+                    </tr>
+                </table>
+            </div>
+
+            <hr class="section-divider">
+
+            <h2 class="section-title">Come un router condivide un solo IP pubblico (NAT)</h2>
+            <p class="section-subtitle">Tre dispositivi in casa, ciascuno con un indirizzo privato, mandano
+                richieste verso internet attraverso lo stesso router. Guarda cosa vede davvero il server esterno.</p>
+
+            <div class="nat-diagram">
+                <div class="nat-devices" id="natDevices"></div>
+                <div class="nat-router">
+                    <div class="router-icon">📡</div>
+                    <div class="router-label">Router</div>
+                    <div class="router-ip" id="routerIp"></div>
+                </div>
+                <div class="nat-internet">
+                    <div class="internet-icon">🌐</div>
+                    <div class="internet-label">Server esterno</div>
+                    <div class="internet-sees" id="internetSees">vede solo l'IP del router</div>
+                </div>
+            </div>
+
+            <div class="nat-table-box">
+                <div class="nat-table-title">Tabella di traduzione del router (NAT)</div>
+                <table id="natTable">
+                    <tr>
+                        <th>Dispositivo</th>
+                        <th>IP:porta privati</th>
+                        <th>→</th>
+                        <th>IP:porta pubblici</th>
+                    </tr>
+                </table>
+                <p class="nat-empty" id="natEmpty">Nessuna richiesta ancora inviata.</p>
+            </div>
+
+            <button class="btn btn-secondary" id="resetNatBtn">↺ Azzera la tabella</button>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Gli indirizzi <strong>privati</strong> (come 192.168.x.x) possono essere riusati da
+                        milioni di reti domestiche diverse contemporaneamente, perché non viaggiano mai davvero su
+                        internet — sono validi solo dentro la rete locale.</li>
+                    <li>• Il router ha un solo indirizzo <strong>pubblico</strong>, unico su tutto internet. Quando
+                        un dispositivo interno invia una richiesta, il router la "traduce": sostituisce l'indirizzo
+                        privato del dispositivo con il proprio indirizzo pubblico, ricordandosi la corrispondenza in
+                        una tabella (questo si chiama <strong>NAT</strong>, Network Address Translation).</li>
+                    <li>• Quando arriva la risposta, il router consulta la tabella al contrario per capire a quale
+                        dispositivo interno inoltrarla — è per questo che funziona anche se dieci dispositivi
+                        parlano tutti con lo stesso server nello stesso momento.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché non dare un IP pubblico a ogni dispositivo? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Gli indirizzi IPv4 sono numeri a 32 bit: ne esistono circa 4,3 miliardi in totale, e sono
+                        esauriti da anni rispetto al numero di dispositivi connessi a internet nel mondo (miliardi
+                        di smartphone, computer, telecamere, elettrodomestici...). Il NAT è stata la soluzione che
+                        ha permesso a internet di continuare a crescere senza un indirizzo pubblico per ogni
+                        singolo dispositivo: un'intera rete domestica, con decine di dispositivi, può condividerne
+                        uno solo. Quando anche gli indirizzi pubblici assegnati ai singoli operatori telefonici o
+                        internet non bastano più, si usa un ulteriore livello chiamato <strong>CGNAT</strong>
+                        (Carrier-Grade NAT, RFC 6598): l'operatore assegna al modem di casa un indirizzo
+                        dell'intervallo speciale 100.64.0.0/10, e traduce di nuovo a un indirizzo pubblico condiviso
+                        tra più case, un livello di NAT sopra l'altro. La soluzione definitiva al problema è
+                        <strong>IPv6</strong>, che usa indirizzi a 128 bit — abbastanza per dare un indirizzo
+                        pubblico unico a ogni granello di sabbia sulla Terra, più volte.</p>
+                </div>
+
+                <button type="button" class="btn-link" id="faqBtn" aria-expanded="false"
+                    aria-controls="faqPanel">Domande pratiche ▸</button>
+                <div id="faqPanel" class="deep-dive-panel hidden">
+                    <p><strong>Come trovo il mio IP privato?</strong> Su Windows apri il Prompt dei comandi e
+                        digita <code>ipconfig</code>; su macOS/Linux apri il terminale e digita <code>ifconfig</code>
+                        o <code>ip addr</code>. Comparirà accanto a "Indirizzo IPv4" o simile.</p>
+                    <p><strong>Come trovo il mio IP pubblico?</strong> Basta chiedere a un sito web esterno quale
+                        indirizzo "vede" arrivare — proprio come nella simulazione NAT qui sopra, un sito del genere
+                        non vede mai il tuo IP privato: vede solo l'indirizzo pubblico del tuo router.</p>
+                    <p><strong>Il mio IP pubblico può cambiare?</strong> Sì, spesso: la maggior parte dei provider
+                        assegna un IP <strong>dinamico</strong>, che può cambiare quando il router si riconnette. Un
+                        IP <strong>statico</strong> (fisso nel tempo) è di norma un servizio a pagamento, utile a
+                        chi deve gestire un server raggiungibile sempre allo stesso indirizzo.</p>
+                    <p><strong>Perché non riesco a raggiungere da fuori casa un dispositivo con IP privato?</strong>
+                        Perché quell'indirizzo non significa nulla al di fuori della rete locale. Per farlo servono
+                        o il <strong>port forwarding</strong> (si configura il router per instradare verso quel
+                        dispositivo le richieste in arrivo su una certa porta) o una <strong>VPN</strong> (che ti fa
+                        entrare virtualmente nella rete locale da remoto, come se ci fossi fisicamente).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

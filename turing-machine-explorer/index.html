@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macchina di Turing</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Macchina di Turing</h1>
+            <p class="subtitle">Un nastro infinito, una testina che legge e scrive un simbolo alla volta, e una
+                tabella di regole: non serve altro per calcolare qualunque cosa sia calcolabile</p>
+
+            <div class="presets-row">
+                <span class="presets-label">Macchina:</span>
+                <button class="chip active" data-machine="unary">Incremento unario</button>
+                <button class="chip" data-machine="binary">Incremento binario</button>
+                <button class="chip" data-machine="palindrome">Palindromo binario</button>
+            </div>
+
+            <label for="tapeInput" id="tapeInputLabel">Contenuto iniziale del nastro</label>
+            <input type="text" id="tapeInput" value="111">
+            <p class="error-text hidden" id="tapeError"></p>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playPauseBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">⏭ Passo singolo</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Ricomincia</button>
+            </div>
+
+            <div class="speed-row">
+                <label for="speedSlider" class="speed-label">Velocità</label>
+                <input type="range" id="speedSlider" min="50" max="800" step="25" value="300">
+                <span id="speedValue" class="speed-value"></span>
+            </div>
+
+            <div class="tape-viewport">
+                <div class="tape-track" id="tapeTrack"></div>
+                <div class="head-marker">▲</div>
+            </div>
+
+            <div class="status-row">
+                <div class="status-box">
+                    <div class="status-label">Stato attuale</div>
+                    <div class="status-value" id="stateValue">start</div>
+                </div>
+                <div class="status-box">
+                    <div class="status-label">Passi eseguiti</div>
+                    <div class="status-value" id="stepsValue">0</div>
+                </div>
+            </div>
+
+            <p class="verdict" id="verdict"></p>
+
+            <div class="table-box">
+                <h2 class="section-title">Tabella delle transizioni di questa macchina</h2>
+                <p class="table-hint">Ogni riga dice: "se sei in questo stato e leggi questo simbolo, scrivi
+                    questo, muoviti così, e passa a questo stato". La riga evidenziata è quella che si applicherà
+                    al prossimo passo.</p>
+                <div class="table-wrap">
+                    <table id="ruleTable"></table>
+                </div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Una macchina di Turing ha un <strong>nastro</strong> diviso in celle (qui, in teoria
+                        infinito in entrambe le direzioni), una <strong>testina</strong> che si trova sempre su
+                        una cella e una <strong>tabella di transizioni</strong>.</li>
+                    <li>• Ad ogni passo, la macchina legge il simbolo sotto la testina, cerca nella tabella la
+                        regola per (stato attuale, simbolo letto), poi scrive un nuovo simbolo, sposta la testina
+                        di una cella (sinistra, destra o ferma) e cambia stato.</li>
+                    <li>• Se per lo stato e il simbolo attuali non esiste nessuna regola, la macchina si
+                        <strong>ferma</strong>: è così che sa quando ha finito.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché è importante? È solo un giocattolo teorico? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Alan Turing propose questo modello nel 1936, anni prima che esistesse un computer vero,
+                        proprio per rispondere a una domanda puramente teorica: cosa significa "calcolabile"? La
+                        sorprendente <strong>tesi di Church-Turing</strong> afferma che qualunque cosa sia
+                        calcolabile da una procedura meccanica precisa (un algoritmo, in qualunque linguaggio di
+                        programmazione moderno) può essere calcolata anche da una macchina di Turing — non più
+                        potente, ma nemmeno meno potente. È per questo che si usa ancora oggi come "unità di
+                        misura" della calcolabilità: un problema si dice <em>indecidibile</em> quando si dimostra
+                        che nessuna macchina di Turing può risolverlo in ogni caso (il più famoso è il
+                        <em>problema della fermata</em>: nessun algoritmo può stabilire, per ogni programma e ogni
+                        input, se quel programma si fermerà o continuerà per sempre). Il tuo laptop e questa
+                        paginetta con un nastro di caselle colorate sono, in un senso preciso, equivalenti: nessuno
+                        dei due può calcolare qualcosa che l'altro non possa, dato tempo e memoria a sufficienza.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risoluzione di un'immagine</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Risoluzione di un'immagine</h1>
+            <p class="subtitle">Da un'immagine di oggi fino alle vecchie schede grafiche dei primi PC — quanti pixel
+                e quanti colori servono davvero</p>
+
+            <div class="controls">
+                <button class="btn btn-secondary" id="newImageBtn">🔀 Nuova immagine</button>
+            </div>
+
+            <div class="preset-toggle" id="presetToggle"></div>
+
+            <div class="canvas-box">
+                <canvas id="displayCanvas" width="480" height="360"></canvas>
+            </div>
+
+            <div class="info-panel" id="infoPanel"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Ridurre la <strong>risoluzione</strong> significa usare meno pixel per coprire la stessa
+                        immagine: ogni pixel copre un'area più grande, e i dettagli piccoli scompaiono.</li>
+                    <li>• Ridurre la <strong>profondità di colore</strong> significa scegliere ogni colore tra un
+                        insieme più piccolo di colori possibili (una <strong>palette</strong>), invece che tra i
+                        milioni disponibili oggi: ogni pixel viene sostituito con il colore più vicino disponibile
+                        in quella palette.</li>
+                    <li>• Le due riduzioni sono indipendenti tra loro, e i vecchi standard grafici le combinavano in
+                        modi diversi: CGA, EGA e la modalità 256 colori di VGA usavano tutte la stessa risoluzione
+                        (320×200), ma palette di dimensioni molto diverse.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché non si usava sempre la massima qualità possibile? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Perché ogni pixel in più, e ogni colore in più nella palette, costa <strong>memoria</strong> —
+                        una risorsa scarsissima nei primi PC. Un'immagine 320×200 a 4 colori (CGA) occupa 16.000
+                        byte; la stessa area a piena risoluzione moderna e milioni di colori ne occuperebbe
+                        centinaia di volte tanto. Le schede grafiche storiche erano progettate attorno a questo
+                        compromesso preciso: quanta memoria video (spesso solo pochi kilobyte) si poteva permettere
+                        un computer dell'epoca, e come distribuirla al meglio tra risoluzione e colori.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

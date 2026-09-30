@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizzatore di branching Git</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Visualizzatore di branching Git</h1>
+            <p class="subtitle">Il grafo dei commit, un branch alla volta: cosa succede davvero quando fai commit,
+                branch, checkout e merge</p>
+
+            <div class="current-branch-box">
+                Branch attuale (HEAD): <span class="current-branch-name" id="currentBranchName"></span>
+            </div>
+
+            <div class="action-grid">
+                <div class="action-box">
+                    <label for="commitMsgInput">Messaggio di commit</label>
+                    <input type="text" id="commitMsgInput" placeholder="es. aggiungi login" maxlength="24">
+                    <button class="btn btn-primary" id="commitBtn">➕ Commit</button>
+                </div>
+                <div class="action-box">
+                    <label for="newBranchInput">Nome del nuovo branch</label>
+                    <input type="text" id="newBranchInput" placeholder="es. feature-x" maxlength="16">
+                    <button class="btn btn-secondary" id="branchBtn">🌿 Crea branch</button>
+                </div>
+                <div class="action-box">
+                    <label for="checkoutSelect">Passa a un branch</label>
+                    <select id="checkoutSelect"></select>
+                    <button class="btn btn-secondary" id="checkoutBtn">↪ Checkout</button>
+                </div>
+                <div class="action-box">
+                    <label for="mergeSelect">Unisci nel branch attuale</label>
+                    <select id="mergeSelect"></select>
+                    <button class="btn btn-secondary" id="mergeBtn">🔀 Merge</button>
+                </div>
+            </div>
+
+            <p class="error-text hidden" id="errorText"></p>
+
+            <div class="graph-box">
+                <svg id="graphSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-secondary" id="resetBtn">↺ Ricomincia</button>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Ogni <strong>commit</strong> punta al proprio commit padre (o a due, se è un merge):
+                        insieme formano un grafo, non una semplice lista.</li>
+                    <li>• Un <strong>branch</strong> non è altro che un'etichetta che punta a un commit — quando fai
+                        un nuovo commit, l'etichetta del branch attuale si sposta in avanti da sola.</li>
+                    <li>• <strong>HEAD</strong> indica su quale branch ti trovi in questo momento: è quel branch che
+                        si aggiorna quando fai un commit.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Cos'è un merge "fast-forward"? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Se il branch che stai unendo è semplicemente "più avanti" del tuo (cioè il tuo commit attuale
+                        è un antenato diretto del suo), Git non ha bisogno di creare un vero commit di merge: sposta
+                        semplicemente l'etichetta del tuo branch in avanti fino a raggiungere l'altro. Questo si
+                        chiama <strong>fast-forward</strong>. Se invece i due branch si sono sviluppati in parallelo
+                        con commit diversi, serve un vero <strong>commit di merge</strong>, con due genitori, che
+                        unisce le due storie. Prova entrambi i casi in questa pagina: fai un merge subito dopo aver
+                        creato un branch (senza nuovi commit su nessuno dei due) per vedere il fast-forward, oppure
+                        fai commit su entrambi i branch prima di unirli.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

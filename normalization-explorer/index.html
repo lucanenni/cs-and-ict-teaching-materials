@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Normalizzazione: dalla ridondanza alle tabelle pulite</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Normalizzazione: dalla ridondanza alle tabelle pulite</h1>
+            <p class="subtitle">Questa tabella "Ordini" ripete gli stessi dati più e più volte. Guarda cosa può
+                andare storto — e come separare le informazioni indipendenti in tabelle proprie risolve il
+                problema alla radice</p>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="step1Btn">① Estrai i clienti</button>
+                <button class="btn btn-primary" id="step2Btn" disabled>② Estrai i prodotti</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Reimposta tutto</button>
+            </div>
+
+            <div id="tablesWrap"></div>
+
+            <div class="anomaly-box" id="anomalyBox"></div>
+
+            <div class="controls">
+                <button class="btn btn-warn" id="simulateBtn">✏️ Simula: Giulia cambia email</button>
+            </div>
+            <p class="sim-result" id="simResult"></p>
+
+            <div class="help-panel">
+                <h3 class="help-title">Cosa sta succedendo?</h3>
+                <ul class="help-list">
+                    <li>• <strong>Anomalia di aggiornamento</strong>: se lo stesso dato è scritto in più righe,
+                        cambiarlo richiede aggiornarle <em>tutte</em> — dimenticarne anche solo una lascia il
+                        database in uno stato contraddittorio (due email diverse per la stessa persona).</li>
+                    <li>• <strong>Anomalia di inserimento</strong>: in questa tabella non puoi registrare un nuovo
+                        cliente finché non fa un ordine, perché un cliente esiste solo "dentro" una riga di
+                        ordine.</li>
+                    <li>• <strong>Anomalia di cancellazione</strong>: se cancelli l'unico ordine di un cliente,
+                        perdi anche ogni traccia del cliente stesso — non solo dell'ordine.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">È davvero "2NF" e "3NF" in senso stretto? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Le forme normali formali (1NF, 2NF, 3NF...) si definiscono con precisione a partire dalle
+                        <strong>dipendenze funzionali</strong> e dalla chiave scelta per la tabella, e il
+                        procedimento rigoroso può risultare in passaggi diversi a seconda di come si sceglie di
+                        modellare la chiave di questa particolare tabella. Qui l'obiettivo è più semplice e più
+                        importante da cogliere prima dei dettagli formali: una tabella che mescola fatti
+                        indipendenti (un cliente, un prodotto, un ordine) nella stessa riga ripete inevitabilmente
+                        informazione — e separarli in tabelle proprie, collegate da chiavi esterne, è esattamente
+                        il tipo di scomposizione a cui mirano 2NF e 3NF. I nomi dei passi qui sono un'etichetta
+                        didattica per quell'idea, non una dimostrazione formale.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

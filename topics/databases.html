@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basi di dati — CS and ICT teaching materials</title>
+    <link rel="stylesheet" href="../assets/style.css" />
+</head>
+
+<body>
+    <div class="page">
+        <a class="back-link" href="../index.html">← Torna all'indice</a>
+
+        <header>
+            <div class="header-icon">🗄️</div>
+            <h1>Basi di dati</h1>
+            <p class="subtitle">Come organizzare dati collegati tra loro in tabelle, interrogarle con SQL, ed
+                evitare che si contraddicano da sole.</p>
+        </header>
+
+        <main class="projects">
+            <a class="card" href="../sql-query-explorer/">
+                <div class="card-title">SQL dal vivo: SELECT, WHERE, JOIN</div>
+                <p class="card-description">Scrivi una query su un piccolo database di studenti e voti, ed
+                    eseguila davvero: un motore SQL scritto da zero la interpreta ed esegue riga per riga.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../er-diagram-explorer/">
+                <div class="card-title">Diagrammi ER: cardinalità e tabelle</div>
+                <p class="card-description">Tre scenari, ciascuno con una relazione 1:1, una 1:N e una N:M: clicca
+                    su una cardinalità per scoprire le tabelle SQL che ne derivano.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../normalization-explorer/">
+                <div class="card-title">Normalizzazione: dalla ridondanza alle tabelle pulite</div>
+                <p class="card-description">Una tabella piena di dati ripetuti nasconde tre anomalie: guardale
+                    dal vivo, poi scomponila passo passo in tabelle separate.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../index-btree-explorer/">
+                <div class="card-title">Indici e alberi B: cercare senza leggere tutto</div>
+                <p class="card-description">Confronta, contando i confronti reali, una scansione riga per riga con
+                    una ricerca guidata da un piccolo albero B.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../transazioni-acid-explorer/">
+                <div class="card-title">Transazioni: perché un prelievo può "sparire"</div>
+                <p class="card-description">Due sportelli prelevano dallo stesso conto quasi insieme: guarda un
+                    aggiornamento perdersi senza transazioni, e come le transazioni lo evitano.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../database-locking-explorer/">
+                <div class="card-title">Deadlock: quando due transazioni si bloccano a vicenda</div>
+                <p class="card-description">Due bonifici in direzioni opposte possono aspettarsi a vicenda per
+                    sempre — e un ordine di lock coerente lo previene del tutto.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../query-plan-explorer/">
+                <div class="card-title">Piani di esecuzione: quando l'indice non conviene</div>
+                <p class="card-description">Regola quante righe soddisfano una condizione e guarda il
+                    pianificatore scegliere tra scansione completa e ricerca indicizzata.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../replication-explorer/">
+                <div class="card-title">Replicazione: primario, repliche e lag</div>
+                <p class="card-description">Scrivi sul primario e guarda la modifica propagarsi alle repliche in
+                    ritardo — e cosa succede a leggere da una replica troppo presto.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+        </main>
+
+        <footer>
+            <p>Codice sorgente su <a href="https://github.com/lucanenni/cs-and-ict-teaching-materials">GitHub</a></p>
+        </footer>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabella hash e collisioni</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Tabella hash e collisioni</h1>
+            <p class="subtitle">Come trovare un dato in un colpo solo, quasi sempre — e cosa succede quando due
+                chiavi diverse finiscono nello stesso posto</p>
+
+            <div class="top-row">
+                <div class="setting-group">
+                    <label for="sizeSelect">Numero di bucket:</label>
+                    <select id="sizeSelect">
+                        <option value="4">4 (tante collisioni)</option>
+                        <option value="8" selected>8</option>
+                        <option value="16">16 (poche collisioni)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-row">
+                <input type="text" id="keyInput" maxlength="12" placeholder="Scrivi una parola...">
+                <button class="btn btn-primary" id="insertBtn">➕ Inserisci</button>
+                <button class="btn btn-secondary" id="searchBtn">🔍 Cerca</button>
+                <button class="btn btn-secondary" id="randomBtn">🔀 Parola casuale</button>
+                <button class="btn btn-secondary" id="clearBtn">↻ Svuota</button>
+            </div>
+
+            <div class="presets-row">
+                <span class="presets-label">Prova un caso limite:</span>
+                <button class="chip" id="anagramBtn">ROMA, AMOR, MORA, RAMO (anagrammi)</button>
+            </div>
+
+            <p class="step-caption" id="stepCaption"></p>
+
+            <div class="buckets-box" id="bucketsBox"></div>
+
+            <div class="stats-row" id="statsRow"></div>
+
+            <div class="legend">
+                <span class="legend-item"><span class="legend-dot dot-normal"></span> chiave salvata</span>
+                <span class="legend-item"><span class="legend-dot dot-comparing"></span> in confronto</span>
+                <span class="legend-item"><span class="legend-dot dot-found"></span> trovata</span>
+                <span class="legend-item"><span class="legend-dot dot-new"></span> appena inserita</span>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Una <strong>funzione hash</strong> trasforma una chiave (qui: una parola) in un numero,
+                        sommando il codice di ogni lettera. Il resto della divisione per il numero di bucket dice in
+                        quale bucket va salvata.</li>
+                    <li>• Se la funzione hash è ragionevole e i bucket sono abbastanza numerosi, cercare una chiave
+                        richiede quasi sempre <strong>un solo passo</strong>: calcoli l'hash e guardi direttamente
+                        lì, senza controllare nient'altro.</li>
+                    <li>• Quando due chiavi diverse producono lo stesso hash (una <strong>collisione</strong>), qui
+                        vengono salvate entrambe nello stesso bucket, in una piccola catena — e cercarle richiede di
+                        confrontarle una per una all'interno di quel bucket.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché ROMA, AMOR, MORA e RAMO collidono sempre? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Sono <strong>anagrammi</strong>: contengono esattamente le stesse lettere, solo in ordine
+                        diverso. La funzione hash usata qui somma i codici delle lettere senza considerare la loro
+                        posizione, quindi produce lo <strong>stesso identico numero</strong> per ogni loro
+                        permutazione — e di conseguenza vanno sempre a finire nello stesso bucket, qualunque sia la
+                        dimensione della tabella. Questo è un limite di questa specifica funzione hash (scelta
+                        apposta perché è facile da calcolare a mano), non delle tabelle hash in generale: le funzioni
+                        hash usate davvero (come quelle viste nel progetto "Effetto valanga" di questa raccolta) sono
+                        progettate apposta per non avere questo problema, distribuendo anche input molto simili in
+                        modo il più possibile imprevedibile.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL dal vivo: SELECT, WHERE, JOIN</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>SQL dal vivo: SELECT, WHERE, JOIN</h1>
+            <p class="subtitle">Scrivi una query su un piccolo database di studenti e voti, ed eseguila davvero:
+                questa pagina contiene un motore SQL scritto da zero (solo SELECT/FROM/JOIN/WHERE/ORDER BY) che
+                interpreta ed esegue quello che scrivi, riga per riga</p>
+
+            <h2 class="section-title">Le tabelle disponibili</h2>
+            <div class="dataset-row">
+                <div class="dataset-table">
+                    <div class="dataset-name">studenti</div>
+                    <table class="mini-table" id="studentiTable"></table>
+                </div>
+                <div class="dataset-table">
+                    <div class="dataset-name">voti</div>
+                    <table class="mini-table" id="votiTable"></table>
+                </div>
+            </div>
+            <p class="hint-text">Le due tabelle si collegano con <code>studenti.id = voti.studente_id</code>.</p>
+
+            <h2 class="section-title">Prova una query</h2>
+            <div class="chip-row" id="presetChips"></div>
+
+            <textarea id="queryInput" class="query-input" spellcheck="false" rows="3"></textarea>
+            <div class="controls">
+                <button class="btn btn-primary" id="runBtn">▶ Esegui</button>
+            </div>
+
+            <div class="result-box" id="resultBox"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Cosa capisce questo motore?</h3>
+                <ul class="help-list">
+                    <li>• <code>SELECT colonna1, colonna2 FROM tabella</code> oppure <code>SELECT *</code> per
+                        tutte le colonne.</li>
+                    <li>• <code>WHERE colonna OPERATORE valore</code>, con <code>= != &lt;&gt; &lt; &gt; &lt;= &gt;=</code>,
+                        anche incatenate con <code>AND</code>. I testi vanno tra apici: <code>'5A'</code>.</li>
+                    <li>• <code>JOIN altratabella ON tabella1.colonna = tabella2.colonna</code> per unire le due
+                        tabelle riga per riga dove la condizione è vera.</li>
+                    <li>• <code>ORDER BY colonna</code>, opzionalmente seguito da <code>ASC</code> o
+                        <code>DESC</code>.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Come "pensa" questo motore quando esegue una query? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Nell'ordine: prima carica tutte le righe della tabella in <code>FROM</code>; se c'è un
+                        <code>JOIN</code>, confronta ogni riga della prima tabella con ogni riga della seconda e
+                        tiene solo le coppie che soddisfano la condizione <code>ON</code> (un <strong>prodotto
+                            cartesiano filtrato</strong>, il modo più semplice — anche se non il più efficiente —
+                        di fare un join); poi scarta le righe che non soddisfano il <code>WHERE</code>; poi
+                        ordina, se richiesto; solo alla fine sceglie quali colonne mostrare, in
+                        <code>SELECT</code>. È anche l'ordine logico con cui un vero database SQL valuta una
+                        query, anche se la sintassi la scrive con SELECT per primo.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="engine.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

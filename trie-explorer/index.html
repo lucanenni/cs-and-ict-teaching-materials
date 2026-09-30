@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trie (albero dei prefissi)</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Trie (albero dei prefissi)</h1>
+            <p class="subtitle">Come fa il tuo telefono a suggerirti la parola giusta dopo appena tre lettere? Un
+                <strong>trie</strong> organizza le parole lettera per lettera, condividendo ogni prefisso comune —
+                cercare "tutte le parole che iniziano con..." costa quanto leggere il prefisso stesso</p>
+
+            <div class="add-row">
+                <input type="text" id="addInput" placeholder="aggiungi una parola...">
+                <button class="btn btn-primary" id="addBtn">➕ Aggiungi</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Ripristina elenco</button>
+            </div>
+
+            <div class="search-section">
+                <label for="searchInput">Digita un prefisso — il percorso si evidenzia dal vivo</label>
+                <input type="text" id="searchInput" placeholder="es. car" autocomplete="off">
+            </div>
+
+            <div class="results-box">
+                <span class="results-label">Parole con questo prefisso:</span>
+                <span class="results-value" id="resultsValue">tutte (nessun prefisso)</span>
+            </div>
+
+            <div class="tree-wrapper">
+                <ul class="tree" id="treeRoot"></ul>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Ogni nodo dell'albero rappresenta <strong>una lettera</strong>, e il percorso dalla
+                        radice fino a un nodo rappresenta il prefisso letto finora. Parole diverse che iniziano
+                        allo stesso modo condividono lo stesso percorso — solo dove le lettere iniziano a
+                        differire l'albero si dirama.</li>
+                    <li>• Un nodo <strong>pieno</strong> (evidenziato) significa che il percorso fin lì compone una
+                        parola completa, non solo un prefisso: "sol" può essere sia una parola vera sia l'inizio
+                        di "solitario".</li>
+                    <li>• Cercare tutte le parole con un dato prefisso significa semplicemente: scendere fino al
+                        nodo di quel prefisso, poi elencare tutte le parole raggiungibili da lì in giù.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché non usare semplicemente una lista di parole? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Con una lista (o un array) di parole, trovare "tutte le parole che iniziano con car"
+                        significa <strong>controllarle una per una</strong>: tempo proporzionale al numero totale
+                        di parole nel dizionario, magari centinaia di migliaia. Con un trie, basta seguire tre
+                        passi — c, a, r — per arrivare esattamente al punto dell'albero da cui partire: il tempo
+                        dipende solo dalla <strong>lunghezza del prefisso</strong>, non da quante parole esistono
+                        in totale. È per questo che i trie si usano per l'autocompletamento (tastiere, motori di
+                        ricerca), i correttori ortografici, e persino per instradare pacchetti IP (dove si cerca il
+                        prefisso di rete più lungo che corrisponde a un indirizzo). Il costo è la memoria: un trie
+                        può occupare più spazio di una semplice lista, perché ogni lettera diventa un nodo con i
+                        suoi riferimenti ai nodi successivi.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

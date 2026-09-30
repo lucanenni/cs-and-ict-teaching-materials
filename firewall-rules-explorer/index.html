@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regole firewall: l'ordine conta</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Regole firewall: l'ordine conta</h1>
+            <p class="subtitle">Un firewall controlla le sue regole <strong>in ordine</strong> e si ferma alla
+                prima che corrisponde al pacchetto. Una regola giusta messa nel posto sbagliato può non servire a
+                nulla — scoprilo testando un IP sospetto</p>
+
+            <h2 class="section-title">Regole (dall'alto verso il basso)</h2>
+            <div class="table-wrap">
+                <table class="rules-table" id="rulesTable"></table>
+            </div>
+            <div class="controls">
+                <button class="btn btn-secondary" id="resetRulesBtn">↺ Ripristina ordine iniziale</button>
+            </div>
+
+            <h2 class="section-title">Testa un pacchetto</h2>
+            <div class="chip-row" id="packetChips"></div>
+
+            <div class="step-panel" id="stepPanel">Scegli un pacchetto da testare qui sopra.</div>
+            <div class="controls">
+                <button class="btn btn-secondary" id="stepBtn" disabled>Passo singolo →</button>
+                <button class="btn btn-primary" id="playBtn" disabled>▶ Valuta tutte le regole</button>
+            </div>
+            <div class="result-banner" id="resultBanner"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Il firewall guarda le regole <strong>una alla volta, dall'alto</strong>, e applica
+                        l'azione della <strong>prima</strong> che corrisponde a mittente, porta e protocollo del
+                        pacchetto — poi si ferma, ignorando tutte le regole successive.</li>
+                    <li>• Se nessuna regola corrisponde, si applica la <strong>politica predefinita</strong>: qui,
+                        come nella maggior parte dei firewall reali, "nega tutto ciò che non è esplicitamente
+                        permesso".</li>
+                    <li>• Per questo una regola <code>ALLOW</code> generica messa troppo in alto può
+                        "coprire" involontariamente traffico che una regola <code>DENY</code> più specifica, ma
+                        posizionata più in basso, avrebbe dovuto bloccare.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché non ordinare le regole "per specificità" in automatico? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Alcuni sistemi più moderni (i firewall "stateful" con priorità esplicite, o certi sistemi
+                        basati su criteri) provano proprio a fare questo. Ma un firewall classico a lista ordinata
+                        (come iptables o le ACL di molti router) valuta le regole esattamente nell'ordine in cui
+                        sono scritte, senza calcolare da solo quale sia "più specifica": è un compromesso
+                        deliberato tra semplicità e prevedibilità — sapere esattamente quale regola vince, leggendo
+                        la lista dall'alto, è più facile da verificare a mente che affidarsi a un algoritmo di
+                        priorità automatico, specialmente quando le regole sono centinaia. Il prezzo è che tocca a
+                        chi scrive le regole ricordarsi di ordinarle bene.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

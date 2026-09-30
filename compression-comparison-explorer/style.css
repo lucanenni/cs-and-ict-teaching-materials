@@ -1,0 +1,250 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(to bottom right, #eff6ff, #eef2ff);
+    min-height: 100vh;
+    padding: 1.5rem;
+}
+
+.container {
+    max-width: 62rem;
+    margin: 0 auto;
+}
+
+.card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #6b7280;
+    margin-bottom: 1.25rem;
+}
+
+label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 0.65rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    font-family: monospace;
+    margin-bottom: 0.75rem;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.presets-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.presets-label {
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+.chip {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 9999px;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.76rem;
+    font-family: monospace;
+    color: #1d4ed8;
+    cursor: pointer;
+}
+
+.chip:hover {
+    background: #dbeafe;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.85rem;
+    margin-bottom: 1.25rem;
+}
+
+@media (max-width: 720px) {
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.result-box {
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 0.9rem;
+}
+
+.result-title {
+    font-weight: 700;
+    color: #1d4ed8;
+    font-size: 0.9rem;
+    margin-bottom: 0.6rem;
+}
+
+.token-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-bottom: 0.6rem;
+    max-height: 8rem;
+    overflow-y: auto;
+}
+
+.token-chip {
+    font-family: monospace;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    background: white;
+    border: 1px solid #e5e7eb;
+    color: #374151;
+}
+
+.token-chip.match {
+    background: #dbeafe;
+    border-color: #93c5fd;
+    color: #1d4ed8;
+    font-weight: 700;
+}
+
+.token-chip.run {
+    background: #dcfce7;
+    border-color: #86efac;
+    color: #15803d;
+    font-weight: 700;
+}
+
+.result-size {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #1e3a8a;
+}
+
+.result-note {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 0.3rem;
+}
+
+.summary-table-wrapper {
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+}
+
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: monospace;
+    font-size: 0.85rem;
+}
+
+.summary-table th,
+.summary-table td {
+    border: 1px solid #e5e7eb;
+    padding: 0.5rem 0.7rem;
+    text-align: center;
+}
+
+.summary-table th {
+    background: #f9fafb;
+    color: #374151;
+}
+
+.summary-table td.best {
+    background: #dcfce7;
+    font-weight: 700;
+    color: #15803d;
+}
+
+.summary-table td.worst {
+    background: #fef2f2;
+    color: #b91c1c;
+}
+
+.help-panel {
+    background-color: #eff6ff;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.help-title {
+    font-weight: 600;
+    color: #1e3a8a;
+    margin-bottom: 0.5rem;
+}
+
+.help-list {
+    font-size: 0.875rem;
+    color: #1e3a8a;
+    list-style: none;
+}
+
+.help-list li {
+    margin-bottom: 0.35rem;
+}
+
+.help-list a {
+    color: #1d4ed8;
+}
+
+.btn-link {
+    display: block;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #2563eb;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.btn-link:hover {
+    color: #1e3a8a;
+}
+
+.deep-dive-panel {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #bfdbfe;
+    font-size: 0.875rem;
+    color: #1e3a8a;
+    line-height: 1.6;
+}
+
+.hidden {
+    display: none;
+}
