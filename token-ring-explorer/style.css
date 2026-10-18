@@ -1,0 +1,375 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(to bottom right, #eff6ff, #fefce8);
+    min-height: 100vh;
+    padding: 1.5rem;
+}
+
+.container {
+    max-width: 62rem;
+    margin: 0 auto;
+}
+
+.card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+.section-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.75rem;
+}
+
+.controls {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 0.85rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    font-weight: 600;
+    padding: 0.6rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 0.82rem;
+}
+
+.btn:disabled {
+    background-color: #e5e7eb !important;
+    color: #9ca3af !important;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background-color: #1d4ed8;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #1e40af;
+}
+
+.btn-secondary {
+    background-color: #e5e7eb;
+    color: #374151;
+}
+
+.btn-secondary:hover {
+    background-color: #d1d5db;
+}
+
+.step-panel {
+    background-color: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 0.85rem;
+    font-size: 0.85rem;
+    color: #374151;
+    line-height: 1.6;
+    min-height: 6rem;
+    max-height: 14rem;
+    overflow-y: auto;
+}
+
+.step-line {
+    padding: 0.3rem 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.step-line:last-child {
+    border-bottom: none;
+}
+
+.step-line.current {
+    font-weight: 700;
+    color: #1d4ed8;
+}
+
+.result-box {
+    border-radius: 0.5rem;
+    padding: 0.9rem 1rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    min-height: 2rem;
+}
+
+.result-box.bad {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.result-box.good {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.help-panel {
+    background-color: #eff6ff;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.help-title {
+    font-weight: 600;
+    color: #1e3a8a;
+    margin-bottom: 0.5rem;
+}
+
+.help-list {
+    font-size: 0.875rem;
+    color: #1e3a8a;
+    list-style: none;
+}
+
+.help-list li {
+    margin-bottom: 0.35rem;
+}
+
+.btn-link {
+    display: block;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1d4ed8;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.btn-link:hover {
+    color: #1e3a8a;
+}
+
+.deep-dive-panel {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #bfdbfe;
+    font-size: 0.875rem;
+    color: #1e3a8a;
+    line-height: 1.6;
+}
+
+.hidden {
+    display: none;
+}
+
+/* --- Nota sul "cosa" vs "come": accesso al mezzo, non topologia fisica ----- */
+
+.callout {
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 0.5rem;
+    padding: 0.85rem 1rem;
+    font-size: 0.82rem;
+    color: #9a3412;
+    line-height: 1.55;
+    margin-bottom: 1.25rem;
+}
+
+/* --- Selezione nodi ---------------------------------------------------------- */
+
+.device-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+}
+
+.device-check {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #f9fafb;
+    border: 2px solid #e5e7eb;
+    border-radius: 9999px;
+    padding: 0.4rem 0.85rem 0.4rem 0.6rem;
+    font-size: 0.8rem;
+    color: #374151;
+    cursor: pointer;
+}
+
+.device-check input {
+    cursor: pointer;
+}
+
+.device-check.active {
+    border-color: #1d4ed8;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-weight: 600;
+}
+
+.device-check .dest-hint {
+    font-size: 0.7rem;
+    color: #6b7280;
+}
+
+/* --- Diagramma: anello di nodi ---------------------------------------------- */
+
+.diagram-box {
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 1.5rem 1rem;
+    margin-bottom: 1rem;
+}
+
+.ring-diagram {
+    position: relative;
+    width: 100%;
+    max-width: 30rem;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+}
+
+.ring-track {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 78%;
+    height: 78%;
+    transform: translate(-50%, -50%);
+    border: 3px dashed #cbd5e1;
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.ring-node {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    width: 5rem;
+    z-index: 1;
+}
+
+.ring-node-icon {
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid #d1d5db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #4b5563;
+    transition: all 0.2s;
+}
+
+.ring-node.wants .ring-node-icon {
+    border-color: #ca8a04;
+    background: #fefce8;
+    color: #92400e;
+}
+
+.ring-node.holder .ring-node-icon {
+    border-color: #1d4ed8;
+    background: #eff6ff;
+    color: #1d4ed8;
+    transform: scale(1.18);
+    box-shadow: 0 0 0 5px rgba(29, 78, 216, 0.18);
+}
+
+.ring-node.sending .ring-node-icon {
+    border-color: #16a34a;
+    background: #dcfce7;
+    color: #15803d;
+    transform: scale(1.18);
+    box-shadow: 0 0 0 5px rgba(22, 163, 74, 0.18);
+}
+
+.ring-node.receiving .ring-node-icon {
+    border-color: #16a34a;
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.ring-node.done .ring-node-icon {
+    border-color: #9ca3af;
+    opacity: 0.6;
+}
+
+.ring-node-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: #4b5563;
+}
+
+.ring-node-status {
+    font-size: 0.62rem;
+    color: #6b7280;
+    text-align: center;
+    min-height: 1.5em;
+}
+
+.token-marker {
+    position: absolute;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    background: #1d4ed8;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    transition: left 0.25s, top 0.25s;
+    box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.25);
+}
+
+.frame-marker {
+    position: absolute;
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 0.3rem;
+    background: #16a34a;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    transform: translate(-50%, -50%) rotate(45deg);
+    z-index: 2;
+    transition: left 0.25s, top 0.25s;
+}
+
+.frame-marker.hidden,
+.token-marker.hidden {
+    display: none;
+}
+
+.frame-marker.returning {
+    background: #0d9488;
+}

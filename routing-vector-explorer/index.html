@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Routing a vettore di distanza</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Routing a vettore di distanza</h1>
+            <p class="subtitle">Ogni router conosce solo i propri vicini diretti. Scambiandosi le tabelle di
+                routing, round dopo round, i router imparano — senza che nessuno veda la rete intera — anche le
+                strade migliori verso destinazioni lontane</p>
+
+            <div class="diagram-box">
+                <div class="network-diagram" id="networkDiagram">
+                    <svg id="edgesSvg" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
+                </div>
+            </div>
+
+            <span class="round-label" id="roundLabel">Round 0 — stato iniziale</span>
+
+            <div class="step-panel" id="stepPanel"></div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">Passo singolo →</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Ricomincia</button>
+            </div>
+
+            <div class="result-box good hidden" id="convergenceBox"></div>
+
+            <h2 class="section-title" style="margin-top: 1.25rem;">Tabelle di routing di ogni router</h2>
+            <div class="router-grid" id="routerGrid"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Un router non "vede" la rete intera: conosce solo il costo dei link verso i suoi vicini
+                        diretti. Tutto il resto lo scopre solo perché i vicini glielo raccontano, round dopo
+                        round — è per questo che si chiama <em>vettore di distanza</em> (distance vector).</li>
+                    <li>• Il <strong>prossimo salto</strong> è il vicino a cui il router deve spedire un pacchetto
+                        per seguire la strada più economica verso una destinazione — non serve conoscere l'intero
+                        percorso, basta sapere "a chi lo passo adesso".</li>
+                    <li>• A ogni round un router aggiorna una distanza solo se <code>costo verso il vicino +
+                            distanza che il vicino dichiara</code> è minore di quella che già conosce — questo è
+                        l'algoritmo di Bellman-Ford distribuito.</li>
+                    <li>• Può servire più di un round perché una strada migliore "si propaga" un salto alla volta:
+                        prima un vicino scopre una scorciatoia, poi al round successivo lo scopre chi è vicino a
+                        lui, e così via, come un'onda che si allarga.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Cosa succede se un link si rompe? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Qui vediamo solo la convergenza "in salita" (i router scoprono strade sempre migliori), che
+                        è sempre rapida e senza problemi. Il caso delicato del distance vector è l'opposto: quando
+                        un link si rompe o peggiora, un router può continuare a credere, per qualche round, a una
+                        strada che in realtà passa proprio per il link rotto — perché un vicino gliela sta ancora
+                        annunciando sulla base di informazioni vecchie, prima che la notizia del guasto si sia
+                        propagata a sua volta. Questo fenomeno si chiama <em>count-to-infinity</em> e può far
+                        convergere la rete molto più lentamente "in discesa" che "in salita". I protocolli reali
+                        (come RIP) usano trucchi come lo <em>split horizon</em> per limitarlo.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codifica di segnale: NRZ vs Manchester</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Codifica di segnale: NRZ vs Manchester</h1>
+            <p class="subtitle">La stessa sequenza di bit, trasformata in due forme d'onda diverse: NRZ, semplice
+                ma a rischio se il destinatario perde il conto del tempo, e Manchester, che garantisce sempre una
+                transizione a metà di ogni bit — al prezzo di usare il doppio della banda.</p>
+
+            <div class="input-row">
+                <input type="text" class="bits-input" id="bitsInput" maxlength="24"
+                    placeholder="es. 1101001100" value="11110000011111" />
+                <button class="btn btn-primary" id="applyBtn">Applica</button>
+                <button class="btn btn-secondary" id="flatExampleBtn">Esempio con lungo tratto piatto</button>
+                <button class="btn btn-secondary" id="randomBtn">Genera sequenza casuale</button>
+            </div>
+            <div class="input-error" id="inputError"></div>
+            <div class="seq-display" id="seqDisplay"></div>
+
+            <div class="waveform-block">
+                <h2 class="section-title">NRZ (Non-Return-to-Zero)</h2>
+                <div class="waveform-wrap">
+                    <svg class="waveform-svg" id="nrzSvg"></svg>
+                </div>
+                <div id="flatWarning" class="result-box bad flat-warning hidden"></div>
+            </div>
+
+            <div class="waveform-block">
+                <h2 class="section-title">Manchester</h2>
+                <p class="hint-text" style="font-size:0.8rem;color:#6b7280;margin-bottom:0.5rem;">Convenzione
+                    usata qui: bit <code>1</code> = transizione ALTO→BASSO a metà bit; bit <code>0</code> =
+                    transizione BASSO→ALTO a metà bit.</p>
+                <div class="waveform-wrap">
+                    <svg class="waveform-svg" id="manchesterSvg"></svg>
+                </div>
+            </div>
+
+            <div class="transitions-row">
+                <div class="transitions-box">
+                    NRZ — transizioni totali<br><span class="count" id="nrzCount">0</span>
+                </div>
+                <div class="transitions-box manchester">
+                    Manchester — transizioni totali<br><span class="count" id="manchesterCount">0</span>
+                </div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• In <strong>NRZ</strong>, ogni bit è un livello costante per tutto il suo intervallo di
+                        tempo: 1 = livello alto, 0 = livello basso. Se due bit consecutivi sono uguali, il livello
+                        resta piatto — nessuna transizione.</li>
+                    <li>• In <strong>Manchester</strong>, ogni bit ha sempre una transizione esattamente a metà
+                        del proprio intervallo: non esiste mai un tratto piatto più lungo di metà bit.</li>
+                    <li>• Senza un filo di <strong>clock</strong> dedicato condiviso tra mittente e destinatario,
+                        quest'ultimo deve dedurre da solo, guardando il segnale dati, quando finisce un bit e
+                        inizia il successivo (questo si chiama <strong>clock recovery</strong>, auto-sincronizzazione).
+                        Se il segnale resta piatto per un lungo tratto (molti bit identici consecutivi in NRZ), il
+                        destinatario rischia di "perdere il conto" di quanti bit sono passati in quel tratto.</li>
+                    <li>• Manchester risolve il problema garantendo sempre almeno una transizione per bit — ma
+                        quella transizione "extra" a metà bit costa: a parità di velocità utile di bit, il segnale
+                        Manchester richiede il <strong>doppio della larghezza di banda</strong> di un NRZ
+                        equivalente, perché ogni bit "costa" sempre una transizione in più rispetto al minimo
+                        possibile.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Non basterebbe un orologio preciso su entrambi i lati? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>In teoria sì, se i due orologi fossero perfettamente sincronizzati e restassero tali per
+                        sempre. In pratica, due orologi fisici indipendenti (uno nel mittente, uno nel destinatario)
+                        derivano sempre un po' l'uno dall'altro nel tempo, anche se di pochissimo: su una lunga
+                        sequenza di bit identici in NRZ, anche una minuscola differenza di frequenza si accumula
+                        bit dopo bit, finché il destinatario non è più sicuro se ha contato, ad esempio, 19 o 20
+                        bit identici. Per questo molti collegamenti seriali preferiscono ricavare il clock
+                        direttamente dalle transizioni del segnale dati (clock recovery), invece di fidarsi di due
+                        orologi separati: Manchester è un modo semplice per garantire che ci sia sempre
+                        un'informazione di temporizzazione dentro al segnale stesso.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

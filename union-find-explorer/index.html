@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Union-Find e l'algoritmo di Kruskal</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Union-Find e l'algoritmo di Kruskal</h1>
+            <p class="subtitle">Costruisci l'albero di copertura minimo di una rete, un arco alla volta, scartando
+                ogni arco che creerebbe un ciclo</p>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playPauseBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">⏭ Passo singolo</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Ricomincia</button>
+            </div>
+
+            <div class="uf-layout">
+                <div class="uf-graph-wrap">
+                    <svg id="graphSvg" viewBox="0 0 600 420" xmlns="http://www.w3.org/2000/svg">
+                        <g id="edgesLayer"></g>
+                        <g id="nodesLayer"></g>
+                    </svg>
+                </div>
+                <div class="uf-edges-wrap">
+                    <div class="uf-edges-title">Archi ordinati per peso crescente:</div>
+                    <div class="edge-list" id="edgeList"></div>
+                </div>
+            </div>
+
+            <div class="uf-stats-row" id="statsRow"></div>
+
+            <div class="step-panel" id="stepCaption">Premi "Avvia" o "Passo singolo" per iniziare a considerare gli
+                archi, dal più leggero al più pesante.</div>
+
+            <div class="result-box hidden" id="resultBox"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• <strong>Union-Find</strong> è una struttura dati che risponde velocemente alla domanda
+                        "questi due nodi sono già collegati, anche indirettamente?": ogni nodo conosce la "radice"
+                        del proprio insieme (<code>find</code>), e due nodi sono collegati se hanno la stessa
+                        radice.</li>
+                    <li>• <strong>Kruskal</strong> ordina tutti gli archi dal più leggero al più pesante e li
+                        considera uno alla volta: se i due estremi sono già nello stesso insieme, l'arco creerebbe un
+                        <strong>ciclo</strong> e viene scartato; altrimenti viene aggiunto e i due insiemi si
+                        uniscono (<code>union</code>).</li>
+                    <li>• Un <strong>albero di copertura minimo</strong> (MST) collega tutti i nodi con il peso
+                        totale più basso possibile, e per definizione non contiene mai cicli: ecco perché ogni arco
+                        che ne creerebbe uno va sempre scartato, senza eccezioni.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché partire sempre dall'arco più leggero funziona? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>È una proprietà che si dimostra per assurdo: supponi che l'arco più leggero di tutto il grafo
+                        non faccia parte di <em>nessun</em> albero di copertura minimo. Prendi un MST qualsiasi: se
+                        non contiene quell'arco, aggiungendolo si forma per forza un ciclo (perché un MST già
+                        collega tutti i nodi). Rimuovendo un qualunque altro arco di quel ciclo si ottiene un altro
+                        albero di copertura — ma dato che l'arco aggiunto era il più leggero di tutti, questo nuovo
+                        albero pesa lo stesso o meno di quello da cui siamo partiti. Quindi l'arco più leggero può
+                        sempre essere incluso senza peggiorare il risultato: per questo Kruskal può permettersi di
+                        decidere ogni arco una volta per tutte, nell'ordine dal più leggero al più pesante, senza mai
+                        dover tornare indietro.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

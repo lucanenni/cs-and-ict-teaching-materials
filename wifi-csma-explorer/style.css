@@ -1,0 +1,367 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(to bottom right, #eff6ff, #fefce8);
+    min-height: 100vh;
+    padding: 1.5rem;
+}
+
+.container {
+    max-width: 62rem;
+    margin: 0 auto;
+}
+
+.card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+.section-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.75rem;
+}
+
+.controls {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 0.85rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    font-weight: 600;
+    padding: 0.6rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 0.82rem;
+}
+
+.btn:disabled {
+    background-color: #e5e7eb !important;
+    color: #9ca3af !important;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background-color: #1d4ed8;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #1e40af;
+}
+
+.btn-secondary {
+    background-color: #e5e7eb;
+    color: #374151;
+}
+
+.btn-secondary:hover {
+    background-color: #d1d5db;
+}
+
+.step-panel {
+    background-color: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 0.85rem;
+    font-size: 0.85rem;
+    color: #374151;
+    line-height: 1.6;
+    min-height: 6rem;
+    max-height: 13rem;
+    overflow-y: auto;
+}
+
+.step-line {
+    padding: 0.3rem 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.step-line:last-child {
+    border-bottom: none;
+}
+
+.step-line.current {
+    font-weight: 700;
+    color: #1d4ed8;
+}
+
+.result-box {
+    border-radius: 0.5rem;
+    padding: 0.9rem 1rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    min-height: 2rem;
+}
+
+.result-box.bad {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.result-box.good {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.help-panel {
+    background-color: #eff6ff;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.help-title {
+    font-weight: 600;
+    color: #1e3a8a;
+    margin-bottom: 0.5rem;
+}
+
+.help-list {
+    font-size: 0.875rem;
+    color: #1e3a8a;
+    list-style: none;
+}
+
+.help-list li {
+    margin-bottom: 0.35rem;
+}
+
+.btn-link {
+    display: block;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1d4ed8;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.btn-link:hover {
+    color: #1e3a8a;
+}
+
+.deep-dive-panel {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #bfdbfe;
+    font-size: 0.875rem;
+    color: #1e3a8a;
+    line-height: 1.6;
+}
+
+.hidden {
+    display: none;
+}
+
+/* --- Spiegazione CSMA/CD vs CSMA/CA, in evidenza ---------------------------- */
+
+.callout {
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 0.5rem;
+    padding: 0.85rem 1rem;
+    font-size: 0.82rem;
+    color: #9a3412;
+    line-height: 1.55;
+    margin-bottom: 1.25rem;
+}
+
+/* --- Selezione dispositivi -------------------------------------------------- */
+
+.device-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+}
+
+.device-check {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #f9fafb;
+    border: 2px solid #e5e7eb;
+    border-radius: 9999px;
+    padding: 0.4rem 0.85rem 0.4rem 0.6rem;
+    font-size: 0.8rem;
+    color: #374151;
+    cursor: pointer;
+}
+
+.device-check input {
+    cursor: pointer;
+}
+
+.device-check.active {
+    border-color: #1d4ed8;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-weight: 600;
+}
+
+/* --- Diagramma: canale condiviso al centro, dispositivi intorno ------------ */
+
+.diagram-box {
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 1.5rem 1rem;
+    margin-bottom: 1rem;
+}
+
+.channel-diagram {
+    position: relative;
+    width: 100%;
+    max-width: 34rem;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+}
+
+.channel-hub {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 6.5rem;
+    height: 6.5rem;
+    border-radius: 50%;
+    background: white;
+    border: 2px dashed #94a3b8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #475569;
+    padding: 0.4rem;
+    transition: all 0.2s;
+}
+
+.channel-hub.busy {
+    border-color: #dc2626;
+    border-style: solid;
+    background: #fef2f2;
+    color: #991b1b;
+    box-shadow: 0 0 0 8px rgba(220, 38, 38, 0.1);
+}
+
+.channel-hub-icon {
+    font-size: 1.3rem;
+    margin-bottom: 0.15rem;
+}
+
+.spoke {
+    position: absolute;
+    background: #cbd5e1;
+    height: 2px;
+    transform-origin: 0 50%;
+    z-index: 0;
+}
+
+.spoke.active {
+    background: #dc2626;
+    height: 3px;
+}
+
+.device-node {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    width: 6.4rem;
+    z-index: 1;
+}
+
+.device-node-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid #d1d5db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    transition: all 0.2s;
+}
+
+.device-node.sense .device-node-icon,
+.device-node.backoff .device-node-icon {
+    border-color: #ca8a04;
+    background: #fefce8;
+}
+
+.device-node.blocked .device-node-icon {
+    border-color: #dc2626;
+    background: #fef2f2;
+}
+
+.device-node.transmitting .device-node-icon {
+    border-color: #16a34a;
+    background: #dcfce7;
+    transform: scale(1.15);
+    box-shadow: 0 0 0 5px rgba(22, 163, 74, 0.18);
+}
+
+.device-node.done .device-node-icon {
+    border-color: #9ca3af;
+    opacity: 0.6;
+}
+
+.device-node.idle .device-node-icon {
+    opacity: 0.35;
+}
+
+.device-node-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: #4b5563;
+    text-align: center;
+}
+
+.device-node-status {
+    font-size: 0.64rem;
+    color: #6b7280;
+    text-align: center;
+    min-height: 1.6em;
+}
+
+.device-node.blocked .device-node-status {
+    color: #dc2626;
+    font-weight: 600;
+}
+
+.device-node.transmitting .device-node-status {
+    color: #15803d;
+    font-weight: 700;
+}

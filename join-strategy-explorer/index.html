@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nested loop join vs hash join</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Nested loop join vs hash join</h1>
+            <p class="subtitle">Due tabelle, "Ordini" e "Clienti", da unire sulla chiave <code>cliente_id</code>.
+                Confronta passo per passo quante operazioni servono con due strategie di join diverse</p>
+
+            <div class="setup-row">
+                <div class="setup-group">
+                    <label for="rowsInput">Righe per tabella (Ordini e Clienti)<span class="setup-value"
+                            id="rowsValue">6</span></label>
+                    <input type="range" id="rowsInput" min="3" max="15" value="6">
+                </div>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-badge nested">
+                    <div class="stat-label">Nested loop — totale confronti</div>
+                    <div class="stat-value" id="statNestedValue">36</div>
+                    <div class="stat-formula">N × M</div>
+                </div>
+                <div class="stat-badge hash">
+                    <div class="stat-label">Hash join — totale operazioni</div>
+                    <div class="stat-value" id="statHashValue">12</div>
+                    <div class="stat-formula">M (costruzione) + N (lookup)</div>
+                </div>
+            </div>
+
+            <div class="tables-row">
+                <div class="table-col">
+                    <h2 class="section-title">Ordini</h2>
+                    <div class="table-wrap">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ordine_id</th>
+                                    <th>cliente_id</th>
+                                    <th>importo</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordiniBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="table-col">
+                    <h2 class="section-title">Clienti</h2>
+                    <div class="table-wrap">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>cliente_id</th>
+                                    <th>nome</th>
+                                </tr>
+                            </thead>
+                            <tbody id="clientiBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="columns-row">
+                <div class="column">
+                    <h2 class="section-title">Nested loop join</h2>
+                    <p class="hint-text">Per ogni riga di Ordini, scansiona TUTTE le righe di Clienti cercando
+                        <code>cliente_id</code> corrispondente.</p>
+                    <div class="controls">
+                        <button class="btn btn-primary" id="nlRunBtn">▶ Avvia</button>
+                        <button class="btn btn-secondary" id="nlStepBtn">Passo singolo →</button>
+                    </div>
+                    <div class="op-counter" id="nlOpCounter">Confronti: 0</div>
+                    <div class="step-panel scrollable" id="nlStepPanel"></div>
+                    <div class="result-box" id="nlResult"></div>
+                </div>
+                <div class="column">
+                    <h2 class="section-title">Hash join</h2>
+                    <p class="hint-text">Prima costruisce una hash table su Clienti, poi scansiona Ordini una sola
+                        volta con un lookup O(1) per riga.</p>
+                    <div class="controls">
+                        <button class="btn btn-primary" id="hjRunBtn">▶ Avvia</button>
+                        <button class="btn btn-secondary" id="hjStepBtn">Passo singolo →</button>
+                    </div>
+                    <div class="op-counter" id="hjOpCounter">Operazioni: 0</div>
+                    <div class="step-panel scrollable" id="hjStepPanel"></div>
+                    <div class="result-box" id="hjResult"></div>
+                </div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Il <strong>nested loop join</strong> è il metodo più semplice: per ogni riga della
+                        prima tabella, scorre tutte le righe della seconda cercando una corrispondenza. Il numero
+                        di confronti cresce come <strong>N × M</strong> — con tabelle grandi diventa rapidamente
+                        enorme.</li>
+                    <li>• L'<strong>hash join</strong> costruisce prima una struttura hash su una delle due
+                        tabelle (una passata, <strong>O(M)</strong> inserimenti), poi scansiona l'altra tabella una
+                        sola volta facendo per ogni riga un lookup in tempo costante — <strong>O(N)</strong>
+                        lookup in totale. Il totale cresce come <strong>N + M</strong>, molto più lentamente di
+                        N × M.</li>
+                    <li>• Un <strong>query planner</strong> scelge quale strategia usare in base alle dimensioni
+                        delle tabelle e agli indici disponibili: per tabelle grandi senza un indice sulla chiave di
+                        join, l'hash join è quasi sempre più veloce.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché allora non usare sempre l'hash join? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Costruire la hash table ha un costo fisso, anche se piccolo (qui M operazioni), più la
+                        memoria per tenerla in RAM. Su tabelle davvero piccolissime (poche righe), N × M può essere
+                        comunque minore o comparabile a N + M più questo costo di costruzione, e il nested loop
+                        risulta più semplice ed efficiente senza nemmeno dover allocare una struttura aggiuntiva.
+                        Inoltre, se esiste già un <strong>indice</strong> sulla chiave di join di una delle due
+                        tabelle, un "nested loop con indice" può essere competitivo anche su tabelle più grandi,
+                        perché ogni ricerca nell'indice è quasi quanto un lookup hash. Per questo i query planner
+                        valutano i costi stimati di più strategie prima di scegliere, invece di usarne sempre una
+                        sola.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

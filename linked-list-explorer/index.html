@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista concatenata: inserire e rimuovere senza spostare nulla</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Lista concatenata: inserire e rimuovere senza spostare nulla</h1>
+            <p class="subtitle">Una lista concatenata è una catena di caselle ("nodi"), ognuna con un valore e una
+                freccia verso il nodo successivo. Guarda passo per passo come cambiano i puntatori quando si
+                inserisce o si rimuove un nodo — e perché non serve mai spostare gli altri elementi</p>
+
+            <div class="setup-row">
+                <div class="setup-group">
+                    <label>Operazione</label>
+                    <div class="chip-row" id="opChips"></div>
+                </div>
+                <div class="setup-group" id="valueGroup">
+                    <label id="valueLabel">Valore</label>
+                    <input type="text" id="valueInput" class="text-input" value="42" maxlength="8">
+                </div>
+                <div class="setup-group hidden" id="targetGroup">
+                    <label>Nodo di riferimento</label>
+                    <select id="targetSelect" class="text-input"></select>
+                </div>
+            </div>
+
+            <div class="diagram-box">
+                <div class="list-row" id="listRow"></div>
+            </div>
+
+            <div class="step-panel" id="stepPanel"></div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="runBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">Passo singolo →</button>
+                <button class="btn btn-secondary" id="clearListBtn">🗑️ Svuota lista</button>
+            </div>
+
+            <div class="result-box" id="resultBox"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Ogni nodo contiene un <strong>valore</strong> e un puntatore al nodo
+                        <strong>successivo</strong> (o "fine lista" se è l'ultimo). La <strong>TESTA</strong> è un
+                        puntatore speciale che indica sempre il primo nodo (o "vuoto" se la lista non ha nodi).</li>
+                    <li>• <strong>Inserire in testa</strong> non richiede spostare nessun nodo già esistente: si
+                        crea il nuovo nodo, si fa puntare al vecchio primo nodo, e solo alla fine si sposta la
+                        TESTA sul nuovo nodo — in quest'ordine, altrimenti si perderebbe il resto della lista.</li>
+                    <li>• <strong>Rimuovere un nodo</strong> significa far puntare il nodo precedente direttamente
+                        al nodo successivo a quello rimosso, scavalcandolo. Se si rimuove la testa, è la TESTA
+                        stessa a spostarsi sul nodo successivo.</li>
+                    <li>• <strong>Cercare un valore</strong> richiede sempre di attraversare la lista dall'inizio,
+                        nodo per nodo: non esiste un modo per "saltare" direttamente a un elemento in mezzo.</li>
+                    <li>• Questa è una lista concatenata <strong>singola</strong> (un solo puntatore "avanti" per
+                        nodo). Esiste anche la variante <strong>doppia</strong>, in cui ogni nodo ha anche un
+                        puntatore al nodo <em>precedente</em>: permette di attraversare la lista anche a ritroso
+                        e di rimuovere un nodo senza prima dover cercare il suo precedente, al prezzo di un
+                        puntatore in più da mantenere coerente ad ogni operazione.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">In cosa è diversa da un array? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>In un <strong>array</strong>, gli elementi sono contigui in memoria: inserire o rimuovere un
+                        elemento in mezzo richiede spostare fisicamente tutti gli elementi successivi di una
+                        posizione — un lavoro proporzionale alla lunghezza dell'array (<strong>O(n)</strong>). In
+                        una <strong>lista concatenata</strong>, se si ha già un riferimento al punto giusto (es. il
+                        nodo precedente), inserire o rimuovere costa sempre lo stesso, pochissimo lavoro, qualunque
+                        sia la lunghezza della lista (<strong>O(1)</strong>): basta far puntare qualche freccia
+                        altrove, nessun altro nodo si accorge di nulla. Il prezzo da pagare è dall'altra parte:
+                        accedere direttamente all'N-esimo elemento di un array è immediato (si calcola la posizione
+                        in memoria), mentre in una lista concatenata bisogna sempre attraversarla dall'inizio,
+                        nodo per nodo (<strong>O(n)</strong>) — perché i nodi non sono contigui in memoria, possono
+                        trovarsi ovunque, e l'unico modo per sapere dove sta il nodo successivo è leggere il suo
+                        puntatore.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

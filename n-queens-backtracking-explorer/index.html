@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N Regine con backtracking</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>N Regine con backtracking</h1>
+            <p class="subtitle">Piazza N regine su una scacchiera N×N, una per riga, senza che nessuna ne attacchi
+                un'altra — provando, e tornando indietro quando serve</p>
+
+            <div class="top-row">
+                <div class="setting-group">
+                    <label for="nSelect">Dimensione scacchiera:</label>
+                    <select id="nSelect">
+                        <option value="4">4 × 4</option>
+                        <option value="5" selected>5 × 5</option>
+                        <option value="6">6 × 6</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">⏭ Passo singolo</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Ricomincia</button>
+            </div>
+
+            <div class="counters-row">
+                <span>Tentativi di piazzamento: <strong id="placementsCount">0</strong></span>
+                <span>Backtrack effettuati: <strong id="backtracksCount">0</strong></span>
+                <span id="stepCounter"></span>
+            </div>
+
+            <div class="board-wrapper">
+                <div class="board" id="board"></div>
+            </div>
+
+            <div class="legend">
+                <span class="legend-item"><span class="legend-dot dot-queen"></span> regina piazzata</span>
+                <span class="legend-item"><span class="legend-dot dot-trying"></span> cella in esame</span>
+                <span class="legend-item"><span class="legend-dot dot-attacked"></span> sotto attacco</span>
+                <span class="legend-item"><span class="legend-dot dot-backtracked"></span> appena rimossa (backtrack)</span>
+            </div>
+
+            <div class="section-title">Passi</div>
+            <div class="step-panel" id="stepPanel"></div>
+
+            <div class="result-box hidden" id="resultBox"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Si procede riga per riga: per la riga corrente si cerca la prima colonna libera (non
+                        attaccata da nessuna regina già piazzata).</li>
+                    <li>• Se la si trova, si piazza la regina e si passa alla riga successiva.</li>
+                    <li>• Se NESSUNA colonna della riga va bene, si fa <strong>backtrack</strong>: si rimuove la
+                        regina della riga precedente e si riprova con la colonna successiva lì (se non ce ne sono
+                        altre, si torna indietro di un'altra riga ancora, e così via).</li>
+                    <li>• Questo è il <strong>backtracking</strong> in generale: provare una scelta, proseguire come
+                        se fosse quella giusta, e se si arriva a un vicolo cieco tornare indietro e tentare
+                        un'alternativa — invece di dover indovinare subito la soluzione completa.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché non provare prima tutte le combinazioni possibili? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Per il problema delle N regine non esiste una formula che dia subito la soluzione: bisogna
+                        provare delle disposizioni. Generare prima tutte le combinazioni possibili e poi controllarle
+                        una per una sarebbe enormemente più lento, perché la maggior parte delle combinazioni viola
+                        un vincolo già a metà strada (per esempio due regine nella stessa colonna) — eppure verrebbe
+                        generata comunque per intero prima di scoprirlo. Il backtracking, invece, controlla i vincoli
+                        <strong>man mano che costruisce</strong> la soluzione: appena una scelta porta a un conflitto,
+                        la scarta immediatamente e torna indietro, senza mai completare (né generare) le disposizioni
+                        che sarebbero comunque risultate invalide. È per questo che resta l'approccio naturale per i
+                        problemi "con vincoli" come questo, dove si costruisce la soluzione un pezzo alla volta
+                        verificando ogni volta di non aver violato nulla.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

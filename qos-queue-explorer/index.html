@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coda e QoS</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Coda e QoS</h1>
+            <p class="subtitle">Uno stesso collo di bottiglia, due applicazioni molto diverse: una videochiamata
+                che non tollera ritardi e un download che non se ne accorge nemmeno</p>
+
+            <div class="legend-row">
+                <span class="legend-item"><span class="pkt video" style="width:1.1rem;height:1.1rem;"></span>
+                    Videochiamata: pacchetti piccoli e frequenti, sensibili al ritardo</span>
+                <span class="legend-item"><span class="pkt download" style="width:1.6rem;height:1.1rem;"></span>
+                    Download: pacchetti grandi, non sensibili al ritardo</span>
+            </div>
+
+            <div class="setup-row">
+                <div class="setup-group">
+                    <label for="numDownload">Pacchetti download (N)</label>
+                    <input type="number" id="numDownload" min="0" max="16" value="8">
+                </div>
+                <div class="setup-group">
+                    <label for="numVideo">Pacchetti videochiamata (M)</label>
+                    <input type="number" id="numVideo" min="0" max="16" value="6">
+                </div>
+                <button class="btn btn-primary" id="burstBtn">📨 Invia raffica di pacchetti</button>
+            </div>
+
+            <p class="subtitle" style="margin-bottom: 1rem;">Gli stessi pacchetti arrivano identici in entrambe le
+                code qui sotto: a sinistra in semplice ordine di arrivo (FIFO), a destra con la videochiamata che
+                scavalca i download in attesa.</p>
+
+            <div class="columns-row">
+                <div class="column">
+                    <div class="column-title">Coda FIFO <span class="badge">primo arrivato, primo servito</span>
+                    </div>
+
+                    <div class="link-slot empty" id="fifoLink">Link libero, in attesa di pacchetti…</div>
+                    <div class="queue-track" id="fifoQueue"></div>
+
+                    <div class="step-panel" id="fifoStepPanel"></div>
+
+                    <div class="controls">
+                        <button class="btn btn-primary" id="fifoPlayBtn">▶ Avvia</button>
+                        <button class="btn btn-secondary" id="fifoStepBtn">Passo singolo →</button>
+                    </div>
+
+                    <div class="stats-row">
+                        <div class="stat-chip video-stat">
+                            <div class="stat-label">Attesa video (media)</div>
+                            <div class="stat-value" id="fifoVideoAvg">—</div>
+                        </div>
+                        <div class="stat-chip video-stat">
+                            <div class="stat-label">Jitter video</div>
+                            <div class="stat-value" id="fifoVideoJitter">—</div>
+                        </div>
+                        <div class="stat-chip">
+                            <div class="stat-label">Attesa download (media)</div>
+                            <div class="stat-value" id="fifoDownloadAvg">—</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="column-title">Coda con priorità <span class="badge">la videochiamata passa
+                            prima</span></div>
+
+                    <div class="link-slot empty" id="prioLink">Link libero, in attesa di pacchetti…</div>
+                    <div class="queue-track" id="prioQueue"></div>
+
+                    <div class="step-panel" id="prioStepPanel"></div>
+
+                    <div class="controls">
+                        <button class="btn btn-primary" id="prioPlayBtn">▶ Avvia</button>
+                        <button class="btn btn-secondary" id="prioStepBtn">Passo singolo →</button>
+                    </div>
+
+                    <div class="stats-row">
+                        <div class="stat-chip video-stat">
+                            <div class="stat-label">Attesa video (media)</div>
+                            <div class="stat-value" id="prioVideoAvg">—</div>
+                        </div>
+                        <div class="stat-chip video-stat">
+                            <div class="stat-label">Jitter video</div>
+                            <div class="stat-value" id="prioVideoJitter">—</div>
+                        </div>
+                        <div class="stat-chip">
+                            <div class="stat-label">Attesa download (media)</div>
+                            <div class="stat-value" id="prioDownloadAvg">—</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• La <strong>latenza</strong> è quanto tempo un pacchetto aspetta dal momento in cui
+                        arriva al momento in cui viene trasmesso. Il <strong>jitter</strong> è quanto quella
+                        latenza <em>varia</em> da un pacchetto all'altro — e per una videochiamata il jitter
+                        irregolare è spesso peggio di un ritardo fisso, perché l'audio diventa a scatti.</li>
+                    <li>• "Primo arrivato, primo servito" (FIFO) tratta tutti i pacchetti allo stesso modo: se
+                        prima di un pacchetto piccolo e urgente ci sono in coda dei pacchetti grandi, deve
+                        aspettare che finiscano di essere trasmessi, per quanto lungo sia.</li>
+                    <li>• Una coda con <strong>priorità</strong> lascia scavalcare in coda i pacchetti sensibili al
+                        ritardo (qui la videochiamata): quando il link si libera, si guarda prima se c'è un
+                        pacchetto prioritario in attesa, e solo se non ce n'è si serve un download.</li>
+                    <li>• Il tradeoff: i pacchetti del download aspettano più a lungo, in media, con le priorità —
+                        la priorità non fa sparire il traffico, lo fa solo aspettare più indietro in coda.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché non dare sempre priorità assoluta alla videochiamata? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Qui la priorità è <em>non preemptive</em>: un download già in trasmissione non viene
+                        interrotto a metà quando arriva un pacchetto video, deve solo finire. Se si permettesse di
+                        interrompere pacchetti già in corso, o se ci fosse troppo traffico prioritario, i download
+                        potrebbero restare in coda indefinitamente (fenomeno chiamato <em>starvation</em>). I
+                        router reali limitano quanta banda la coda prioritaria può occupare, così anche il
+                        traffico "a bassa priorità" ottiene comunque una fetta garantita, solo servita più tardi.
+                        È lo stesso principio dietro le code multiple viste in
+                        <a href="../load-balancer-explorer/">load-balancer-explorer</a>: dare un trattamento
+                        diverso non significa lasciare che qualcuno non venga mai servito.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

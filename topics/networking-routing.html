@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instradamento e traffico — Reti</title>
+    <link rel="stylesheet" href="../assets/style.css" />
+</head>
+
+<body>
+    <div class="page">
+        <a class="back-link" href="networking.html">← Torna a Reti</a>
+
+        <header>
+            <div class="header-icon">🛣️</div>
+            <h1>Instradamento e traffico</h1>
+            <p class="subtitle">Come un pacchetto trova la strada fino a destinazione, come si gestisce il traffico
+                lungo il percorso, e come si apre un canale sicuro tra due nodi.</p>
+        </header>
+
+        <main class="projects">
+            <a class="card" href="../network-packet-journey/">
+                <div class="card-title">Il viaggio di un pacchetto</div>
+                <p class="card-description">Cosa succede davvero, passo dopo passo, quando il tuo browser carica un
+                    sito: dal DNS al server e ritorno.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../tcp-three-way-handshake-explorer/">
+                <div class="card-title">Handshake TCP a 3 vie</div>
+                <p class="card-description">SYN, SYN-ACK, ACK: come due host aprono una connessione e si
+                    confermano a vicenda i rispettivi numeri di sequenza.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../tls-handshake-explorer/">
+                <div class="card-title">Handshake TLS/HTTPS</div>
+                <p class="card-description">La sequenza reale dei messaggi che aprono un canale https://, con un
+                    vero scambio di chiavi ECDHE e una vera cifratura finale.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../tcp-vs-udp-explorer/">
+                <div class="card-title">TCP vs UDP</div>
+                <p class="card-description">Stessa trasmissione, due filosofie: ritrasmissione e conferme per
+                    garantire l'arrivo, o "spara e vai" senza nessuna garanzia.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../traceroute-explorer/">
+                <div class="card-title">Traceroute: mappare la strada di un pacchetto</div>
+                <p class="card-description">Scopri, un hop alla volta, tutti i router attraversati sfruttando il
+                    campo TTL — esattamente come fa il comando reale.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../routing-vector-explorer/">
+                <div class="card-title">Routing a vettore di distanza</div>
+                <p class="card-description">Cinque router che si scambiano solo le proprie tabelle con i vicini
+                    imparano, round dopo round, le strade più economiche verso tutte le destinazioni.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../firewall-rules-explorer/">
+                <div class="card-title">Regole firewall: l'ordine conta</div>
+                <p class="card-description">Un pacchetto testato contro una lista di regole, che si ferma alla
+                    prima corrispondenza — e come l'ordine può vanificare una regola più specifica.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../load-balancer-explorer/">
+                <div class="card-title">Load balancer: Round Robin vs Least Connections</div>
+                <p class="card-description">Le stesse richieste distribuite su 3 server con due strategie a
+                    confronto, per vedere cosa succede quando una richiesta dura più delle altre.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../cdn-cache-explorer/">
+                <div class="card-title">CDN: cache hit, cache miss e invalidazione</div>
+                <p class="card-description">Guarda una richiesta viaggiare fino all'origine la prima volta, e
+                    tornare quasi istantanea dalla cache le volte successive — finché non scade.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+
+            <a class="card" href="../qos-queue-explorer/">
+                <div class="card-title">Code e QoS</div>
+                <p class="card-description">Una videochiamata e un download condividono lo stesso collo di
+                    bottiglia: guarda la differenza tra una coda FIFO e una a priorità.</p>
+                <span class="card-cta">Apri la simulazione →</span>
+            </a>
+        </main>
+
+        <footer>
+            <p>Codice sorgente su <a href="https://github.com/lucanenni/cs-and-ict-teaching-materials">GitHub</a></p>
+        </footer>
+    </div>
+</body>
+
+</html>

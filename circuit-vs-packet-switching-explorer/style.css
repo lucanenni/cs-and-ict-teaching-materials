@@ -1,0 +1,336 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(to bottom right, #eff6ff, #fefce8);
+    min-height: 100vh;
+    padding: 1.5rem;
+}
+
+.container {
+    max-width: 62rem;
+    margin: 0 auto;
+}
+
+.card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+.section-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.75rem;
+}
+
+.controls {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 0.85rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    font-weight: 600;
+    padding: 0.6rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 0.82rem;
+}
+
+.btn:disabled {
+    background-color: #e5e7eb !important;
+    color: #9ca3af !important;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background-color: #1d4ed8;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #1e40af;
+}
+
+.btn-secondary {
+    background-color: #e5e7eb;
+    color: #374151;
+}
+
+.btn-secondary:hover {
+    background-color: #d1d5db;
+}
+
+.step-panel {
+    background-color: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 0.85rem;
+    font-size: 0.85rem;
+    color: #374151;
+    line-height: 1.6;
+    min-height: 6rem;
+}
+
+.step-line {
+    padding: 0.3rem 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.step-line:last-child {
+    border-bottom: none;
+}
+
+.step-line.current {
+    font-weight: 700;
+    color: #1d4ed8;
+}
+
+.result-box {
+    border-radius: 0.5rem;
+    padding: 0.9rem 1rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    min-height: 2rem;
+}
+
+.result-box.bad {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.result-box.good {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.help-panel {
+    background-color: #eff6ff;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.help-title {
+    font-weight: 600;
+    color: #1e3a8a;
+    margin-bottom: 0.5rem;
+}
+
+.help-list {
+    font-size: 0.875rem;
+    color: #1e3a8a;
+    list-style: none;
+}
+
+.help-list li {
+    margin-bottom: 0.35rem;
+}
+
+.btn-link {
+    display: block;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1d4ed8;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.btn-link:hover {
+    color: #1e3a8a;
+}
+
+.deep-dive-panel {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #bfdbfe;
+    font-size: 0.875rem;
+    color: #1e3a8a;
+    line-height: 1.6;
+}
+
+.hidden {
+    display: none;
+}
+
+/* --- Classi specifiche di circuit-vs-packet-switching-explorer ------------ */
+
+.mode-chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.mode-chip {
+    background: #f9fafb;
+    border: 2px solid #e5e7eb;
+    border-radius: 9999px;
+    padding: 0.45rem 1rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #374151;
+    cursor: pointer;
+}
+
+.mode-chip:hover {
+    background: #f3f4f6;
+}
+
+.mode-chip.active {
+    border-color: #1d4ed8;
+    background: #eff6ff;
+    color: #1d4ed8;
+}
+
+.diagram-box {
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin-bottom: 0.85rem;
+    overflow-x: auto;
+}
+
+.net-svg {
+    width: 100%;
+    min-width: 34rem;
+    height: 11rem;
+    display: block;
+}
+
+.net-node circle {
+    fill: white;
+    stroke: #d1d5db;
+    stroke-width: 2.5;
+    transition: all 0.2s;
+}
+
+.net-node.endpoint circle {
+    fill: #f3f4f6;
+    stroke: #9ca3af;
+}
+
+.net-node text {
+    font-size: 0.8rem;
+    font-weight: 700;
+    fill: #374151;
+}
+
+.net-node.active circle {
+    fill: #dbeafe;
+    stroke: #2563eb;
+    stroke-width: 3.5;
+}
+
+.net-link {
+    stroke: #e5e7eb;
+    stroke-width: 4;
+    transition: stroke 0.2s, stroke-width 0.2s;
+}
+
+.net-link.reserved {
+    stroke: #93c5fd;
+    stroke-width: 6;
+}
+
+.net-link.flowing {
+    stroke: #2563eb;
+    stroke-width: 6;
+}
+
+.net-link.idle-reserved {
+    stroke: #fbbf24;
+    stroke-width: 6;
+}
+
+.net-link.packet-mine {
+    stroke: #16a34a;
+    stroke-width: 5;
+}
+
+.net-link.packet-other {
+    stroke: #d97706;
+    stroke-width: 5;
+    stroke-dasharray: 3 4;
+}
+
+.net-link-label {
+    font-size: 0.65rem;
+    fill: #6b7280;
+}
+
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    margin-top: 0.5rem;
+}
+
+.summary-table th,
+.summary-table td {
+    text-align: left;
+    padding: 0.55rem 0.6rem;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.summary-table th {
+    background: #f3f4f6;
+    color: #374151;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.summary-table td.yes {
+    color: #166534;
+    font-weight: 700;
+}
+
+.summary-table td.no {
+    color: #991b1b;
+    font-weight: 700;
+}
+
+.counters-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.85rem;
+}
+
+.counter-pill {
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.85rem;
+    font-size: 0.78rem;
+    color: #374151;
+}
+
+.counter-pill strong {
+    color: #1d4ed8;
+}

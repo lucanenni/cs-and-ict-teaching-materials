@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wi-Fi e CSMA/CA</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Wi-Fi e CSMA/CA</h1>
+            <p class="subtitle">Più dispositivi condividono la stessa "aria": prima di trasmettere devono
+                mettersi d'accordo, senza parlarsi, su chi va e quando</p>
+
+            <div class="callout">
+                <strong>Perché non come il cavo Ethernet?</strong> Una scheda Ethernet via cavo può ascoltare il
+                cavo <em>mentre</em> trasmette, e accorgersi a metà se un'altra scheda ha trasmesso insieme a lei
+                (CSMA/<strong>CD</strong>, Collision <strong>Detection</strong>). Una radio Wi-Fi è invece
+                <strong>half-duplex</strong>: mentre il suo stesso trasmettitore è acceso, il suo ricevitore viene
+                "accecato" dal proprio segnale e non riesce a sentire nulla d'altro sul canale. Quindi il Wi-Fi non
+                può rilevare una collisione mentre avviene: deve <strong>evitarla in anticipo</strong>
+                (CSMA/<strong>CA</strong>, Collision <strong>Avoidance</strong>), ascoltando prima di partire e
+                aspettando un tempo casuale.
+            </div>
+
+            <h2 class="section-title">Chi vuole trasmettere?</h2>
+            <div class="device-picker" id="devicePicker"></div>
+
+            <div class="diagram-box">
+                <div class="channel-diagram" id="channelDiagram">
+                    <div class="channel-hub" id="channelHub">
+                        <div class="channel-hub-icon">📡</div>
+                        <div>Canale Wi-Fi<br>condiviso</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-panel" id="stepPanel"></div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">Passo singolo →</button>
+                <button class="btn btn-secondary" id="newScenarioBtn">🔀 Nuovo scenario</button>
+            </div>
+
+            <div class="result-box good hidden" id="doneBox"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• <strong>Carrier sense</strong>: prima di trasmettere, ogni dispositivo ascolta il
+                        canale. Se è occupato, aspetta che si liberi.</li>
+                    <li>• <strong>Backoff casuale</strong>: anche a canale libero, il dispositivo non trasmette
+                        subito — sceglie a caso un breve numero di "slot" di attesa e conta alla rovescia. Se il
+                        conto arriva a zero senza che nessuno abbia iniziato a trasmettere, parte.</li>
+                    <li>• Se durante l'attesa un altro dispositivo inizia a trasmettere, il conto alla rovescia si
+                        blocca: il dispositivo aspetta che il canale torni libero e poi riparte con un
+                        <strong>nuovo backoff, più lungo</strong> (la finestra di attesa si raddoppia a ogni
+                        tentativo).</li>
+                    <li>• Il backoff è <em>casuale</em> apposta: se tutti i dispositivi aspettassero lo stesso
+                        numero di slot, ripartirebbero tutti insieme non appena il canale si libera — e
+                        collisionerebbero di nuovo, sempre nello stesso istante.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Allora la collisione non può mai succedere? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Può ancora succedere, anche se è rara: se due dispositivi scelgono per caso lo
+                        <strong>stesso</strong> numero di slot di backoff, i loro conti alla rovescia arrivano a
+                        zero nello stesso istante e iniziano a trasmettere insieme — una vera collisione, che
+                        nessuno dei due riesce a percepire finché non manca la conferma (ACK) del destinatario.
+                        Proprio perché può succedere, dopo ogni tentativo andato male la finestra di backoff si
+                        raddoppia: più dispositivi stanno litigando per il canale, più ampio diventa l'intervallo
+                        da cui pescare a caso, e più improbabile diventa scegliere di nuovo lo stesso numero.
+                        "Prova a riprova con backoff più ampio" è anche l'idea dietro il
+                        <a href="../database-locking-explorer/">retry dopo un deadlock</a> in altri contesti.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

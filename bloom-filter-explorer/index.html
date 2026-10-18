@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloom filter: verificare l'appartenenza senza memorizzare nulla</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Bloom filter: verificare l'appartenenza senza memorizzare nulla</h1>
+            <p class="subtitle">Un piccolo array di bit e due o tre funzioni hash bastano per rispondere "probabilmente
+                presente" o "sicuramente assente" senza mai salvare gli elementi veri e propri. Il prezzo da pagare:
+                qualche falso positivo</p>
+
+            <h2 class="section-title">Array di bit (16 celle)</h2>
+            <div class="bit-array" id="bitArray"></div>
+
+            <div class="setup-row">
+                <div class="setup-group">
+                    <label for="wordInput">Parola</label>
+                    <input type="text" id="wordInput" class="text-input" value="gatto" maxlength="20">
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="addBtn">➕ Aggiungi elemento</button>
+                <button class="btn btn-primary" id="checkBtn">🔍 Verifica presenza</button>
+            </div>
+            <div class="controls">
+                <button class="btn btn-secondary" id="runBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">Passo singolo →</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Reset filtro</button>
+            </div>
+
+            <div class="step-panel" id="stepPanel"></div>
+
+            <div class="result-box" id="resultBox"></div>
+
+            <h2 class="section-title">Elementi aggiunti finora</h2>
+            <p class="added-list" id="addedList">(nessuno)</p>
+
+            <div class="demo-box">
+                <h3 class="demo-title">Prova il falso positivo</h3>
+                <p class="hint-text">Fai "Reset filtro", poi aggiungi in ordine <code>gatto</code>, <code>luna</code> e
+                    <code>treno</code>. Poi verifica <code>pane</code>: non è mai stato aggiunto, ma il filtro
+                    risponderà "probabilmente presente" — un <strong>falso positivo</strong> dovuto ai bit che quelle
+                    tre parole hanno già acceso per coincidenza. Verifica invece <code>sole</code>: risulterà
+                    "sicuramente assente", un vero negativo.</p>
+                <div class="controls">
+                    <button class="btn btn-secondary" id="demoSetupBtn">Prepara la demo (gatto, luna, treno)</button>
+                </div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Ogni parola aggiunta viene passata a 2-3 <strong>funzioni hash</strong> diverse, ognuna
+                        delle quali calcola una posizione nell'array di bit: quei bit vengono impostati a 1.</li>
+                    <li>• Per verificare se una parola è presente, si calcolano le stesse posizioni hash: se
+                        <strong>tutti</strong> i bit in quelle posizioni sono 1, il filtro risponde "probabilmente
+                        presente"; se <strong>almeno uno</strong> è 0, risponde "sicuramente assente".</li>
+                    <li>• Un bit a 0 è una prova certa: se la parola fosse stata davvero aggiunta, quel bit
+                        specifico sarebbe stato impostato a 1. Per questo il Bloom filter non produce <strong>mai
+                        falsi negativi</strong>.</li>
+                    <li>• Può però produrre <strong>falsi positivi</strong>: parole mai aggiunte possono risultare
+                        "probabilmente presenti" se, per coincidenza, altre parole diverse hanno già acceso tutti i
+                        bit giusti.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché usarlo, visto che può sbagliare? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Perché è <strong>velocissimo</strong> e occupa <strong>pochissima memoria</strong>, molta
+                        meno di quanta ne servirebbe per salvare l'elenco completo di tutti gli elementi reali: un
+                        array di qualche migliaio di bit può rappresentare milioni di elementi, mentre salvarli
+                        tutti costerebbe migliaia di volte più spazio. In compenso non sbaglia mai nella direzione
+                        più pericolosa: se dice "assente", è <strong>assente con certezza</strong>, mai un falso
+                        negativo. È perfetto per evitare un controllo costoso — su disco, in rete o su un database
+                        remoto — nei casi, molto frequenti in pratica, in cui la risposta vera è quasi sempre "no":
+                        si chiede prima al Bloom filter, e solo se risponde "probabilmente sì" si fa davvero il
+                        controllo lento e definitivo. Il costo dei rari falsi positivi (qualche controllo lento in
+                        più, fatto invano) è molto più basso del risparmio ottenuto evitandolo quasi sempre.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

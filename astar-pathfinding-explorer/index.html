@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A* contro Dijkstra</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>A* contro Dijkstra: una bussola aiuta</h1>
+            <p class="subtitle">Stesso punto di partenza, stesso arrivo, stessi muri: Dijkstra espande le celle
+                "alla cieca", solo in base al costo già accumulato, mentre A* usa anche una <strong>euristica</strong>
+                (la distanza in linea d'aria dall'arrivo) per capire in che direzione conviene guardare prima.
+                Trovano sempre lo stesso percorso ottimo — ma A* ci arriva esplorando molte meno celle</p>
+
+            <p class="hint-text">Clicca sulle celle di una delle due griglie per disegnare o togliere un muro
+                (vale per entrambe: condividono la stessa mappa).</p>
+
+            <div class="presets-row">
+                <span class="presets-label">Prova:</span>
+                <button class="chip" data-preset="empty">Vuoto</button>
+                <button class="chip" data-preset="wall-gap">Muro con un varco</button>
+                <button class="chip" data-preset="maze">Labirinto a doppia parete</button>
+                <button class="chip" data-preset="box">Arrivo quasi isolato</button>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="runBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">⏭ Passo singolo</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Pulisci muri</button>
+            </div>
+
+            <div class="speed-row">
+                <label for="speedSlider" class="speed-label">Velocità</label>
+                <input type="range" id="speedSlider" min="10" max="200" step="10" value="60">
+                <span id="speedValue" class="speed-value"></span>
+            </div>
+
+            <p class="live-stats" id="liveStats"></p>
+
+            <div class="compare-row">
+                <div class="compare-col">
+                    <div class="compare-title">Dijkstra <span class="algo-tag algo-tag-d">nessuna euristica</span>
+                    </div>
+                    <div class="grid-wrap">
+                        <div id="dGrid" class="astar-grid"></div>
+                    </div>
+                </div>
+                <div class="compare-col">
+                    <div class="compare-title">A* <span class="algo-tag algo-tag-a">euristica: Manhattan</span>
+                    </div>
+                    <div class="grid-wrap">
+                        <div id="aGrid" class="astar-grid"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="legend-row">
+                <span class="legend-item"><span class="legend-dot dot-wall"></span> muro</span>
+                <span class="legend-item"><span class="legend-dot dot-d"></span> espansa da Dijkstra</span>
+                <span class="legend-item"><span class="legend-dot dot-a"></span> espansa da A*</span>
+                <span class="legend-item"><span class="legend-dot dot-path"></span> percorso finale</span>
+            </div>
+
+            <div class="step-panel" id="stepPanel"></div>
+
+            <div class="result-box" id="resultBox"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Entrambi gli algoritmi tengono una lista di celle "da esplorare" e scelgono ogni volta
+                        quella più promettente. Dijkstra la sceglie guardando solo <strong>g</strong>, il costo già
+                        accumulato dalla partenza. A* guarda <strong>f = g + h</strong>, dove h è una stima (la
+                        distanza di Manhattan) di quanto resta ancora da fare per arrivare.</li>
+                    <li>• Una euristica è <strong>ammissibile</strong> quando non sovrastima mai il costo reale
+                        rimanente — nel caso peggiore lo sottostima, non lo esagera mai per eccesso. La distanza di
+                        Manhattan lo è sempre: il percorso reale (fatto di passi su e giù, avanti e indietro) non
+                        può mai essere più corto della distanza in linea d'aria.</li>
+                    <li>• Proprio perché h non sovrastima mai, A* non "si fida" mai troppo e non scarta per errore
+                        una cella che in realtà porterebbe al percorso migliore: per questo trova sempre lo stesso
+                        costo ottimo di Dijkstra. Semplicemente, preferendo le celle che sembrano più vicine
+                        all'arrivo, ne esplora molte di meno in direzioni inutili.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché una euristica che sovrastima sarebbe un problema? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Se h sovrastimasse il costo rimanente (per esempio dicendo "da qui all'arrivo mancano
+                        almeno 20 passi" quando in realtà bastano 12), A* potrebbe scartare per sempre una cella
+                        che sembra "lontana" secondo h, ma che fa parte del vero percorso più breve — perché il suo
+                        f = g + h risulterebbe artificialmente alto rispetto a quello di un'alternativa peggiore ma
+                        con una stima più bassa. L'algoritmo finirebbe così il percorso prima di aver davvero
+                        verificato che fosse il migliore, e potrebbe restituire un cammino più lungo di quello
+                        ottimo. È esattamente per questo che la distanza di Manhattan (e non, per dire, una
+                        distanza "gonfiata" apposta) è la scelta giusta su una griglia a passi di costo 1: è sempre
+                        una stima prudente, mai esagerata.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

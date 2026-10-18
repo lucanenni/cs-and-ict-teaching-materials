@@ -1,0 +1,302 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(to bottom right, #eff6ff, #fefce8);
+    min-height: 100vh;
+    padding: 1.5rem;
+}
+
+.container {
+    max-width: 62rem;
+    margin: 0 auto;
+}
+
+.card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+.section-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.75rem;
+}
+
+.controls {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 0.85rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    font-weight: 600;
+    padding: 0.6rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 0.82rem;
+}
+
+.btn:disabled {
+    background-color: #e5e7eb !important;
+    color: #9ca3af !important;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background-color: #1d4ed8;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #1e40af;
+}
+
+.btn-secondary {
+    background-color: #e5e7eb;
+    color: #374151;
+}
+
+.btn-secondary:hover {
+    background-color: #d1d5db;
+}
+
+.step-panel {
+    background-color: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 0.85rem;
+    font-size: 0.85rem;
+    color: #374151;
+    line-height: 1.6;
+    min-height: 6rem;
+}
+
+.step-line {
+    padding: 0.3rem 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.step-line:last-child {
+    border-bottom: none;
+}
+
+.step-line.current {
+    font-weight: 700;
+    color: #1d4ed8;
+}
+
+.result-box {
+    border-radius: 0.5rem;
+    padding: 0.9rem 1rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    min-height: 2rem;
+}
+
+.result-box.bad {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.result-box.good {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.help-panel {
+    background-color: #eff6ff;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.help-title {
+    font-weight: 600;
+    color: #1e3a8a;
+    margin-bottom: 0.5rem;
+}
+
+.help-list {
+    font-size: 0.875rem;
+    color: #1e3a8a;
+    list-style: none;
+}
+
+.help-list li {
+    margin-bottom: 0.35rem;
+}
+
+.btn-link {
+    display: block;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1d4ed8;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.btn-link:hover {
+    color: #1e3a8a;
+}
+
+.deep-dive-panel {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #bfdbfe;
+    font-size: 0.875rem;
+    color: #1e3a8a;
+    line-height: 1.6;
+}
+
+.hidden {
+    display: none;
+}
+
+/* --- Elementi specifici del progetto Reinforcement Learning -------------- */
+
+.rl-layout {
+    display: flex;
+    gap: 1.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.rl-grid-col {
+    flex: 1.2;
+    min-width: 19rem;
+}
+
+.rl-controls-col {
+    flex: 1;
+    min-width: 18rem;
+}
+
+.hint-text {
+    font-size: 0.8rem;
+    color: #6b7280;
+    margin-bottom: 0.85rem;
+    line-height: 1.5;
+}
+
+.tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.05rem 0.4rem;
+    border-radius: 0.3rem;
+    font-family: 'SFMono-Regular', Consolas, Menlo, monospace;
+}
+
+.tag-start {
+    background: #dbeafe;
+    color: #1e3a8a;
+}
+
+.tag-goal {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.tag-trap {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.rl-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+}
+
+.rl-cell {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    background: #f9fafb;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    padding: 0.2rem;
+}
+
+.rl-cell.rl-start {
+    border-color: #2563eb;
+    background: #eff6ff;
+}
+
+.rl-cell.rl-goal {
+    border-color: #16a34a;
+    background: #dcfce7;
+}
+
+.rl-cell.rl-trap {
+    border-color: #dc2626;
+    background: #fee2e2;
+}
+
+.rl-cell.rl-agent {
+    box-shadow: inset 0 0 0 3px #f59e0b;
+}
+
+.rl-q {
+    font-size: 0.56rem;
+    font-family: 'SFMono-Regular', Consolas, Menlo, monospace;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.rl-q.rl-q-best {
+    color: #1d4ed8;
+    font-weight: 700;
+}
+
+.rl-q-up { grid-column: 2; grid-row: 1; }
+.rl-q-left { grid-column: 1; grid-row: 2; }
+.rl-q-center { grid-column: 2; grid-row: 2; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; }
+.rl-q-right { grid-column: 3; grid-row: 2; }
+.rl-q-down { grid-column: 2; grid-row: 3; }
+
+.rl-status {
+    background-color: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 0.7rem 0.9rem;
+    font-size: 0.82rem;
+    color: #374151;
+    margin-bottom: 0.85rem;
+    line-height: 1.5;
+}
+
+.rl-status strong {
+    color: #1f2937;
+}

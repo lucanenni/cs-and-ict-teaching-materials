@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplexing: TDM vs FDM</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Multiplexing: TDM vs FDM</h1>
+            <p class="subtitle">Più conversazioni condividono lo stesso cavo fisico: due modi completamente
+                diversi di dividersene l'uso</p>
+
+            <div class="controls">
+                <button class="btn btn-secondary active" id="flows3Btn">3 flussi</button>
+                <button class="btn btn-secondary" id="flows4Btn">4 flussi</button>
+            </div>
+            <div class="flow-legend" id="flowLegend"></div>
+
+            <div class="mux-section">
+                <h2 class="section-title">TDM — divisione nel tempo</h2>
+                <p class="subtitle" style="margin-bottom:0.75rem;">Il canale è diviso in slot temporali di durata
+                    fissa, assegnati a turno in un ordine che si ripete: un solo flusso alla volta occupa
+                    davvero il canale.</p>
+                <div class="mux-diagram-box">
+                    <div class="tdm-timeline" id="tdmTimeline"></div>
+                </div>
+                <div class="step-panel" id="tdmStepPanel"></div>
+                <div class="controls">
+                    <button class="btn btn-primary" id="tdmPlayBtn">▶ Avvia</button>
+                    <button class="btn btn-secondary" id="tdmStepBtn">Passo singolo →</button>
+                </div>
+            </div>
+
+            <div class="mux-section">
+                <h2 class="section-title">FDM — divisione in frequenza</h2>
+                <p class="subtitle" style="margin-bottom:0.75rem;">La banda del canale è divisa in sotto-bande di
+                    frequenza separate, una per flusso: tutti trasmettono insieme, ciascuno confinato nella
+                    propria fetta.</p>
+                <div class="mux-diagram-box">
+                    <div class="fdm-spectrum" id="fdmSpectrum"></div>
+                    <div class="fdm-freq-axis">
+                        <span>frequenze basse</span>
+                        <span>frequenze alte</span>
+                    </div>
+                </div>
+                <div class="step-panel" id="fdmStepPanel"></div>
+                <div class="controls">
+                    <button class="btn btn-primary" id="fdmPlayBtn">▶ Avvia</button>
+                    <button class="btn btn-secondary" id="fdmStepBtn">Passo singolo →</button>
+                </div>
+            </div>
+
+            <div class="result-box good hidden" id="summaryBox"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• <strong>TDM (Time-Division Multiplexing)</strong>: il tempo sul canale è diviso in slot
+                        ciclici, assegnati a turno rapido in un ordine fisso che si ripete. A ciascun flusso
+                        sembra di avere a disposizione tutta la banda — ma solo per una piccola frazione del
+                        tempo.</li>
+                    <li>• <strong>FDM (Frequency-Division Multiplexing)</strong>: la larghezza di banda del canale
+                        è divisa in sotto-bande non sovrapposte, una per flusso, assegnate in modo permanente.
+                        Tutti i flussi trasmettono simultaneamente, ma ciascuno con solo una porzione della banda
+                        totale.</li>
+                    <li>• In entrambi i casi ogni flusso ottiene una "fetta" <strong>garantita</strong> — di tempo
+                        in TDM, di frequenza in FDM — motivo per cui entrambe le tecniche sono storicamente
+                        associate alla <strong>commutazione di circuito</strong>.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Dove si usano davvero? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Il <strong>TDM</strong> è alla base dei sistemi telefonici digitali come T1/E1 (24 o 32
+                        canali vocali intrecciati negli stessi slot ripetuti) e, in parte, delle reti GSM. Il
+                        <strong>FDM</strong> è la tecnica classica della trasmissione radio e televisiva (ogni
+                        stazione occupa la sua banda di frequenza permanente) e dei vecchi sistemi via cavo
+                        analogici. Entrambe riservano una fetta <strong>garantita</strong> a ciascun flusso per
+                        tutta la durata della comunicazione, anche nei momenti in cui quel flusso non avrebbe
+                        nulla da trasmettere — esattamente come la commutazione di circuito riserva un canale
+                        dedicato end-to-end per l'intera chiamata. La commutazione di <strong>pacchetto</strong>
+                        funziona all'opposto: nessuna fetta riservata in anticipo, i pacchetti di flussi diversi
+                        si mescolano sullo stesso canale e si contendono la capacità disponibile istante per
+                        istante — una condivisione statistica e opportunistica, più efficiente quando il traffico
+                        è "a scatti" ma senza nessuna garanzia fissa.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Albero AVL</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Albero AVL</h1>
+            <p class="subtitle">Un albero binario di ricerca che si ri-bilancia da solo dopo ogni inserimento, così
+                resta sempre "basso e largo" invece di degenerare in una lunga catena</p>
+
+            <div class="input-row">
+                <input type="number" id="valueInput" placeholder="Numero..." value="8">
+                <button class="btn btn-primary" id="insertBtn">➕ Inserisci</button>
+                <button class="btn btn-secondary" id="stepBtn">⏭ Passo singolo</button>
+                <button class="btn btn-secondary" id="clearBtn">↻ Svuota albero</button>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-secondary" id="demoBtn">▶ Inserisci 1, 2, 3, 4, 5</button>
+            </div>
+
+            <div class="mode-row">
+                <label><input type="checkbox" id="avlToggle"> Disattiva bilanciamento AVL (albero binario
+                    "ingenuo")</label>
+                <span class="avl-mode-badge on" id="modeBadge">AVL ATTIVO</span>
+            </div>
+
+            <div class="step-panel" id="stepCaption">Premi "Inserisci" (automatico) o "Passo singolo" (manuale) per
+                inserire il numero scritto sopra.</div>
+
+            <div class="tree-wrap">
+                <ul class="avl-tree" id="treeRoot"></ul>
+            </div>
+
+            <div class="stats-row" id="statsRow"></div>
+
+            <div class="result-box hidden" id="resultBox"></div>
+
+            <div class="legend">
+                <span class="legend-item"><span class="legend-dot dot-compare"></span> confronto (fase BST)</span>
+                <span class="legend-item"><span class="legend-dot dot-new"></span> nodo appena inserito</span>
+                <span class="legend-item"><span class="legend-dot dot-check"></span> controllo bilanciamento</span>
+                <span class="legend-item"><span class="legend-dot dot-imbalance"></span> squilibrio rilevato</span>
+                <span class="legend-item"><span class="legend-dot dot-rotate"></span> dopo la rotazione</span>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Un normale albero binario di ricerca può <strong>degenerare</strong>: inserendo numeri già
+                        ordinati (1, 2, 3, 4, 5...) ogni nuovo nodo finisce sempre a destra, e l'albero diventa una
+                        catena lineare — niente di meglio di una lista, altezza pari al numero di nodi.</li>
+                    <li>• Un albero <strong>AVL</strong> aggiunge una regola: dopo ogni inserimento, per ogni
+                        antenato del nuovo nodo si calcola il <strong>fattore di bilanciamento</strong> (altezza del
+                        sottoalbero sinistro meno quella del destro). Se vale più di 1 o meno di -1, l'albero è
+                        squilibrato lì.</li>
+                    <li>• In quel caso si esegue una <strong>rotazione</strong> (semplice o doppia): riorganizza
+                        localmente i nodi senza mai violare l'ordine del BST, e riporta il fattore di bilanciamento
+                        entro [-1, 1]. Il risultato: un albero con n nodi ha sempre altezza proporzionale a
+                        log₂(n), qualunque sia l'ordine di inserimento.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché bastano le rotazioni per sistemare tutto? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Una rotazione sposta solo un piccolo gruppo di nodi (il nodo squilibrato e i suoi figli/nipoti
+                        più vicini), ma lo fa in un modo che <strong>conserva l'ordine in-order</strong> dell'intero
+                        albero: ogni nodo resta sempre con i valori più piccoli a sinistra e quelli più grandi a
+                        destra, anche dopo la rotazione — solo "chi sta sopra chi" cambia. Si dimostra inoltre che
+                        dopo un singolo inserimento basta <strong>una sola rotazione</strong> (semplice o doppia) per
+                        rendere di nuovo bilanciato l'intero albero, non serve più lavoro di quello. Per questo
+                        l'operazione resta veloce: O(log n) per scendere, O(log n) per risalire e controllare, O(1)
+                        per l'eventuale rotazione.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

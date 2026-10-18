@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ricorsione vs memoization</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Ricorsione ingenua vs memoization</h1>
+            <p class="subtitle">Stesso problema, stesso input: guarda quante volte la ricorsione "ingenua" rifà da
+                capo lo stesso calcolo, e come la memoization lo evita del tutto</p>
+
+            <div class="top-row">
+                <div class="setting-group">
+                    <label for="problemSelect">Problema:</label>
+                    <select id="problemSelect">
+                        <option value="fib">Fibonacci(n)</option>
+                        <option value="knapsack">Zaino 0/1</option>
+                    </select>
+                </div>
+                <div class="setting-group" id="fibSettingGroup">
+                    <label for="nSlider">n = <span id="nValue" class="value-badge">8</span></label>
+                    <input type="range" id="nSlider" min="6" max="10" step="1" value="8">
+                </div>
+            </div>
+
+            <div class="knapsack-items hidden" id="knapsackItems"></div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playPauseBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">⏭ Passo singolo</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Ricomincia</button>
+            </div>
+
+            <div class="dp-columns">
+                <div class="dp-col dp-col-naive">
+                    <div class="dp-col-title">🔁 Ricorsione ingenua</div>
+                    <div class="dp-counter">Chiamate totali effettuate: <span class="big naive-color"
+                            id="naiveCount">0</span></div>
+                    <div class="dp-tree-wrap">
+                        <ul class="dp-tree" id="naiveTree"></ul>
+                    </div>
+                </div>
+                <div class="dp-col dp-col-memo">
+                    <div class="dp-col-title">⚡ Con memoization</div>
+                    <div class="dp-counter">Chiamate con calcolo reale: <span class="big memo-color"
+                            id="memoCount">0</span> · Letture dalla cache: <span class="big memo-color"
+                            id="memoHits">0</span></div>
+                    <div class="dp-tree-wrap">
+                        <ul class="dp-tree" id="memoTree"></ul>
+                    </div>
+                    <div class="memo-table-wrap">
+                        <div class="memo-table-title">Tabella di memoization:</div>
+                        <div class="memo-table" id="memoTable"><div class="memo-empty">(ancora vuota)</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-panel" id="stepCaption">Premi "Avvia" o "Passo singolo" per iniziare a costruire i due
+                alberi delle chiamate.</div>
+
+            <div class="legend">
+                <span class="legend-item"><span class="legend-dot dot-active"></span> chiamata in corso</span>
+                <span class="legend-item"><span class="legend-dot dot-base"></span> caso base</span>
+                <span class="legend-item"><span class="legend-dot dot-returned"></span> valore calcolato</span>
+                <span class="legend-item"><span class="legend-dot dot-dup"></span> ricalcolata più volte (solo
+                    ricorsione ingenua)</span>
+                <span class="legend-item"><span class="legend-dot dot-cached"></span> lettura dalla cache (solo
+                    memoization)</span>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Si parla di <strong>sottoproblemi sovrapposti</strong> (overlapping subproblems) quando la
+                        stessa identica chiamata (es. fib(3), o "resto(2, 5 kg)" nello zaino) va risolta più volte in
+                        punti diversi dell'albero della ricorsione — guarda il badge rosso ×N sull'albero ingenuo.</li>
+                    <li>• La <strong>memoization</strong> salva il risultato di ogni sottoproblema in una tabella la
+                        prima volta che viene calcolato: la volta successiva basta una lettura (una cella che si
+                        illumina), non serve ripetere tutta la ricorsione sotto quel nodo.</li>
+                    <li>• Per Fibonacci questo trasforma un tempo <strong>esponenziale</strong> (≈2ⁿ chiamate) in uno
+                        <strong>lineare</strong> (≈n chiamate); per lo zaino 0/1, da esponenziale a
+                        <strong>pseudo-polinomiale</strong> (proporzionale a oggetti × capacità).</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché "pseudo-polinomiale" e non semplicemente "polinomiale"? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Il numero di sottoproblemi distinti nello zaino 0/1 è "oggetti × capacità": una tabella con una
+                        riga per ogni oggetto e una colonna per ogni possibile capacità residua. Questo è
+                        <strong>polinomiale rispetto al valore numerico</strong> della capacità, ma la capacità è un
+                        numero, non la dimensione dell'input in bit: con capacità molto grandi (es. miliardi), la
+                        tabella diventerebbe enorme anche se "capacità" si scrive con poche cifre. Per questo si dice
+                        <em>pseudo</em>-polinomiale: polinomiale nel valore dei numeri coinvolti, non nella lunghezza
+                        della loro rappresentazione — a differenza di un vero algoritmo polinomiale, che resterebbe
+                        rapido anche con numeri enormi.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
