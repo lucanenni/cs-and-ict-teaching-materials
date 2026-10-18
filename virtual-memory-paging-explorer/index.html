@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memoria virtuale e paging</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Memoria virtuale e paging</h1>
+            <p class="subtitle">Un processo "crede" di avere 8 pagine di memoria tutte per sé, ma la RAM fisica ha
+                posto per sole 4. La page table tiene traccia di chi è davvero in RAM — e di chi deve aspettare il
+                disco</p>
+
+            <div class="controls">
+                <button class="btn btn-secondary" id="genBtn">🎲 Genera sequenza casuale</button>
+                <label for="pageInput" class="inline-label">Pagina (0-7):</label>
+                <input type="number" id="pageInput" min="0" max="7" value="0" class="page-input">
+                <button class="btn btn-secondary" id="addBtn">+ Aggiungi accesso alla sequenza</button>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="runBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">⏭ Passo singolo</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Ricomincia</button>
+            </div>
+
+            <div class="sequence-section">
+                <div class="mem-label">Sequenza di accessi (pagine virtuali richieste, in ordine)</div>
+                <div class="sequence-row" id="sequenceRow"></div>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-box">
+                    <div class="stat-label">Hit</div>
+                    <div class="stat-value hit" id="hitsValue">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Page fault</div>
+                    <div class="stat-value fault" id="faultsValue">0</div>
+                </div>
+            </div>
+
+            <div class="two-col">
+                <div class="mem-section">
+                    <div class="mem-label">Page table (8 pagine virtuali)</div>
+                    <div class="page-table" id="pageTable"></div>
+                </div>
+                <div class="mem-section">
+                    <div class="mem-label">Memoria fisica (4 frame)</div>
+                    <div class="frame-grid" id="frameGrid"></div>
+                </div>
+            </div>
+
+            <div class="step-panel" id="stepPanel"></div>
+
+            <div class="result-box hidden" id="resultBox"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Ogni pagina virtuale richiesta si cerca nella <strong>page table</strong>: se è già
+                        assegnata a un frame fisico, è un <strong>HIT</strong> — accesso immediato.</li>
+                    <li>• Se non è presente, è un <strong>PAGE FAULT</strong>: la pagina va caricata dal disco in
+                        un frame libero. Se tutti i frame sono occupati, bisogna prima liberarne uno.</li>
+                    <li>• La politica usata qui è <strong>FIFO</strong>: si sfratta la pagina caricata più a
+                        lungo fa, indipendentemente da quanto sia stata usata di recente.</li>
+                    <li>• Un page fault è lento: bisogna aspettare il disco, molto più lento della RAM — è per
+                        questo che un sistema operativo cerca di evitarli quando può.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">FIFO è la scelta migliore per decidere chi sfrattare? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>FIFO è semplice da seguire passo per passo (basta sapere l'ordine di caricamento), ma ha un
+                        difetto: sfratta una pagina caricata da tempo anche se è stata usata un istante fa, mentre
+                        tiene pagine caricate di recente ma mai più toccate. Una politica più usata nella pratica è
+                        <strong>LRU</strong> (Least Recently Used): sfratta la pagina il cui ultimo accesso è il
+                        più lontano nel tempo, non la più vecchia in assoluto. LRU di solito produce meno page
+                        fault di FIFO, ma è più costosa da implementare esattamente (bisognerebbe tracciare l'istante
+                        dell'ultimo accesso di ogni pagina a ogni richiesta), quindi i sistemi reali spesso ne usano
+                        approssimazioni più economiche (per esempio l'algoritmo "dell'orologio", basato su un bit
+                        di uso recente per pagina).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VPN e tunneling: due reti private collegate attraverso Internet</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>VPN e tunneling: due reti private collegate attraverso Internet</h1>
+            <p class="subtitle">L'Ufficio A (192.168.1.0/24) e l'Ufficio B (192.168.2.0/24) sono in due città
+                diverse, collegate solo da Internet pubblico. Guarda come un tunnel VPN li fa comunicare come se
+                fossero sulla stessa rete locale — e cosa succede a mandare un pacchetto senza quel tunnel</p>
+
+            <h2 class="section-title">Scenario 1 — Con VPN: incapsulamento e cifratura</h2>
+            <p class="hint-text">Il PC dell'Ufficio A (192.168.1.10) manda un pacchetto al PC dell'Ufficio B
+                (192.168.2.20). I due gateway VPN incapsulano il traffico privato dentro un pacchetto pubblico
+                cifrato.</p>
+
+            <div class="diagram-box">
+                <div class="node-row">
+                    <div class="node" id="vpn-node-deviceA">
+                        <div class="node-icon">💻</div>
+                        <div class="node-label">PC Ufficio A</div>
+                        <div class="node-sub">192.168.1.10</div>
+                    </div>
+                    <div class="edge" id="vpn-edge-a-gwa"></div>
+                    <div class="node" id="vpn-node-gwA">
+                        <div class="node-icon">🔐</div>
+                        <div class="node-label">Gateway VPN A</div>
+                        <div class="node-sub">pub. 203.0.113.5</div>
+                    </div>
+                    <div class="edge" id="vpn-edge-gwa-internet"></div>
+                    <div class="node" id="vpn-node-internet">
+                        <div class="node-icon">☁️</div>
+                        <div class="node-label">Internet pubblico</div>
+                        <div class="node-sub">tratto non protetto</div>
+                    </div>
+                    <div class="edge" id="vpn-edge-internet-gwb"></div>
+                    <div class="node" id="vpn-node-gwB">
+                        <div class="node-icon">🔐</div>
+                        <div class="node-label">Gateway VPN B</div>
+                        <div class="node-sub">pub. 198.51.100.9</div>
+                    </div>
+                    <div class="edge" id="vpn-edge-gwb-b"></div>
+                    <div class="node" id="vpn-node-deviceB">
+                        <div class="node-icon">🖥️</div>
+                        <div class="node-label">PC Ufficio B</div>
+                        <div class="node-sub">192.168.2.20</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="packet-row">
+                <div class="packet-box" id="vpn-packetBox"></div>
+                <div class="observer-box" id="vpn-observerBox"></div>
+            </div>
+
+            <div class="step-panel" id="vpn-stepPanel"></div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="vpn-runBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="vpn-stepBtn">Passo singolo →</button>
+                <button class="btn btn-secondary" id="vpn-resetBtn">↺ Ricomincia</button>
+            </div>
+
+            <h2 class="section-title">Scenario 2 — Senza VPN: lo stesso invio diretto</h2>
+            <p class="hint-text">Stesso PC, stesso pacchetto con indirizzo privato di destinazione — ma stavolta
+                mandato DIRETTAMENTE su Internet, senza alcun tunnel né incapsulamento.</p>
+
+            <div class="diagram-box">
+                <div class="node-row">
+                    <div class="node" id="novpn-node-deviceA">
+                        <div class="node-icon">💻</div>
+                        <div class="node-label">PC Ufficio A</div>
+                        <div class="node-sub">192.168.1.10</div>
+                    </div>
+                    <div class="edge" id="novpn-edge-a-internet"></div>
+                    <div class="node" id="novpn-node-internet">
+                        <div class="node-icon">☁️</div>
+                        <div class="node-label">Router di Internet</div>
+                        <div class="node-sub">rete pubblica</div>
+                    </div>
+                    <div class="edge" id="novpn-edge-internet-b"></div>
+                    <div class="node" id="novpn-node-deviceB">
+                        <div class="node-icon">🖥️</div>
+                        <div class="node-label">PC Ufficio B</div>
+                        <div class="node-sub">192.168.2.20</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="packet-box" id="novpn-packetBox"></div>
+
+            <div class="step-panel" id="novpn-stepPanel"></div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="novpn-runBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="novpn-stepBtn">Passo singolo →</button>
+                <button class="btn btn-secondary" id="novpn-resetBtn">↺ Ricomincia</button>
+            </div>
+
+            <div class="result-box" id="novpn-resultBox"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Un <strong>tunnel VPN</strong> incapsula ogni pacchetto privato dentro un nuovo
+                        pacchetto con mittente e destinatario <strong>pubblici</strong> (i due gateway), e lo
+                        cifra. Gli indirizzi privati originali viaggiano "nascosti" dentro, non vengono mai scritti
+                        in chiaro sul tratto pubblico.</li>
+                    <li>• Per questo due reti private geograficamente lontanissime possono "sembrare" la stessa
+                        rete logica: i dispositivi si vedono tra loro con i propri IP privati, esattamente come se
+                        fossero sulla stessa LAN, anche se in mezzo c'è tutto Internet.</li>
+                    <li>• Un osservatore che intercettasse il traffico sul tratto pubblico del tunnel vedrebbe
+                        <strong>solo</strong> gli IP pubblici dei due gateway e dati cifrati illeggibili: mai gli
+                        indirizzi privati reali, mai il contenuto del messaggio.</li>
+                    <li>• Senza tunnel, un pacchetto con un indirizzo privato di destinazione non può proprio
+                        attraversare Internet: i router pubblici non saprebbero dove instradarlo. È lo stesso
+                        identico problema — indirizzi privati non instradabili su Internet — che rende necessario
+                        il NAT quando un singolo dispositivo privato vuole uscire su Internet.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">La cifratura serve anche per i dati, non solo per nascondere gli
+                    IP? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Sì, ed è un punto spesso trascurato: l'incapsulamento da solo (senza cifratura) già risolve
+                        il problema dell'instradamento — basterebbe "avvolgere" il pacchetto privato in uno
+                        pubblico, anche in chiaro, perché Internet lo accetti e lo porti dall'altra parte. Ma un
+                        pacchetto incapsulato e NON cifrato sarebbe comunque leggibile da chiunque lo intercettasse
+                        lungo il tragitto: vedrebbe gli IP privati originali e il contenuto reale semplicemente
+                        "apren­do" il pacchetto esterno. La <strong>cifratura</strong> è il secondo ingrediente
+                        indispensabile di una VPN: trasforma anche il contenuto incapsulato in dati illeggibili
+                        senza la chiave giusta, che solo i due gateway possiedono. Incapsulamento = instradabilità;
+                        cifratura = riservatezza. Una VPN seria ha bisogno di entrambi.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

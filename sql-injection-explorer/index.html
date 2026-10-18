@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL injection: perché non si concatenano mai gli input in una query</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>SQL injection: perché non si concatenano mai gli input in una query</h1>
+            <p class="subtitle">Un login simulato, completamente lato client: nessun vero database, nessuna
+                query reale verso un server. Solo JavaScript che costruisce una stringa e poi decide,
+                secondo due logiche diverse, chi "autentica".</p>
+
+            <div class="mode-toggle">
+                <button class="mode-btn active" id="vulnModeBtn">⚠ Query concatenata (vulnerabile)</button>
+                <button class="mode-btn" id="safeModeBtn">✓ Query parametrizzata (sicura)</button>
+            </div>
+
+            <div class="login-row">
+                <input type="text" id="usernameInput" placeholder="Nome utente..." value="mario">
+                <input type="text" id="passwordInput" placeholder="Password..." value="Password1!">
+                <button class="btn btn-primary" id="loginBtn">Accedi</button>
+            </div>
+            <div class="controls">
+                <button class="btn btn-secondary" id="fillAttackBtn">😈 Compila con un tentativo di SQL injection</button>
+                <button class="btn btn-secondary" id="fillValidBtn">Compila con credenziali valide (mario)</button>
+            </div>
+
+            <div class="query-box">
+                <div class="query-title" id="queryTitle">Query costruita (concatenando direttamente l'input)</div>
+                <div class="query-value mono-input" id="queryValueBox">—</div>
+                <div class="query-extra" id="queryExtraBox"></div>
+            </div>
+
+            <div class="result-box" id="loginResult">Compila i campi e premi "Accedi".</div>
+
+            <div class="users-box">
+                <div class="users-title">🗄️ Tabella finta "utenti" (in memoria, solo per questa simulazione)</div>
+                <div class="users-table" id="usersTable"></div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list" id="helpList"></ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Basta "pulire" l'input per essere al sicuro? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>No, non in modo affidabile. Si potrebbe provare a "filtrare" o "escapare" i caratteri
+                        pericolosi (apici, trattini, ecc.) prima di concatenarli nella stringa, ma questo approccio
+                        richiede di anticipare ogni possibile trucco di sintassi — e nella storia della sicurezza
+                        informatica sono stati trovati innumerevoli modi per aggirare filtri scritti a mano (codifiche
+                        alternative, commenti annidati, maiuscole/minuscole, ecc.). Le query parametrizzate risolvono
+                        il problema <em>alla radice</em> e non "lo rendono più difficile": il motore del database
+                        separa sempre, per costruzione, "questo è codice SQL" da "questo è un valore di dato", prima
+                        ancora di guardare cosa contiene il valore. Un input malevolo non ha mai la possibilità di
+                        essere interpretato come sintassi, perché il database non lo analizza mai come tale.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

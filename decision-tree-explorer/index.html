@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Albero decisionale</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Come nasce un albero decisionale</h1>
+            <p class="subtitle">A ogni nodo, l'algoritmo prova tutte le feature ancora disponibili, calcola quanto
+                bene ciascuna separerebbe le classi rimaste (impurità di Gini) e scegli sempre la <strong>più
+                    informativa</strong> — ripetendo finché ogni gruppo è puro o non restano più feature</p>
+
+            <p class="section-title">Il dataset di addestramento</p>
+            <div class="table-wrap">
+                <table class="dataset-table">
+                    <thead>
+                        <tr>
+                            <th>Giorno</th>
+                            <th>Tempo</th>
+                            <th>Vento</th>
+                            <th>Umidità</th>
+                            <th>Giocare?</th>
+                        </tr>
+                    </thead>
+                    <tbody id="datasetBody"></tbody>
+                </table>
+            </div>
+
+            <p class="section-title">Costruzione dell'albero</p>
+            <div class="controls">
+                <button class="btn btn-primary" id="runBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">⏭ Passo singolo</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Ricomincia</button>
+            </div>
+
+            <div class="speed-row">
+                <label for="speedSlider" class="speed-label">Velocità</label>
+                <input type="range" id="speedSlider" min="300" max="2500" step="100" value="1200">
+                <span id="speedValue" class="speed-value"></span>
+            </div>
+
+            <div class="step-panel" id="stepPanel"></div>
+            <div class="result-box" id="resultBox"></div>
+
+            <div class="tree-wrapper">
+                <ul class="dt-tree" id="treeRoot"></ul>
+            </div>
+
+            <p class="section-title">Classifica un nuovo esempio</p>
+            <p class="hint-text" id="classifyHint">Completa prima la costruzione dell'albero sopra (premi "Avvia" o
+                "Passo singolo" finché arriva alla fine) per poter classificare un nuovo esempio.</p>
+            <div class="classify-row">
+                <label class="classify-field">
+                    <span>Tempo</span>
+                    <select id="selTempo">
+                        <option value="Sole">Sole</option>
+                        <option value="Pioggia">Pioggia</option>
+                        <option value="Nuvoloso">Nuvoloso</option>
+                    </select>
+                </label>
+                <label class="classify-field">
+                    <span>Vento</span>
+                    <select id="selVento">
+                        <option value="No">No</option>
+                        <option value="Si">Sì</option>
+                    </select>
+                </label>
+                <label class="classify-field">
+                    <span>Umidità</span>
+                    <select id="selUmidita">
+                        <option value="Alta">Alta</option>
+                        <option value="Normale">Normale</option>
+                    </select>
+                </label>
+                <button class="btn btn-primary" id="classifyBtn">Classifica →</button>
+            </div>
+            <div class="result-box" id="classifyResultBox"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• A ogni nodo, per ciascuna feature ancora disponibile, calcoliamo l'<strong>impurità di
+                            Gini</strong> (1 − somma delle proporzioni di classe al quadrato) di ogni gruppo che si
+                        formerebbe dividendo per quella feature, poi ne facciamo la media pesata sulla dimensione
+                        dei gruppi: è il "Gini pesato" mostrato a ogni passo.</li>
+                    <li>• L'algoritmo sceglie sempre la feature col Gini pesato <strong>più basso</strong> — quella
+                        che produce, in media, i gruppi più "puri" (il più possibile fatti di una sola classe) —
+                        prima di provare le altre: è la feature più informativa in quel punto dell'albero.</li>
+                    <li>• Un nodo diventa una <strong>foglia</strong> quando è già puro (tutti gli esempi hanno la
+                        stessa decisione) oppure quando non restano più feature da provare: in quel caso la foglia
+                        prende la classe più frequente fra gli esempi rimasti lì.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Un albero più profondo è sempre meglio? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>No. Con un dataset piccolo e ordinato come questo l'albero arriva a foglie pure in pochi
+                        passi, ma con dati più numerosi e più "rumorosi" (con eccezioni, errori di misura o casi
+                        ambigui) un albero lasciato crescere senza limiti tende a creare rami sempre più specifici
+                        solo per separare un pugno di esempi particolari — finendo per imparare a memoria i dati di
+                        addestramento invece di cogliere il pattern generale. Il risultato è un albero che si
+                        comporta benissimo sugli esempi già visti ma male su quelli nuovi: un fenomeno chiamato
+                        <strong>overfitting</strong> (adattamento eccessivo), affrontato più in dettaglio altrove
+                        in questa raccolta. Le contromisure tipiche sono limitare la profondità massima, richiedere
+                        un numero minimo di esempi per dividere ulteriormente un nodo, o "potare" l'albero dopo
+                        averlo costruito.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

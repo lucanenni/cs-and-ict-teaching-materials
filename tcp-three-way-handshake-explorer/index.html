@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handshake TCP a 3 vie</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Handshake TCP a 3 vie</h1>
+            <p class="subtitle">Prima che un solo byte di dati possa viaggiare, client e server devono accordarsi
+                sui numeri di sequenza da usare: tre messaggi bastano per farlo in modo affidabile, in entrambe
+                le direzioni.</p>
+
+            <div class="host-row">
+                <div class="host-box" id="clientBox">
+                    <div class="host-label">🖥️ Client</div>
+                    <div class="host-state" id="clientState">CLOSED</div>
+                </div>
+                <div class="host-box" id="serverBox">
+                    <div class="host-label">🌐 Server</div>
+                    <div class="host-state" id="serverState">LISTEN</div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="runBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">Passo singolo →</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Ricomincia</button>
+            </div>
+
+            <div class="diagram">
+                <div class="diagram-header">
+                    <div>🖥️ Client</div>
+                    <div>🌐 Server</div>
+                </div>
+                <div class="diagram-lane">
+                    <div class="lane-line lane-line-left"></div>
+                    <div class="lane-line lane-line-right"></div>
+                    <div class="messages" id="messages"></div>
+                </div>
+            </div>
+
+            <p class="status-text" id="statusText"></p>
+
+            <div class="toggle-section">
+                <button class="btn btn-secondary" id="showClosingBtn">Mostra anche la chiusura (4 vie) ▸</button>
+
+                <div id="closingSection" class="hidden" style="margin-top: 1rem;">
+                    <h2 class="section-title">Approfondimento: la chiusura a 4 vie</h2>
+                    <p class="subtitle" style="margin-bottom: 0.85rem;">Chiudere richiede un messaggio in più:
+                        ciascun lato deve segnalare "ho finito di inviare" (FIN) separatamente, perché una
+                        connessione TCP è in realtà bidirezionale — un lato potrebbe ancora voler inviare dati
+                        mentre l'altro ha già finito.</p>
+
+                    <div class="host-row">
+                        <div class="host-box" id="closingClientBox">
+                            <div class="host-label">🖥️ Client</div>
+                            <div class="host-state" id="closingClientState">ESTABLISHED</div>
+                        </div>
+                        <div class="host-box" id="closingServerBox">
+                            <div class="host-label">🌐 Server</div>
+                            <div class="host-state" id="closingServerState">ESTABLISHED</div>
+                        </div>
+                    </div>
+
+                    <div class="controls">
+                        <button class="btn btn-primary" id="closingRunBtn">▶ Avvia</button>
+                        <button class="btn btn-secondary" id="closingStepBtn">Passo singolo →</button>
+                        <button class="btn btn-secondary" id="closingResetBtn">↺ Ricomincia</button>
+                    </div>
+
+                    <div class="diagram">
+                        <div class="diagram-header">
+                            <div>🖥️ Client</div>
+                            <div>🌐 Server</div>
+                        </div>
+                        <div class="diagram-lane">
+                            <div class="lane-line lane-line-left"></div>
+                            <div class="lane-line lane-line-right"></div>
+                            <div class="messages" id="closingMessages"></div>
+                        </div>
+                    </div>
+
+                    <p class="status-text" id="closingStatusText"></p>
+                </div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Ogni lato scegli un proprio <strong>numero di sequenza iniziale</strong> (qui x per il
+                        client, y per il server): serve a numerare i byte che invierà, per poterli rimettere in
+                        ordine e accorgersi di eventuali perdite.</li>
+                    <li>• Servono esattamente <strong>3 messaggi</strong>, non 2: ciascun lato deve sia comunicare
+                        il <em>proprio</em> numero di sequenza iniziale, sia confermare di aver ricevuto quello
+                        dell'altro. Con solo 2 messaggi (SYN e SYN-ACK) il server non riceverebbe mai la conferma
+                        che il client ha visto y: l'ultimo messaggio (ACK) serve proprio a questo.</li>
+                    <li>• Un campo <code>ack=N</code> significa sempre "mi aspetto il prossimo byte numerato N": per
+                        questo il SYN-ACK conferma <code>x+1</code> e l'ACK finale conferma <code>y+1</code> (il
+                        SYN stesso "consuma" un numero di sequenza).</li>
+                    <li>• Questo handshake stabilisce solo il <strong>trasporto</strong>: apre il canale TCP, non
+                        lo cifra. Il TLS handshake (altro progetto di questa raccolta) negozia la cifratura
+                        <em>sopra</em> una connessione TCP già aperta con questi tre messaggi.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché non bastano 2 messaggi? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Con solo SYN e SYN-ACK la connessione sarebbe "half-open" dal punto di vista del server:
+                        lui avrebbe inviato il proprio numero di sequenza iniziale y, ma non avrebbe alcuna
+                        conferma che il client lo abbia davvero ricevuto. Se quel secondo messaggio si perdesse
+                        nel percorso, il client lo rimanderebbe o abbandonerebbe il tentativo, ma il server non
+                        avrebbe modo di distinguere "il client non ha mai ricevuto il mio SYN-ACK" da "va tutto
+                        bene, possiamo iniziare a scambiare dati": aprirebbe comunque una connessione che il
+                        client non considera ancora stabilita, sprecando risorse per connessioni fantasma. Il
+                        terzo messaggio (ACK) è ciò che permette a <em>entrambi</em> i lati di sapere, con
+                        certezza, che l'altro ha ricevuto tutto il necessario prima di considerare la connessione
+                        ESTABLISHED.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

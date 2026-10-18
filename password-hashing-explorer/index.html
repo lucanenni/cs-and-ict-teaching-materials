@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password hashing e salt: perché due hash uguali sono un problema</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Password hashing e salt: perché due hash uguali sono un problema</h1>
+            <p class="subtitle">Cinque account, alcuni con la stessa password. Guarda cosa succede al loro hash
+                salvato nel database, con e senza salt.</p>
+
+            <h2 class="section-title">Senza salt — hash(password)</h2>
+            <p class="hint-text">Lo stesso calcolo (SHA-256) applicato alla sola password. Prova a cambiare una
+                password qui sotto: gli hash sono reali, calcolati nel browser.</p>
+            <div class="table-wrap">
+                <table class="hash-table" id="noSaltTable">
+                    <thead>
+                        <tr>
+                            <th>Utente</th>
+                            <th>Password (in chiaro)</th>
+                            <th>Hash SHA-256</th>
+                        </tr>
+                    </thead>
+                    <tbody id="noSaltBody"></tbody>
+                </table>
+            </div>
+            <div class="result-box" id="noSaltResult"></div>
+
+            <h2 class="section-title">Con salt — hash(password + salt)</h2>
+            <p class="hint-text">Un salt casuale e diverso per ogni utente (pubblico: viene salvato in chiaro
+                accanto all'hash) viene concatenato alla password prima di calcolare l'hash.</p>
+            <div class="table-wrap">
+                <table class="hash-table" id="saltTable">
+                    <thead>
+                        <tr>
+                            <th>Utente</th>
+                            <th>Password (in chiaro)</th>
+                            <th>Salt (pubblico)</th>
+                            <th>Hash SHA-256(password + salt)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="saltBody"></tbody>
+                </table>
+            </div>
+            <div class="controls">
+                <button class="btn btn-secondary" id="regenSaltBtn">🔄 Rigenera i salt</button>
+            </div>
+            <div class="result-box" id="saltResult"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Un sito serio non salva mai la password in chiaro: salva l'<strong>hash</strong>, il
+                        risultato di una funzione che trasforma qualunque testo in una stringa di lunghezza fissa,
+                        impossibile da invertire direttamente.</li>
+                    <li>• Senza salt, la stessa password produce sempre lo stesso hash. Se una fuga di dati rivela
+                        anche un solo account, o se l'attaccante ha già una <strong>tabella precalcolata</strong>
+                        (rainbow table) di hash per le password più comuni, scopre immediatamente ogni altro
+                        account con lo stesso hash — senza nemmeno dover attaccare quell'account singolarmente.</li>
+                    <li>• Con un salt casuale e diverso per ogni account, lo stesso identico <code>password+salt</code>
+                        non si ripete mai: anche utenti con password identica ottengono hash completamente diversi.
+                        Una tabella precalcolata condivisa non serve più — l'attaccante dovrebbe calcolarne una
+                        nuova per ogni singolo salt, account per account.</li>
+                    <li>• Il salt non è un segreto: viene salvato in chiaro proprio accanto all'hash, perché serve
+                        a chiunque debba <em>riverificare</em> una password in futuro. La sua forza non sta nel
+                        nasconderlo, ma nel renderlo diverso per ogni record.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Il salt rende l'hash anche più lento da calcolare? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>No: concatenare un salt non cambia in nulla la velocità del calcolo, SHA-256 resta
+                        altrettanto rapido con o senza salt — e proprio questa velocità è un problema se usata per
+                        le password, perché permette a un attaccante di provare miliardi di combinazioni al
+                        secondo. Il salt risolve solo il problema delle tabelle precalcolate condivise, non quello
+                        della velocità. Per quello esistono funzioni pensate apposta per essere <em>lente e
+                        costose</em> da calcolare, come <strong>bcrypt</strong>, <strong>scrypt</strong> o
+                        <strong>Argon2</strong>: integrano già un salt al loro interno e richiedono
+                        deliberatamente molta più memoria o tempo di CPU per ogni singolo tentativo, rendendo un
+                        attacco a forza bruta molto più costoso anche quando il salt da solo non basterebbe.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

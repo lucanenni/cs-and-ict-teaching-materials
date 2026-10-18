@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pipeline della CPU e hazard</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Pipeline della CPU e hazard</h1>
+            <p class="subtitle">Una CPU non aspetta che una istruzione finisca del tutto prima di iniziare la
+                prossima: mentre la prima <strong>esegue</strong>, la seconda viene già <strong>decodificata</strong>
+                e la terza <strong>prelevata</strong> — più istruzioni "in volo" insieme, ciascuna in uno stadio
+                diverso, nello stesso ciclo di clock</p>
+
+            <div class="presets-row">
+                <span class="presets-label">Scenario:</span>
+                <button class="chip active" data-program="none">Senza hazard</button>
+                <button class="chip" data-program="hazard">Con hazard (stallo)</button>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="runBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">⏭ Passo singolo</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Ricomincia</button>
+            </div>
+
+            <div class="speed-row">
+                <label for="speedSlider" class="speed-label">Velocità</label>
+                <input type="range" id="speedSlider" min="200" max="1500" step="100" value="800">
+                <span id="speedValue" class="speed-value"></span>
+            </div>
+
+            <div class="stage-legend">
+                <span class="legend-item"><span class="legend-dot stage-F"></span> F — Fetch</span>
+                <span class="legend-item"><span class="legend-dot stage-D"></span> D — Decode</span>
+                <span class="legend-item"><span class="legend-dot stage-E"></span> E — Execute</span>
+                <span class="legend-item"><span class="legend-dot stage-W"></span> W — Writeback</span>
+                <span class="legend-item"><span class="legend-dot bubble-dot"></span> bolla (stallo)</span>
+            </div>
+
+            <div class="pipe-wrap">
+                <div id="pipelineTable" class="pipe-table"></div>
+            </div>
+
+            <div class="step-panel" id="stepPanel"></div>
+
+            <div class="result-box" id="resultBox"></div>
+
+            <div class="comparison-box" id="comparisonBox"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Il <strong>pipelining</strong> aumenta il <em>throughput</em> (istruzioni completate per
+                        unità di tempo), non la velocità della singola istruzione: una istruzione presa da sola
+                        richiede sempre gli stessi 4 cicli da inizio a fine (anzi, con uno stallo anche qualcuno di
+                        più) — a guadagnarci è il flusso complessivo, perché mentre una istruzione finisce, altre
+                        tre sono già a metà strada.</li>
+                    <li>• Un <strong>hazard di dati</strong> si ha quando una istruzione, nella sua fase Decode,
+                        avrebbe bisogno di leggere un registro che una istruzione precedente non ha ancora
+                        realmente calcolato e scritto (è ancora in Execute o in Writeback): se si procedesse senza
+                        controlli, si leggerebbe un valore vecchio o sbagliato.</li>
+                    <li>• La soluzione più semplice da spiegare è la <strong>bolla</strong> (pipeline stall): si
+                        blocca l'istruzione dipendente — e tutto ciò che la segue — per uno o più cicli, lasciando
+                        uno stadio vuoto, finché il valore corretto non è pronto.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Esistono soluzioni migliori di uno stallo? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Sì: la tecnica più usata nelle CPU reali si chiama <strong>forwarding</strong> (o bypass).
+                        Invece di aspettare che il risultato passi per la Writeback e torni a essere letto dal
+                        registro, un collegamento diretto instrada il valore appena calcolato in Execute
+                        direttamente all'ingresso dello stadio Execute dell'istruzione successiva, nello stesso
+                        ciclo in cui viene prodotto. In molti casi questo elimina del tutto la necessità di una
+                        bolla, perché il dato "salta" da uno stadio all'altro senza passare dal registro. Il
+                        forwarding non risolve però ogni hazard (per esempio quando il dato serve ancora prima di
+                        essere stato calcolato, come nel caso di un caricamento da memoria appena prima di un uso
+                        immediato): in quei casi, anche una CPU moderna con forwarding deve comunque inserire
+                        qualche ciclo di stallo.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

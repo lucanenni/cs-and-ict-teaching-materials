@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apprendimento per rinforzo: un agente che impara dai premi</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Apprendimento per rinforzo: un agente che impara dai premi</h1>
+            <p class="subtitle">Un agente si muove su una griglia senza che nessuno gli dica qual è la mossa giusta: scopre da solo la strada migliore verso l'obiettivo provando, sbagliando e aggiornando una tabella di valori (la Q-table) in base ai premi che riceve.</p>
+
+            <div class="rl-layout">
+                <div class="rl-grid-col">
+                    <h2 class="section-title">Griglia e Q-table</h2>
+                    <p class="hint-text">Partenza <span class="tag tag-start">S</span>, obiettivo <span class="tag tag-goal">+10</span>, trappole <span class="tag tag-trap">−10</span>. Ogni passo normale costa <strong>−1</strong> (incentiva percorsi brevi). In ogni cella, i 4 numeri sono i valori Q stimati per su / giù / sinistra / destra; il migliore è evidenziato in blu.</p>
+                    <div class="rl-grid" id="rlGrid"></div>
+                </div>
+
+                <div class="rl-controls-col">
+                    <h2 class="section-title">Episodio passo-passo</h2>
+                    <div class="rl-status" id="rlStatus"></div>
+                    <div class="controls">
+                        <button class="btn btn-primary" id="rlRunBtn">▶ Avvia</button>
+                        <button class="btn btn-secondary" id="rlStepBtn">Passo singolo →</button>
+                        <button class="btn btn-secondary" id="rlNewEpisodeBtn">Nuovo episodio</button>
+                    </div>
+                    <div class="step-panel" id="rlStepPanel"></div>
+                    <div class="controls">
+                        <button class="btn btn-secondary" id="rlFast50Btn">⚡ Esegui 50 episodi velocemente</button>
+                        <button class="btn btn-secondary" id="rlFast200Btn">⚡ Esegui 200 episodi velocemente</button>
+                        <button class="btn btn-secondary" id="rlResetBtn">↺ Azzera Q-table</button>
+                    </div>
+                    <div class="result-box" id="rlResultBox">Nessun episodio concluso ancora.</div>
+                </div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• <strong>Niente "insegnante"</strong>: a differenza dell'apprendimento supervisionato, qui nessuno dice all'agente, cella per cella, qual è l'azione corretta. L'agente scopre cosa funziona solo dal <strong>premio ricevuto dopo</strong> aver agito — e a volte capisce che una scelta era buona o cattiva solo molti passi più tardi rispetto al momento in cui l'ha fatta.</li>
+                    <li>• <strong>Politica epsilon-greedy</strong>: con probabilità ε = 0,2 l'agente compie un'azione <em>casuale</em> ("esplorazione": provare cose nuove per scoprire se funzionano meglio); altrimenti sceglie l'azione con il valore Q più alto da quella cella ("sfruttamento": usare quello che già sa funzionare). Questo compromesso esplorazione/sfruttamento evita che l'agente si convinca troppo presto di aver trovato "la" strada migliore, quando magari non l'ha ancora scoperta.</li>
+                    <li>• <strong>Aggiornamento del valore Q</strong> dopo ogni passo: <code>Q(s,a) = Q(s,a) + α × (premio + γ × max(Q(s_nuovo, ·)) − Q(s,a))</code>, con α = 0,5 (quanto velocemente "crede" alla nuova informazione) e γ = 0,9 (quanto conta il futuro rispetto al premio immediato). Così il valore si sposta verso "il premio ottenuto ora più il meglio che l'agente pensa di poter ottenere da dove si trova".</li>
+                    <li>• Un episodio finisce quando l'agente raggiunge l'obiettivo, cade in una trappola, o supera 50 passi senza concludere.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false" aria-controls="deepDivePanel">Perché non basta sempre scegliere l'azione con il valore Q più alto? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>All'inizio tutti i valori Q sono 0: scegliere sempre "il migliore" significherebbe scegliere quasi a caso tra azioni mai provate, e l'agente potrebbe fissarsi sulla prima strada mediocre che sembra funzionare, senza mai scoprire che una trappola è vicina o che esiste una scorciatoia. L'esplorazione casuale (anche dopo che l'agente ha già imparato qualcosa) continua a far "controllare" di tanto in tanto alternative, così la Q-table resta aggiornata anche su percorsi raramente battuti.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

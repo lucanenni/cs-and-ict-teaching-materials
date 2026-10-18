@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordinamento topologico</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Ordinamento topologico</h1>
+            <p class="subtitle">Un piccolo flusso di lavoro con dipendenze: in che ordine si possono eseguire i
+                compiti rispettando tutti i prerequisiti? Algoritmo di Kahn, passo per passo</p>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">⏭ Passo singolo</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Ricomincia</button>
+                <button class="btn btn-secondary" id="cycleBtn">Introduci una dipendenza circolare</button>
+            </div>
+
+            <p class="cycle-note hidden" id="cycleNote">⚠️ Arco aggiunto: "Scrivi il codice" dipende anche da
+                "Esegui i test" — che però dipende, indirettamente, da "Scrivi il codice" stesso
+                (codice → test → esegui test → codice). Il grafo non è più un DAG.</p>
+
+            <div class="graph-wrapper">
+                <div class="graph" id="graph"></div>
+            </div>
+
+            <div class="legend">
+                <span class="legend-item"><span class="legend-dot dot-waiting"></span> in attesa (dipendenze non soddisfatte)</span>
+                <span class="legend-item"><span class="legend-dot dot-ready"></span> pronto, in coda</span>
+                <span class="legend-item"><span class="legend-dot dot-processed"></span> ordinato</span>
+                <span class="legend-item"><span class="legend-dot dot-stuck"></span> bloccato (ciclo)</span>
+            </div>
+
+            <div class="two-col">
+                <div>
+                    <div class="section-title">Coda dei nodi "pronti"</div>
+                    <div class="chip-row" id="queueRow"></div>
+                </div>
+                <div>
+                    <div class="section-title">Ordine finale (in costruzione)</div>
+                    <div class="chip-row" id="orderRow"></div>
+                </div>
+            </div>
+
+            <div class="section-title">Passi<span class="step-counter" id="stepCounter"></span></div>
+            <div class="step-panel" id="stepPanel"></div>
+
+            <div class="result-box hidden" id="resultBox"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Ogni compito ha un <strong>grado entrante</strong>: il numero di dipendenze non ancora
+                        soddisfatte. I compiti con grado 0 possono partire subito.</li>
+                    <li>• <strong>Algoritmo di Kahn</strong>: si estrae un compito pronto (grado 0), si aggiunge
+                        all'ordine finale, e per ogni compito che dipendeva da lui si decrementa il grado entrante di
+                        1 — se arriva a 0, entra a sua volta in coda.</li>
+                    <li>• Serve un grafo <strong>aciclico</strong> (DAG, senza cicli): se c'è un ciclo, i compiti
+                        coinvolti non raggiungeranno mai grado entrante 0, la coda si svuota prima di aver finito, e
+                        l'algoritmo si blocca con un ordine incompleto.</li>
+                    <li>• Applicazioni reali: l'ordine di compilazione dei moduli di un programma che dipendono
+                        l'uno dall'altro, la pianificazione di attività con prerequisiti, i prerequisiti dei corsi in
+                        un piano di studi.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché la coda non si riempie più se c'è un ciclo? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>In un ciclo, ogni compito del ciclo dipende (anche indirettamente) da un altro compito dello
+                        stesso ciclo. Il grado entrante di un compito nel ciclo scende solo quando TUTTE le sue
+                        dipendenze sono state processate — ma una di quelle dipendenze è, risalendo la catena, il
+                        compito stesso, che quindi non può essere processato per primo. Nessun compito del ciclo
+                        riesce mai a scendere a grado 0: non entrano mai in coda, e quando tutti i compiti "esterni"
+                        al ciclo sono stati processati, la coda resta vuota mentre i compiti del ciclo restano
+                        fermi per sempre. È esattamente questo "blocco" — coda vuota, ordine incompleto — il segnale
+                        con cui l'algoritmo di Kahn rivela l'esistenza di un ciclo.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,372 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(to bottom right, #eff6ff, #fefce8);
+    min-height: 100vh;
+    padding: 1.5rem;
+}
+
+.container {
+    max-width: 62rem;
+    margin: 0 auto;
+}
+
+.card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+.section-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.75rem;
+}
+
+.controls {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 0.85rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    font-weight: 600;
+    padding: 0.6rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 0.82rem;
+}
+
+.btn:disabled {
+    background-color: #e5e7eb !important;
+    color: #9ca3af !important;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background-color: #1d4ed8;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #1e40af;
+}
+
+.btn-secondary {
+    background-color: #e5e7eb;
+    color: #374151;
+}
+
+.btn-secondary:hover {
+    background-color: #d1d5db;
+}
+
+.step-panel {
+    background-color: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 0.85rem;
+    font-size: 0.85rem;
+    color: #374151;
+    line-height: 1.6;
+    min-height: 6rem;
+    max-height: 11rem;
+    overflow-y: auto;
+}
+
+.step-line {
+    padding: 0.3rem 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.step-line:last-child {
+    border-bottom: none;
+}
+
+.step-line.current {
+    font-weight: 700;
+    color: #1d4ed8;
+}
+
+.result-box {
+    border-radius: 0.5rem;
+    padding: 0.9rem 1rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    min-height: 2rem;
+}
+
+.result-box.bad {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.result-box.good {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.help-panel {
+    background-color: #eff6ff;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.help-title {
+    font-weight: 600;
+    color: #1e3a8a;
+    margin-bottom: 0.5rem;
+}
+
+.help-list {
+    font-size: 0.875rem;
+    color: #1e3a8a;
+    list-style: none;
+}
+
+.help-list li {
+    margin-bottom: 0.35rem;
+}
+
+.btn-link {
+    display: block;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1d4ed8;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.btn-link:hover {
+    color: #1e3a8a;
+}
+
+.deep-dive-panel {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #bfdbfe;
+    font-size: 0.875rem;
+    color: #1e3a8a;
+    line-height: 1.6;
+}
+
+.hidden {
+    display: none;
+}
+
+/* --- Impostazioni raffica e legenda ---------------------------------------- */
+
+.setup-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.setup-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.setup-group label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #374151;
+}
+
+.setup-group input[type="number"] {
+    width: 4.2rem;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.4rem;
+    font-size: 0.85rem;
+}
+
+.legend-row {
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+    font-size: 0.78rem;
+    color: #4b5563;
+}
+
+.legend-row .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+/* --- Due colonne per confrontare FIFO e priorità --------------------------- */
+
+.columns-row {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.column {
+    flex: 1;
+    min-width: 19rem;
+}
+
+.column-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.column-title .badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.15rem 0.5rem;
+    border-radius: 9999px;
+    background: #eff6ff;
+    color: #1d4ed8;
+}
+
+/* --- Visualizzazione del link e della coda --------------------------------- */
+
+.link-slot {
+    background: #eff6ff;
+    border: 2px dashed #93c5fd;
+    border-radius: 0.5rem;
+    padding: 0.6rem 0.75rem;
+    min-height: 3.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.78rem;
+    color: #1e3a8a;
+    margin-bottom: 0.6rem;
+}
+
+.link-slot .link-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: #60a5fa;
+    white-space: nowrap;
+}
+
+.link-slot.empty {
+    color: #9ca3af;
+    font-style: italic;
+}
+
+.queue-track {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+    min-height: 3.4rem;
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 0.6rem;
+    margin-bottom: 0.75rem;
+    overflow-x: auto;
+}
+
+.queue-track .empty-text {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    font-style: italic;
+}
+
+.pkt {
+    border-radius: 0.35rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.62rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    line-height: 1.1;
+}
+
+.pkt.video {
+    background: #2563eb;
+    color: white;
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: 50%;
+}
+
+.pkt.download {
+    background: #e5e7eb;
+    color: #374151;
+    width: 3.6rem;
+    height: 2.1rem;
+}
+
+.pkt.in-transit {
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.35);
+}
+
+/* --- Statistiche di attesa -------------------------------------------------- */
+
+.stats-row {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 0.85rem;
+    flex-wrap: wrap;
+}
+
+.stat-chip {
+    flex: 1;
+    min-width: 8rem;
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 0.55rem 0.75rem;
+}
+
+.stat-chip .stat-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: #9ca3af;
+    font-weight: 700;
+}
+
+.stat-chip .stat-value {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.stat-chip.video-stat .stat-value {
+    color: #2563eb;
+}

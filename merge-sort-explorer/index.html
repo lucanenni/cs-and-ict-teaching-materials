@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merge sort: divide et impera</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Merge sort: divide et impera</h1>
+            <p class="subtitle">Un array si divide a metà ricorsivamente finché restano singoli elementi, poi si
+                ricompone unendo a due a due i pezzi già ordinati — un passo alla volta</p>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">⏭ Passo singolo</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Ricomincia</button>
+                <button class="btn btn-secondary" id="randomBtn">🎲 Nuovo array casuale</button>
+                <button class="btn btn-secondary" id="defaultBtn">Array di default</button>
+            </div>
+
+            <p class="array-caption" id="arrayCaption"></p>
+
+            <div class="comparisons-row">
+                <span>Confronti totali effettuati finora: <strong id="comparisonsCount">0</strong></span>
+                <span id="stepCounter"></span>
+            </div>
+
+            <div class="tree-wrapper">
+                <ul class="tree" id="treeRoot"></ul>
+            </div>
+
+            <div class="section-title">Passi</div>
+            <div class="step-panel" id="stepPanel"></div>
+
+            <div class="result-box hidden" id="resultBox"></div>
+
+            <div class="legend">
+                <span class="legend-item"><span class="legend-dot dot-pending"></span> non ancora raggiunto</span>
+                <span class="legend-item"><span class="legend-dot dot-revealed"></span> diviso, in attesa di unione</span>
+                <span class="legend-item"><span class="legend-dot dot-merging"></span> unione in corso</span>
+                <span class="legend-item"><span class="legend-dot dot-done"></span> ordinato</span>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• <strong>Divisione</strong>: l'array si spezza a metà, ricorsivamente, finché ogni
+                        sotto-array ha un solo elemento — e un solo elemento è, per definizione, già ordinato.</li>
+                    <li>• <strong>Unione</strong>: risalendo dall'albero, si uniscono a due a due i sotto-array già
+                        ordinati: si guardano i due elementi in testa, si sposta nel nuovo array il più piccolo dei
+                        due, e si ripete finché un lato si esaurisce (poi si copia semplicemente il resto
+                        dell'altro).</li>
+                    <li>• Ogni unione produce un array più grande e già ordinato, finché l'ultima unione, alla
+                        radice, produce l'intero array ordinato.</li>
+                    <li>• Dividere il problema in pezzi piccoli e banali, e ricomporli con un'unione intelligente, è
+                        molto più efficiente che confrontare ogni possibile coppia di elementi dell'array intero.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché "dividi e unisci" batte il confronto di ogni coppia? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Confrontare ogni possibile coppia di elementi di un array da n elementi richiede un numero di
+                        confronti proporzionale a n² (per n = 1000, un milione di confronti). Il merge sort segue
+                        invece un altro schema: l'albero della divisione ha solo <strong>log₂ n</strong> livelli
+                        (perché ogni livello dimezza la dimensione: n → n/2 → n/4 → … → 1), e ricomporre tutti i pezzi
+                        a un singolo livello richiede, in totale, un lavoro proporzionale a n (ogni elemento viene
+                        confrontato e spostato un numero costante di volte per livello). Il costo totale è quindi
+                        "lavoro per livello" (n) moltiplicato per "numero di livelli" (log₂ n): <strong>O(n log
+                            n)</strong>. Per n = 1000, log₂ 1000 ≈ 10, quindi circa 10 000 operazioni — cento volte
+                        meno del confronto di ogni coppia.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

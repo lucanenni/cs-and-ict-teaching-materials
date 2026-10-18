@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRC e checksum</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>CRC e checksum</h1>
+            <p class="subtitle">Due modi per accorgersi che un messaggio è arrivato danneggiato: un semplice
+                checksum e un CRC calcolato con una vera divisione binaria — e un caso concreto in cui solo il
+                secondo se ne accorge.</p>
+
+            <div class="message-block">
+                <h3>Messaggio trasmesso</h3>
+                <div class="bits-row" id="transmittedBits"></div>
+                <p class="ascii-note" id="transmittedAscii"></p>
+                <div class="control-values">
+                    <div>Checksum XOR (byte di controllo): <strong id="transmittedChecksum"></strong></div>
+                    <div>CRC-8 (resto della divisione): <strong id="transmittedCrc"></strong></div>
+                </div>
+            </div>
+
+            <div class="message-block">
+                <h3>Messaggio ricevuto (clicca un bit per simulare un errore di trasmissione)</h3>
+                <div class="bits-row" id="receivedBits"></div>
+                <div class="controls">
+                    <button class="btn btn-secondary" id="singleErrorBtn">Introduci un errore su 1 bit</button>
+                    <button class="btn btn-secondary" id="doubleErrorBtn">Introduci un errore "invisibile" al
+                        checksum (2 bit)</button>
+                    <button class="btn btn-primary" id="resetMessageBtn">↺ Ripristina messaggio originale</button>
+                </div>
+                <div class="control-values">
+                    <div>Checksum XOR ricalcolato: <strong id="receivedChecksum"></strong></div>
+                    <div>CRC-8 ricalcolato: <strong id="receivedCrc"></strong></div>
+                </div>
+            </div>
+
+            <div class="verify-row">
+                <div class="verify-box" id="checksumVerify"></div>
+                <div class="verify-box" id="crcVerify"></div>
+            </div>
+
+            <h2 class="section-title">Come arriva il CRC-8: la divisione binaria passo-passo</h2>
+            <p class="ascii-note">Polinomio usato: x<sup>8</sup>+x<sup>2</sup>+x+1 (in binario <code>1 0000
+                    0111</code>). Si scorre il messaggio ricevuto (con 8 zeri aggiunti in coda) e, ogni volta che
+                il bit alla posizione corrente è 1, si fa lo XOR con il polinomio.</p>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="crcRunBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="crcStepBtn">Passo singolo →</button>
+                <button class="btn btn-secondary" id="crcResetBtn">↺ Ricomincia</button>
+            </div>
+            <div class="step-panel" id="crcStepPanel"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Il <strong>checksum</strong> qui usato è un semplice XOR di tutti i byte del messaggio:
+                        veloce da calcolare, ma "cieco" a certi errori — se due bit alla stessa posizione in due
+                        byte diversi si flippano insieme, i loro effetti nello XOR si annullano a vicenda e il
+                        checksum non cambia.</li>
+                    <li>• Il <strong>CRC</strong> (Cyclic Redundancy Check) tratta il messaggio come un grande
+                        numero binario e lo divide, modulo 2, per un polinomio fisso: il resto di quella divisione
+                        è il CRC. Questa procedura è molto più sensibile a schemi di errore come quello sopra,
+                        perché mescola tutti i bit del messaggio nel risultato in un modo che il semplice XOR
+                        byte-a-byte non fa.</li>
+                    <li>• Sia il checksum che il CRC servono solo a <strong>rilevare</strong> un errore, non a
+                        <strong>correggerlo</strong>: il destinatario che nota una discrepanza può solo scartare il
+                        messaggio e chiedere una ritrasmissione, non sa quale bit esattamente sia sbagliato.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Esistono codici che permettono anche di correggere l'errore? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Sì: si chiamano <strong>codici a correzione d'errore</strong> (error-correcting codes,
+                        ECC), come i codici di Hamming o i più sofisticati Reed-Solomon (usati, tra l'altro, nei
+                        CD, nei DVD e nelle comunicazioni satellitari). L'idea di base è aggiungere ancora più
+                        ridondanza di quella usata da un CRC: non solo abbastanza bit per scoprire che qualcosa
+                        non va, ma abbastanza da poter dedurre esattamente quale bit (o quali bit) sono stati
+                        alterati, e quindi ripararli senza dover richiedere una ritrasmissione. Il prezzo da
+                        pagare è, appunto, più ridondanza — più bit di controllo da trasmettere per ogni bit di
+                        dati utile — motivo per cui si usano tipicamente dove ritrasmettere è costoso o impossibile
+                        (una sonda spaziale lontanissima, la memoria RAM di un server) e non ovunque.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

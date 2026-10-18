@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riconoscere un tentativo di phishing</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Riconoscere un tentativo di phishing</h1>
+            <p class="subtitle">8 email completamente inventate (nessun marchio reale): alcune sono legittime, altre sono tentativi di phishing. Per ciascuna, decidi PRIMA di vedere la risposta — poi scopri quali indizi la rivelano.</p>
+
+            <p class="progress-text" id="progressText"></p>
+
+            <div id="quizArea">
+                <div class="email-card" id="emailCard"></div>
+
+                <div class="controls" id="answerControls">
+                    <button class="btn btn-primary" id="legitBtn">✓ Legittima</button>
+                    <button class="btn btn-secondary" id="phishBtn">⚠ Phishing</button>
+                </div>
+
+                <div class="result-box hidden" id="feedbackBox"></div>
+
+                <div class="controls">
+                    <button class="btn btn-primary hidden" id="nextBtn">Email successiva →</button>
+                </div>
+            </div>
+
+            <div class="summary-box hidden" id="summaryArea">
+                <h2 class="section-title">Riepilogo finale</h2>
+                <div class="result-box" id="summaryScoreBox"></div>
+                <div id="summaryWrongList"></div>
+                <div class="controls">
+                    <button class="btn btn-secondary" id="restartBtn">↺ Ricomincia</button>
+                </div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Il phishing funziona, anche se col senno di poi sembra "ovvio", perché fa leva deliberatamente su <strong>urgenza, paura o curiosità</strong>: spinge ad agire subito, prima di fermarsi a pensare e controllare con calma.</li>
+                    <li>• <strong>Controllo n.1</strong>: guarda il vero indirizzo del mittente carattere per carattere — non solo il nome visualizzato, ma il dominio dopo la @. Un dominio quasi identico a quello vero (con una lettera, un trattino o un'estensione diversa) è un segnale forte.</li>
+                    <li>• <strong>Controllo n.2</strong>: prima di cliccare un link, passa il mouse sopra senza cliccare (o tienilo premuto a lungo su telefono) per vedere l'URL di destinazione reale: spesso non corrisponde affatto al testo mostrato.</li>
+                    <li>• <strong>Controllo n.3</strong>: diffida sempre di richieste urgenti, via email, di dati personali, password o pagamenti — nessun servizio serio ti chiederà mai la password per email.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false" aria-controls="deepDivePanel">Ma se il mittente sembra un collega o un'azienda che conosco davvero? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Anche in quel caso vale la stessa regola: controlla il dominio reale invece di fidarti del nome mostrato, e se il messaggio chiede un'azione urgente (cliccare, pagare, scaricare un allegato), verifica con un altro canale — una telefonata, un messaggio su un'altra app, una visita di persona — invece di rispondere o cliccare direttamente dall'email. Gli attacchi più efficaci spesso imitano proprio persone o aziende note, perché la fiducia già esistente abbassa la guardia.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,386 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(to bottom right, #eff6ff, #fefce8);
+    min-height: 100vh;
+    padding: 1.5rem;
+}
+
+.container {
+    max-width: 62rem;
+    margin: 0 auto;
+}
+
+.card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+.section-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.75rem;
+}
+
+.controls {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 0.85rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    font-weight: 600;
+    padding: 0.6rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 0.82rem;
+}
+
+.btn:disabled {
+    background-color: #e5e7eb !important;
+    color: #9ca3af !important;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background-color: #1d4ed8;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #1e40af;
+}
+
+.btn-secondary {
+    background-color: #e5e7eb;
+    color: #374151;
+}
+
+.btn-secondary:hover {
+    background-color: #d1d5db;
+}
+
+.step-panel {
+    background-color: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 0.85rem;
+    font-size: 0.85rem;
+    color: #374151;
+    line-height: 1.6;
+    min-height: 6rem;
+    max-height: 13rem;
+    overflow-y: auto;
+}
+
+.step-line {
+    padding: 0.3rem 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.step-line:last-child {
+    border-bottom: none;
+}
+
+.step-line.current {
+    font-weight: 700;
+    color: #1d4ed8;
+}
+
+.result-box {
+    border-radius: 0.5rem;
+    padding: 0.9rem 1rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    min-height: 2rem;
+}
+
+.result-box.bad {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.result-box.good {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.help-panel {
+    background-color: #eff6ff;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.help-title {
+    font-weight: 600;
+    color: #1e3a8a;
+    margin-bottom: 0.5rem;
+}
+
+.help-list {
+    font-size: 0.875rem;
+    color: #1e3a8a;
+    list-style: none;
+}
+
+.help-list li {
+    margin-bottom: 0.35rem;
+}
+
+.btn-link {
+    display: block;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1d4ed8;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.btn-link:hover {
+    color: #1e3a8a;
+}
+
+.deep-dive-panel {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #bfdbfe;
+    font-size: 0.875rem;
+    color: #1e3a8a;
+    line-height: 1.6;
+}
+
+.hidden {
+    display: none;
+}
+
+/* --- Specifico di astar-pathfinding-explorer ---------------------------- */
+
+.hint-text {
+    font-size: 0.78rem;
+    color: #6b7280;
+    margin-bottom: 1rem;
+}
+
+.presets-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.presets-label {
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+.chip {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 9999px;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    color: #1d4ed8;
+    cursor: pointer;
+}
+
+.chip:hover {
+    background: #dbeafe;
+}
+
+.speed-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.85rem;
+}
+
+.speed-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #374151;
+    white-space: nowrap;
+}
+
+.speed-row input[type="range"] {
+    flex: 1;
+}
+
+.speed-value {
+    font-size: 0.78rem;
+    color: #6b7280;
+    white-space: nowrap;
+    min-width: 6rem;
+    text-align: right;
+}
+
+.live-stats {
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #1d4ed8;
+    margin-bottom: 1rem;
+}
+
+.compare-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+}
+
+.compare-col {
+    flex: 1;
+    min-width: 19rem;
+}
+
+.compare-title {
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+.algo-tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 0.1rem 0.5rem;
+    border-radius: 9999px;
+    margin-left: 0.3rem;
+    vertical-align: middle;
+}
+
+.algo-tag-d {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.algo-tag-a {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.grid-wrap {
+    overflow-x: auto;
+    margin-bottom: 0.25rem;
+}
+
+.astar-grid {
+    display: grid;
+    grid-template-columns: repeat(14, 1.55rem);
+    grid-auto-rows: 1.55rem;
+    gap: 2px;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.astar-cell {
+    width: 1.55rem;
+    height: 1.55rem;
+    border-radius: 0.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    font-family: monospace;
+    font-weight: 700;
+    cursor: pointer;
+    color: #ffffffcc;
+    user-select: none;
+    background: #f3f4f6;
+    transition: background 0.1s;
+}
+
+.astar-cell.wall {
+    background: #1f2937;
+    cursor: not-allowed;
+}
+
+.astar-cell.start,
+.astar-cell.end {
+    outline: 3px solid #facc15;
+    outline-offset: -3px;
+    color: #78350f;
+}
+
+.astar-cell.visited-d {
+    background: #93c5fd;
+}
+
+.astar-cell.visited-a {
+    background: #86efac;
+}
+
+.astar-cell.path {
+    box-shadow: inset 0 0 0 3px #facc15;
+}
+
+.legend-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin-bottom: 1rem;
+    font-size: 0.78rem;
+    color: #475569;
+    justify-content: center;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.legend-dot {
+    display: inline-block;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 0.2rem;
+}
+
+.dot-wall {
+    background: #1f2937;
+}
+
+.dot-d {
+    background: #93c5fd;
+}
+
+.dot-a {
+    background: #86efac;
+}
+
+.dot-path {
+    background: white;
+    box-shadow: inset 0 0 0 3px #facc15;
+}

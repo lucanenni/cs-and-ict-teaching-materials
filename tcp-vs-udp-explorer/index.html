@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCP vs UDP</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>TCP vs UDP</h1>
+            <p class="subtitle">Lo stesso scenario — 10 segmenti dati inviati da A a B, con lo stesso percorso e
+                le stesse due perdite — eseguito prima con le garanzie di TCP e poi con la semplicità (e i rischi)
+                di UDP.</p>
+
+            <div class="columns-row">
+                <div class="column">
+                    <h2 class="section-title">Modalità TCP</h2>
+                    <p class="hint-text">Ogni segmento è numerato, il destinatario invia un ACK per ciascuno; se
+                        l'ACK non arriva in tempo, il mittente ritrasmette.</p>
+
+                    <div class="transit-row">
+                        <div class="actor-label">📤 A<br>(mittente)</div>
+                        <div class="transit-track" id="tcpTransit"></div>
+                        <div class="actor-label">📥 B<br>(destinatario)</div>
+                    </div>
+
+                    <div class="controls">
+                        <button class="btn btn-primary" id="tcpRunBtn">▶ Avvia</button>
+                        <button class="btn btn-secondary" id="tcpStepBtn">Passo singolo →</button>
+                        <button class="btn btn-secondary" id="tcpResetBtn">↺ Ricomincia</button>
+                    </div>
+
+                    <div class="step-panel" id="tcpStepPanel"></div>
+
+                    <div class="delivered-panel">
+                        Consegnati a B (in ordine di arrivo):
+                        <div class="delivered-list" id="tcpDelivered"></div>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <h2 class="section-title">Modalità UDP</h2>
+                    <p class="hint-text">Nessun ACK, nessuna ritrasmissione: i segmenti persi restano persi, e
+                        quelli che arrivano vengono mostrati subito, senza garanzia sull'ordine.</p>
+
+                    <div class="transit-row">
+                        <div class="actor-label">📤 A<br>(mittente)</div>
+                        <div class="transit-track" id="udpTransit"></div>
+                        <div class="actor-label">📥 B<br>(destinatario)</div>
+                    </div>
+
+                    <div class="controls">
+                        <button class="btn btn-primary" id="udpRunBtn">▶ Avvia</button>
+                        <button class="btn btn-secondary" id="udpStepBtn">Passo singolo →</button>
+                        <button class="btn btn-secondary" id="udpResetBtn">↺ Ricomincia</button>
+                    </div>
+
+                    <div class="step-panel" id="udpStepPanel"></div>
+
+                    <div class="delivered-panel">
+                        Consegnati a B (in ordine di arrivo):
+                        <div class="delivered-list" id="udpDelivered"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-row">
+                <div class="summary-box">
+                    <h3>Riepilogo TCP</h3>
+                    <div id="tcpSummary">Segmenti consegnati: 0/10<br>Passi impiegati: 0<br>ACK scambiati: 0</div>
+                </div>
+                <div class="summary-box">
+                    <h3>Riepilogo UDP</h3>
+                    <div id="udpSummary">Segmenti consegnati: 0/10<br>Passi impiegati: 0<br>ACK scambiati: 0 (UDP non usa ACK)</div>
+                </div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Un file da scaricare o una pagina web vogliono <strong>TCP</strong>: serve <em>tutto</em>
+                        il contenuto, l'ordine dei byte conta, e un ritardo extra dovuto a una ritrasmissione è
+                        un prezzo accettabile pur di non ricevere un file corrotto o incompleto.</li>
+                    <li>• Una videochiamata o un gioco online spesso preferiscono <strong>UDP</strong>: un
+                        fotogramma audio/video arrivato in ritardo (perché ritrasmesso) non serve comunque più — è
+                        già stato superato dal fotogramma successivo. Meglio perdere un frame e andare avanti che
+                        bloccarsi ad aspettare quello perso.</li>
+                    <li>• Con TCP i due lati scambiano anche messaggi di <strong>controllo</strong> (gli ACK), che
+                        non trasportano dati applicativi ma hanno comunque un costo in banda e in passi aggiuntivi;
+                        UDP non ne scambia nessuno.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Allora perché non usare sempre TCP, visto che è più affidabile? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Perché "affidabile" non significa "sempre meglio": l'affidabilità di TCP ha un costo in
+                        tempo. Se un segmento audio in una videochiamata si perde, TCP lo ritrasmetterebbe e
+                        aspetterebbe di rimetterlo in ordine prima di consegnare qualsiasi cosa agli strati
+                        superiori — ma quel frammento audio sarebbe ormai "vecchio" di decine o centinaia di
+                        millisecondi quando arriva, e nel frattempo la conversazione si sarebbe bloccata ad
+                        aspettarlo. Con UDP, l'applicazione riceve subito tutto ciò che arriva e decide da sola
+                        cosa fare di un pezzo perso (spesso: niente, si va avanti, magari con una piccola
+                        interpolazione). In generale: dati che <em>devono</em> arrivare tutti, nell'ordine giusto,
+                        e per cui un ritardo è accettabile → TCP; dati "in tempo reale" per cui un pezzo vecchio
+                        è inutile comunque → UDP (spesso con una propria logica applicativa sopra, per i casi in
+                        cui serve comunque qualche garanzia aggiuntiva).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

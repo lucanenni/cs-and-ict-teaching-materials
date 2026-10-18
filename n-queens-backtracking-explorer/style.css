@@ -1,0 +1,313 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(to bottom right, #eff6ff, #fefce8);
+    min-height: 100vh;
+    padding: 1.5rem;
+}
+
+.container {
+    max-width: 62rem;
+    margin: 0 auto;
+}
+
+.card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+.section-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.75rem;
+}
+
+.controls {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 0.85rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    font-weight: 600;
+    padding: 0.6rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 0.82rem;
+}
+
+.btn:disabled {
+    background-color: #e5e7eb !important;
+    color: #9ca3af !important;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background-color: #1d4ed8;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #1e40af;
+}
+
+.btn-secondary {
+    background-color: #e5e7eb;
+    color: #374151;
+}
+
+.btn-secondary:hover {
+    background-color: #d1d5db;
+}
+
+.step-panel {
+    background-color: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 0.85rem;
+    font-size: 0.85rem;
+    color: #374151;
+    line-height: 1.6;
+    min-height: 6rem;
+}
+
+.step-line {
+    padding: 0.3rem 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.step-line:last-child {
+    border-bottom: none;
+}
+
+.step-line.current {
+    font-weight: 700;
+    color: #1d4ed8;
+}
+
+.result-box {
+    border-radius: 0.5rem;
+    padding: 0.9rem 1rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    min-height: 2rem;
+}
+
+.result-box.bad {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.result-box.good {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.help-panel {
+    background-color: #eff6ff;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.help-title {
+    font-weight: 600;
+    color: #1e3a8a;
+    margin-bottom: 0.5rem;
+}
+
+.help-list {
+    font-size: 0.875rem;
+    color: #1e3a8a;
+    list-style: none;
+}
+
+.help-list li {
+    margin-bottom: 0.35rem;
+}
+
+.btn-link {
+    display: block;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1d4ed8;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.btn-link:hover {
+    color: #1e3a8a;
+}
+
+.deep-dive-panel {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #bfdbfe;
+    font-size: 0.875rem;
+    color: #1e3a8a;
+    line-height: 1.6;
+}
+
+.hidden {
+    display: none;
+}
+
+/* --- Specifico di questo progetto: scacchiera e contatori --- */
+
+.top-row {
+    margin-bottom: 1.25rem;
+    max-width: 14rem;
+}
+
+.setting-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+select {
+    width: 100%;
+    padding: 0.65rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.counters-row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    background: #f5f3ff;
+    color: #4338ca;
+    border-radius: 0.5rem;
+    padding: 0.6rem 0.9rem;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+.board-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.board {
+    display: grid;
+    gap: 2px;
+    background: #1f2937;
+    padding: 2px;
+    border-radius: 0.4rem;
+    width: min(100%, 24rem);
+    aspect-ratio: 1;
+}
+
+.cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    aspect-ratio: 1;
+    transition: background-color 0.15s;
+}
+
+.cell.light {
+    background: #f9fafb;
+}
+
+.cell.dark {
+    background: #e5e7eb;
+}
+
+.cell.queen {
+    color: #1d4ed8;
+    font-weight: bold;
+}
+
+.cell.attacked {
+    background: #fecaca;
+}
+
+.cell.trying {
+    box-shadow: inset 0 0 0 3px #f59e0b;
+}
+
+.cell.backtracked {
+    background: #fde68a;
+}
+
+.cell.queen.attacked {
+    background: inherit;
+}
+
+.legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.78rem;
+    color: #475569;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.legend-dot {
+    display: inline-block;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 0.2rem;
+}
+
+.dot-queen {
+    background: #dbeafe;
+    border: 2px solid #1d4ed8;
+}
+
+.dot-trying {
+    background: white;
+    box-shadow: inset 0 0 0 2px #f59e0b;
+}
+
+.dot-attacked {
+    background: #fecaca;
+}
+
+.dot-backtracked {
+    background: #fde68a;
+}
+
+.backtrack-line {
+    color: #b45309;
+}

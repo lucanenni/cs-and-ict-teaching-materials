@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catena di certificati: perché il browser si fida di un sito</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Catena di certificati: perché il browser si fida di un sito</h1>
+            <p class="subtitle">Il certificato di un sito non è fidato "di per sé": lo è solo perché qualcuno di già
+                fidato lo garantisce, risalendo una catena di firme fino a una radice conosciuta dal browser.</p>
+
+            <div class="setup-group">
+                <label for="scenarioSelect" class="scenario-label">Scenario</label>
+                <select id="scenarioSelect" class="scenario-select">
+                    <option value="">Catena valida (connessione sicura)</option>
+                    <option value="site">Simula: firma del certificato del sito non valida</option>
+                    <option value="intermediate">Simula: firma della CA Intermedia non valida</option>
+                    <option value="root">Simula: Root CA non presente nel trust store</option>
+                </select>
+            </div>
+
+            <div class="chain-row">
+                <div class="cert-card" id="certRoot">
+                    <div class="cert-kind">CA Radice (Root CA)</div>
+                    <div class="cert-field"><span class="cert-field-label">Soggetto:</span> CA Radice Esempio</div>
+                    <div class="cert-field"><span class="cert-field-label">Emittente:</span> CA Radice Esempio (autofirmato)</div>
+                    <div class="cert-field">Firmato con la chiave privata di: <strong>CA Radice Esempio</strong></div>
+                    <div class="cert-status" id="certRootStatus">in attesa di verifica</div>
+                </div>
+                <div class="chain-arrow">firma →</div>
+                <div class="cert-card" id="certIntermediate">
+                    <div class="cert-kind">CA Intermedia (Intermediate CA)</div>
+                    <div class="cert-field"><span class="cert-field-label">Soggetto:</span> CA Intermedia Esempio</div>
+                    <div class="cert-field"><span class="cert-field-label">Emittente:</span> CA Radice Esempio</div>
+                    <div class="cert-field">Firmato con la chiave privata di: <strong>CA Radice Esempio</strong></div>
+                    <div class="cert-status" id="certIntermediateStatus">in attesa di verifica</div>
+                </div>
+                <div class="chain-arrow">firma →</div>
+                <div class="cert-card" id="certSite">
+                    <div class="cert-kind">Certificato del sito</div>
+                    <div class="cert-field"><span class="cert-field-label">Soggetto:</span> esempio.it</div>
+                    <div class="cert-field"><span class="cert-field-label">Emittente:</span> CA Intermedia Esempio</div>
+                    <div class="cert-field">Firmato con la chiave privata di: <strong>CA Intermedia Esempio</strong></div>
+                    <div class="cert-status" id="certSiteStatus">in attesa di verifica</div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="runBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">Passo singolo →</button>
+            </div>
+            <div class="step-panel" id="stepPanel"></div>
+            <div class="result-box" id="resultBox">Premi "▶ Avvia" o "Passo singolo →" per iniziare la verifica.</div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Ogni certificato è firmato con la chiave privata di chi lo ha emesso (la CA, "Certificate
+                        Authority"). Chiunque può verificare quella firma con la corrispondente chiave
+                        <strong>pubblica</strong>, senza mai conoscere la chiave privata.</li>
+                    <li>• Il browser non controlla solo il certificato del sito: risale la catena, verificando ogni
+                        firma con la chiave pubblica dell'anello successivo, fino ad arrivare a una
+                        <strong>Root CA</strong> che è già registrata (autofirmata) nel suo "trust store" — l'elenco
+                        delle radici di cui si fida a priori.</li>
+                    <li>• Fidarsi di un singolo certificato significa, in realtà, fidarsi di <strong>tutta la
+                        catena</strong>: se un solo anello non è valido, o la radice non è conosciuta, il browser
+                        non può garantire che il sito sia davvero chi dice di essere.</li>
+                    <li>• L'avviso "la connessione non è privata" significa esattamente questo: in qualche punto
+                        della catena la verifica è fallita — certificato scaduto, firma non corrispondente, oppure
+                        una radice non fidata — non che il traffico sia necessariamente intercettato, ma che il
+                        browser non può più garantirne l'identità.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché non dare direttamente a ogni sito un certificato firmato dalla Root CA? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>La chiave privata della Root CA è il bene più prezioso di tutto il sistema: se venisse
+                        compromessa, chiunque potrebbe firmare certificati falsi per qualsiasi sito del mondo, e
+                        l'unico rimedio sarebbe rimuovere quella radice da ogni browser esistente. Per questo la
+                        Root CA resta offline quasi sempre e firma solo poche CA Intermedie, che sono quelle che
+                        emettono i certificati di tutti i giorni. Se una CA Intermedia viene compromessa, il danno è
+                        comunque grave ma limitato: si revoca quella singola CA Intermedia, senza dover sfiduciare
+                        la radice e tutto ciò che dipende da essa.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

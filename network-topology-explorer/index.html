@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topologie di rete: bus, stella, anello, mesh</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Topologie di rete</h1>
+            <p class="subtitle">Come sono collegati fisicamente i computer di una rete cambia completamente cosa
+                succede quando un messaggio viene inviato — e cosa succede quando qualcosa si rompe. Scegli una
+                topologia, manda un messaggio e prova a rompere un cavo o un nodo.</p>
+
+            <div class="topo-chip-row" id="topoChips"></div>
+
+            <div class="endpoint-row">
+                <div class="endpoint-field">
+                    <label for="senderSelect">Mittente</label>
+                    <select id="senderSelect"></select>
+                </div>
+                <div class="endpoint-field">
+                    <label for="receiverSelect">Destinatario</label>
+                    <select id="receiverSelect"></select>
+                </div>
+                <button class="btn btn-primary" id="sendBtn">📨 Invia messaggio</button>
+                <button class="btn btn-secondary" id="resetFaultsBtn">↺ Ripristina guasti</button>
+            </div>
+
+            <div class="diagram-box">
+                <svg class="topo-svg" id="topoSvg" viewBox="0 0 600 320" xmlns="http://www.w3.org/2000/svg"></svg>
+            </div>
+
+            <p class="topo-hint">Clic su un nodo o su un collegamento per simulare un guasto (si rompe); clic di
+                nuovo per ripararlo. Poi premi di nuovo "Invia messaggio" per vedere l'effetto.</p>
+
+            <div class="legend-row">
+                <span><span class="legend-dot sender"></span> mittente</span>
+                <span><span class="legend-dot receiver"></span> destinatario</span>
+                <span><span class="legend-dot broken"></span> guasto</span>
+            </div>
+
+            <div class="step-panel" id="stepPanel"></div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">Passo singolo →</button>
+            </div>
+
+            <div class="result-box" id="resultBox"></div>
+        </div>
+
+        <div class="card">
+            <h2 class="section-title">Costo e resilienza a confronto</h2>
+            <table class="tradeoff-table">
+                <thead>
+                    <tr>
+                        <th>Topologia</th>
+                        <th>Cavi necessari (5 nodi)</th>
+                        <th>Punto debole</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Bus</td>
+                        <td>4 (un unico cavo condiviso)</td>
+                        <td>Un guasto al cavo centrale spezza la rete in due metà isolate</td>
+                    </tr>
+                    <tr>
+                        <td>Stella</td>
+                        <td>5 (uno per nodo verso l'hub)</td>
+                        <td>Un guasto all'hub isola <em>tutta</em> la rete</td>
+                    </tr>
+                    <tr>
+                        <td>Anello</td>
+                        <td>5 (uno tra ogni coppia di vicini)</td>
+                        <td>Un singolo guasto blocca il giro in quella direzione</td>
+                    </tr>
+                    <tr>
+                        <td>Mesh (completa)</td>
+                        <td>10 (ogni nodo con ogni altro)</td>
+                        <td>Quasi nessuno: resiste anche a più guasti insieme</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• <strong>Bus</strong>: tutti i nodi condividono lo stesso cavo. Chi trasmette lo fa in
+                        broadcast: il segnale passa davanti a tutti, ma solo chi riconosce il proprio indirizzo
+                        accetta il messaggio, gli altri lo ignorano.</li>
+                    <li>• <strong>Stella</strong>: ogni nodo è collegato solo all'hub centrale (uno switch), mai
+                        direttamente agli altri. Ogni messaggio passa sempre di lì, anche tra due nodi vicini.</li>
+                    <li>• <strong>Anello</strong>: ogni nodo è collegato solo ai suoi due vicini, e il messaggio
+                        viaggia di nodo in nodo in una sola direzione finché non arriva a destinazione.</li>
+                    <li>• <strong>Mesh</strong>: ogni nodo ha un collegamento diretto (o quasi) con ogni altro nodo:
+                        costa molti più cavi, ma offre molte strade alternative se qualcosa si rompe.</li>
+                    <li>• In generale c'è un compromesso (<em>tradeoff</em>) tra <strong>costo</strong> (numero di
+                        cavi) e <strong>resilienza ai guasti</strong>: bus e anello sono economici ma hanno punti
+                        deboli che possono isolare parti della rete; la stella è economica ma l'hub è un singolo
+                        punto di rottura totale; la mesh è costosa ma molto resistente.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché Internet non è una mesh completa, se è così resistente? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Perché il costo cresce troppo in fretta: una mesh completa su <em>n</em> nodi richiede
+                        n·(n-1)/2 collegamenti — con 5 nodi sono già 10 cavi, con 100 nodi ne servirebbero quasi
+                        5.000. Internet ottiene comunque un'ottima resilienza senza quel costo usando una via di
+                        mezzo: una mesh <em>parziale</em>, dove i router principali hanno diversi collegamenti
+                        ridondanti tra loro (non con tutti, ma con abbastanza vicini) e i protocolli di instradamento
+                        (come quelli visti in altri esploratori di questa raccolta) scelgono dinamicamente un
+                        percorso alternativo quando uno si guasta.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livelli di isolamento delle transazioni</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Livelli di isolamento delle transazioni</h1>
+            <p class="subtitle">T1 e T2 lavorano sullo stesso saldo di un conto. Scegli un livello di isolamento e
+                guarda quale anomalia classica si manifesta — o viene impedita — passo per passo</p>
+
+            <h2 class="section-title">Livello di isolamento</h2>
+            <div class="level-chips" id="levelChips">
+                <button type="button" class="level-chip" data-level="READ_UNCOMMITTED">Read Uncommitted</button>
+                <button type="button" class="level-chip" data-level="READ_COMMITTED">Read Committed</button>
+                <button type="button" class="level-chip" data-level="REPEATABLE_READ">Repeatable Read</button>
+                <button type="button" class="level-chip" data-level="SERIALIZABLE">Serializable</button>
+            </div>
+            <div class="level-info" id="levelInfo"></div>
+
+            <div class="columns-row">
+                <div class="column">
+                    <h2 class="section-title">Scenario 1 — Dirty read</h2>
+                    <p class="hint-text">T1 modifica il saldo ma non ha ancora confermato; T2 prova a leggerlo;
+                        infine T1 fa ROLLBACK.</p>
+                    <div class="controls">
+                        <button class="btn btn-primary" id="dirtyRunBtn">▶ Avvia</button>
+                        <button class="btn btn-secondary" id="dirtyStepBtn">Passo singolo →</button>
+                    </div>
+                    <div class="step-panel" id="dirtyStepPanel"></div>
+                    <div class="result-box" id="dirtyResult"></div>
+                </div>
+                <div class="column">
+                    <h2 class="section-title">Scenario 2 — Lettura non ripetibile</h2>
+                    <p class="hint-text">T2 legge il saldo due volte nella stessa transazione; nel mezzo T1 lo
+                        modifica e fa COMMIT.</p>
+                    <div class="controls">
+                        <button class="btn btn-primary" id="nonRepRunBtn">▶ Avvia</button>
+                        <button class="btn btn-secondary" id="nonRepStepBtn">Passo singolo →</button>
+                    </div>
+                    <div class="step-panel" id="nonRepStepPanel"></div>
+                    <div class="result-box" id="nonRepResult"></div>
+                </div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Il <strong>livello di isolamento</strong> è quanto una transazione viene "protetta"
+                        dagli effetti delle altre transazioni in corso nello stesso momento. Più isolamento
+                        significa meno anomalie, ma anche più attese (meno concorrenza).</li>
+                    <li>• <strong>Dirty read</strong>: leggere un dato modificato da un'altra transazione che non
+                        ha ancora fatto COMMIT — un dato che potrebbe sparire con un ROLLBACK.</li>
+                    <li>• <strong>Lettura non ripetibile</strong> (non-repeatable read): leggere due volte lo
+                        stesso dato nella stessa transazione e ottenere due valori diversi, perché un'altra
+                        transazione lo ha modificato e confermato nel mezzo.</li>
+                </ul>
+                <div class="table-wrap">
+                    <table class="anomaly-table">
+                        <thead>
+                            <tr>
+                                <th>Livello</th>
+                                <th>Dirty read</th>
+                                <th>Lettura non ripetibile</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Read Uncommitted</td>
+                                <td class="yes">possibile</td>
+                                <td class="yes">possibile</td>
+                            </tr>
+                            <tr>
+                                <td>Read Committed</td>
+                                <td class="no">impedito</td>
+                                <td class="yes">possibile</td>
+                            </tr>
+                            <tr>
+                                <td>Repeatable Read</td>
+                                <td class="no">impedito</td>
+                                <td class="no">impedito</td>
+                            </tr>
+                            <tr>
+                                <td>Serializable</td>
+                                <td class="no">impedito</td>
+                                <td class="no">impedito</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché non usare sempre Serializable? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Serializable è il livello più sicuro: impedisce anche le <em>phantom read</em> (righe che
+                        appaiono o scompaiono da una query ripetuta, non mostrate in questa pagina) oltre a dirty
+                        read e letture non ripetibili. Il prezzo è la concorrenza: per garantire queste proprietà il
+                        database deve far aspettare più spesso le transazioni l'una all'altra (o annullarne e farne
+                        ripetere alcune), quindi su un sistema con molti utenti contemporanei il throughput scende.
+                        Per questo in pratica molti database usano Read Committed come default (un buon compromesso
+                        per la maggior parte delle applicazioni) e alzano il livello solo dove serve davvero una
+                        garanzia più forte.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

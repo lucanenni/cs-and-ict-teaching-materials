@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethernet e CSMA/CD</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Ethernet e CSMA/CD</h1>
+            <p class="subtitle">Più dispositivi condividono lo stesso cavo: cosa succede quando due di loro
+                iniziano a trasmettere quasi nello stesso istante?</p>
+
+            <div class="callout">
+                <strong>Perché non come il Wi-Fi?</strong> Una scheda Ethernet via cavo è collegata a un mezzo
+                condiviso <strong>half-duplex</strong> ma, a differenza di una radio, può continuare ad ascoltare il
+                cavo <em>mentre</em> trasmette: se il proprio segnale torna distorto, se ne accorge subito, a metà
+                trasmissione (CSMA/<strong>CD</strong>, Collision <strong>Detection</strong>). Una radio Wi-Fi,
+                invece, quando trasmette viene "accecata" dal proprio segnale e non può rilevare nulla d'altro sul
+                canale: deve <strong>evitare</strong> la collisione in anticipo, ascoltando e aspettando prima di
+                partire (CSMA/<strong>CA</strong>).
+            </div>
+
+            <h2 class="section-title">Chi ha dati pronti da inviare?</h2>
+            <div class="device-picker" id="devicePicker"></div>
+
+            <div class="diagram-box">
+                <div class="cable-diagram" id="cableDiagram">
+                    <div class="cable-line" id="cableLine"></div>
+                </div>
+            </div>
+
+            <div class="step-panel" id="stepPanel"></div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">Passo singolo →</button>
+                <button class="btn btn-secondary" id="newScenarioBtn">🔀 Nuovo scenario</button>
+            </div>
+
+            <div class="result-box good hidden" id="doneBox"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• <strong>Carrier sense</strong>: prima di trasmettere, ogni dispositivo ascolta il cavo.
+                        Se è occupato, continua ad aspettare e ascoltare.</li>
+                    <li>• <strong>Tempo di propagazione</strong>: il segnale viaggia sul cavo a velocità finita.
+                        Se un secondo dispositivo, lontano sul cavo, inizia a trasmettere prima che il segnale del
+                        primo lo raggiunga fisicamente, nessuno dei due sa ancora dell'altro — entrambi hanno
+                        sentito, in buona fede, il cavo libero.</li>
+                    <li>• <strong>Collision Detection</strong>: quando i due segnali si incrociano sul cavo,
+                        entrambi i dispositivi coinvolti rilevano la distorsione <em>mentre stanno ancora
+                            trasmettendo</em> — non devono aspettare la fine del frame per scoprirlo. È proprio
+                        questo il momento che distingue CSMA/CD dal CSMA/CA.</li>
+                    <li>• Appena rilevata la collisione, entrambi interrompono immediatamente, inviano un breve
+                        <strong>segnale di jam</strong> (per essere sicuri che tutti sul cavo sappiano della
+                        collisione) e calcolano un <strong>backoff esponenziale casuale</strong>: un'attesa a caso
+                        la cui finestra massima raddoppia a ogni tentativo andato male, prima di ritentare.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché il frame minimo Ethernet è 64 byte? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Perché CSMA/CD funzioni, un dispositivo deve ancora essere "in trasmissione" nel momento in
+                        cui potrebbe arrivargli notizia di una collisione dall'estremo più lontano del cavo — altrimenti
+                        finirebbe di trasmettere pensando di aver avuto successo, senza mai scoprire che il frame si
+                        è scontrato con un altro. Per questo lo standard Ethernet impone una dimensione <strong>minima</strong>
+                        di frame (64 byte): abbastanza "lunga" da restare sul cavo per tutto il tempo di andata e ritorno
+                        del segnale sul cavo più lungo consentito. Un frame più corto verrebbe riempito di padding
+                        proprio per garantire questa proprietà. Oggi, con gli switch Ethernet <strong>full-duplex</strong>,
+                        ogni collegamento switch–dispositivo è dedicato (non condiviso): non c'è più nessuno con cui
+                        collidere, e CSMA/CD è rimasto per lo più un capitolo storico, anche se la dimensione minima
+                        del frame è sopravvissuta come parte dello standard.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

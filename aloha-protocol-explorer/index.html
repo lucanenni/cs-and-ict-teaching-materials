@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il protocollo ALOHA</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Il protocollo ALOHA</h1>
+            <p class="subtitle">Alcune stazioni condividono lo stesso canale radio e trasmettono senza mai
+                ascoltarlo prima: cosa succede se due trasmettono (quasi) nello stesso istante? Confronta ALOHA
+                puro e Slotted ALOHA sullo stesso identico traffico.</p>
+
+            <div class="controls top-controls-row">
+                <button class="btn btn-secondary" id="newTrafficBtn">🎲 Nuovo traffico casuale</button>
+                <button class="btn btn-secondary" id="defaultTrafficBtn">↺ Traffico di esempio (fisso)</button>
+            </div>
+
+            <div class="columns-row">
+                <div class="aloha-column" id="col-pure">
+                    <h2>ALOHA puro</h2>
+                    <p class="column-note">Ogni stazione trasmette appena ha un frame pronto, in un istante
+                        qualsiasi. Una sovrapposizione anche parziale è collisione.</p>
+                    <div class="timeline-box">
+                        <svg class="timeline-svg" id="pureSvg" viewBox="0 0 600 220"
+                            xmlns="http://www.w3.org/2000/svg"></svg>
+                    </div>
+                    <div class="counters-row" id="pureCounters"></div>
+                    <div class="column-controls">
+                        <button class="btn btn-primary" id="pureRunBtn">▶ Avvia</button>
+                        <button class="btn btn-secondary" id="pureStepBtn">Passo singolo →</button>
+                    </div>
+                    <div class="column-step-panel" id="pureStepPanel"></div>
+                </div>
+
+                <div class="aloha-column" id="col-slotted">
+                    <h2>Slotted ALOHA</h2>
+                    <p class="column-note">Il tempo è diviso in slot fissi: una stazione pronta aspetta l'inizio
+                        del prossimo slot. Collisione solo se due stazioni scelgono lo stesso slot.</p>
+                    <div class="timeline-box">
+                        <svg class="timeline-svg" id="slottedSvg" viewBox="0 0 600 220"
+                            xmlns="http://www.w3.org/2000/svg"></svg>
+                    </div>
+                    <div class="counters-row" id="slottedCounters"></div>
+                    <div class="column-controls">
+                        <button class="btn btn-primary" id="slottedRunBtn">▶ Avvia</button>
+                        <button class="btn btn-secondary" id="slottedStepBtn">Passo singolo →</button>
+                    </div>
+                    <div class="column-step-panel" id="slottedStepPanel"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• ALOHA (a differenza del CSMA visto in altri esploratori di questa raccolta) non ascolta
+                        affatto il canale prima di trasmettere: è il protocollo di accesso al mezzo più semplice
+                        possibile, il primo mai inventato (rete <strong>ALOHAnet</strong>, Università delle Hawaii,
+                        anni '70).</li>
+                    <li>• In <strong>ALOHA puro</strong> ogni stazione rischia una collisione per tutta la durata
+                        della propria trasmissione <em>più</em> quella di chiunque inizi poco prima o poco dopo: la
+                        "finestra di rischio" dura il doppio del tempo di un frame.</li>
+                    <li>• Nello <strong>Slotted ALOHA</strong>, dovendo aspettare l'inizio di uno slot, la finestra
+                        di rischio si riduce esattamente alla durata di un solo frame: dimezzarla raddoppia
+                        l'efficienza massima teorica del canale.</li>
+                    <li>• Per questo l'utilizzo massimo teorico del canale è circa il <strong>18%</strong> per
+                        ALOHA puro e circa il <strong>37%</strong> per Slotted ALOHA: la simulazione qui sopra non
+                        deve convergere esattamente a questi numeri, ma lo slotted dovrebbe sempre ottenere
+                        un'efficienza uguale o migliore sullo stesso traffico.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché non arrivare semplicemente al 100% riducendo ancora lo slot? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Perché lo slot non può essere più corto della durata di un frame: deve contenere
+                        un'intera trasmissione, altrimenti un frame verrebbe tagliato a metà. La vera soluzione per
+                        andare oltre il 37% è ascoltare il canale prima di trasmettere — <strong>CSMA</strong>
+                        (Carrier Sense Multiple Access) — per evitare del tutto molte collisioni invece di limitarsi
+                        a restringere la finestra in cui possono avvenire. ALOHA resta importante perché è la base
+                        storica e concettuale da cui questi protocolli più sofisticati si sono evoluti.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

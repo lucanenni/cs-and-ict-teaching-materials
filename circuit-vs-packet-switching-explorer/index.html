@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commutazione di circuito vs di pacchetto</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Commutazione di circuito vs di pacchetto</h1>
+            <p class="subtitle">Una stessa "chiamata" tra un mittente e un destinatario, attraverso la stessa
+                piccola rete di nodi intermedi: cosa cambia se si riserva prima un canale dedicato, o se si lasciano
+                viaggiare i dati a pacchetti indipendenti?</p>
+
+            <div class="mode-chip-row" id="modeChips"></div>
+
+            <div class="diagram-box">
+                <svg class="net-svg" id="netSvg" viewBox="0 0 620 150" xmlns="http://www.w3.org/2000/svg"></svg>
+            </div>
+
+            <div class="counters-row" id="legendRow"></div>
+
+            <div class="step-panel" id="stepPanel"></div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">Passo singolo →</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Esegui di nuovo</button>
+            </div>
+
+            <div class="result-box" id="resultBox"></div>
+        </div>
+
+        <div class="card">
+            <h2 class="section-title">Riepilogo: cosa cambia davvero</h2>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Aspetto</th>
+                        <th>Commutazione di circuito</th>
+                        <th>Commutazione di pacchetto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Tempo di setup/teardown</td>
+                        <td class="no">Sì: 4 passi di SETUP + 4 di TEARDOWN prima/dopo i dati</td>
+                        <td class="yes">Nessuno: ogni pacchetto parte subito con il proprio indirizzo</td>
+                    </tr>
+                    <tr>
+                        <td>Banda sprecata nei silenzi</td>
+                        <td class="no">Sì: il canale resta riservato (e quindi inutilizzato) anche in silenzio</td>
+                        <td class="yes">No: senza dati da inviare, il collegamento è libero per altri</td>
+                    </tr>
+                    <tr>
+                        <td>Condivisione con altro traffico</td>
+                        <td class="no">Impossibile: il canale riservato è esclusivo per tutta la sessione</td>
+                        <td class="yes">Sì: più flussi si alternano sugli stessi collegamenti (multiplexing
+                            statistico)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• <strong>Commutazione di circuito</strong>: prima del primo dato si fa un <strong>SETUP</strong>
+                        che riserva un canale dedicato attraverso tutti i nodi intermedi; i dati viaggiano poi senza
+                        bisogno di indirizzo (la strada è già fissata), e alla fine un <strong>TEARDOWN</strong>
+                        libera il canale. Durante tutta la sessione, nessun altro può usare quei collegamenti — nemmeno
+                        nei momenti di silenzio.</li>
+                    <li>• <strong>Commutazione di pacchetto</strong>: i dati vengono spezzati in pacchetti numerati,
+                        ciascuno instradato in modo indipendente con il proprio indirizzo di destinazione; non serve
+                        nessun setup. I pacchetti possono seguire percorsi diversi, e gli stessi collegamenti possono
+                        essere condivisi in parallelo da pacchetti di altri utenti.</li>
+                    <li>• La rete telefonica tradizionale (<strong>PSTN</strong>) usava la commutazione di circuito:
+                        garantiva una qualità costante per tutta la telefonata, ma sprecava banda ogni volta che
+                        qualcuno restava in silenzio.</li>
+                    <li>• Internet usa la commutazione di pacchetto: è molto più efficiente nello sfruttare la banda
+                        condivisa tra tanti utenti, al prezzo di una latenza più variabile (i pacchetti possono
+                        arrivare con ritardi diversi, o anche in ordine diverso).</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché allora alcune applicazioni (voce, videochiamate) sembrano
+                    comunque "a canale dedicato"? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Non lo sono davvero: anche una videochiamata su Internet viaggia a pacchetti commutati,
+                        condividendo la rete con tutto il resto del traffico. Quello che cambia è la <em>qualità del
+                            servizio</em> (QoS): i protocolli moderni possono dare priorità ai pacchetti sensibili al
+                        ritardo (voce, video in diretta) rispetto a quelli che possono aspettare (un download in
+                        background), così la varianza di latenza resta accettabile pur restando a commutazione di
+                        pacchetto. È un compromesso ingegneristico, non un ritorno alla commutazione di circuito.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

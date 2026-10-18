@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rete neurale a più strati: il forward pass</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Rete neurale a più strati: il forward pass</h1>
+            <p class="subtitle">Due input, uno strato nascosto di 3 neuroni, un neurone di output: segui il calcolo
+                neurone per neurone, nell'ordine in cui l'informazione attraversa davvero la rete</p>
+
+            <div class="controls">
+                <label for="x1Range" class="inline-label">Input x1: <span id="x1Value">1.00</span></label>
+                <input type="range" id="x1Range" min="-2" max="2" step="0.1" value="1">
+            </div>
+            <div class="controls">
+                <label for="x2Range" class="inline-label">Input x2: <span id="x2Value">0.00</span></label>
+                <input type="range" id="x2Range" min="-2" max="2" step="0.1" value="0">
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="runBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">⏭ Passo singolo</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Ricomincia dal primo neurone</button>
+            </div>
+
+            <div class="canvas-wrap">
+                <canvas id="netCanvas" role="img" aria-label="Schema della rete con input, strato nascosto e output"></canvas>
+            </div>
+
+            <div class="step-panel" id="stepPanel"></div>
+
+            <div class="result-box hidden" id="resultBox"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Ogni neurone calcola la <strong>somma pesata</strong> dei suoi input (valore × peso,
+                        più un bias) e poi applica una <strong>funzione di attivazione</strong>.</li>
+                    <li>• I 3 neuroni dello strato nascosto usano <strong>ReLU</strong> (max(0, z)): azzera i
+                        valori negativi, molto usata nelle reti profonde perché semplice e veloce.</li>
+                    <li>• Il neurone di output usa la <strong>sigmoide</strong> (schiaccia qualunque numero in un
+                        valore tra 0 e 1), utile per leggere il risultato come una probabilità.</li>
+                    <li>• Il calcolo avanza in una sola direzione — dagli input verso l'output — mai all'indietro:
+                        è il <strong>forward pass</strong>.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché serve uno strato nascosto, non basta un solo neurone? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Un singolo neurone (un percettrone) calcola solo una somma pesata degli input seguita da
+                        un'attivazione: geometricamente, traccia un'unica retta (o un piano, con più input) che
+                        separa i dati in due zone. Funziona benissimo se i dati sono <strong>linearmente
+                            separabili</strong>, ma fallisce su problemi come lo XOR, dove nessuna singola retta
+                        separa correttamente le due classi. Aggiungendo uno <strong>strato nascosto</strong>, ogni
+                        neurone nascosto traccia la propria retta, e il neurone di output ricombina questi
+                        risultati intermedi: la rete nel complesso può "piegare" lo spazio e modellare confini
+                        decisionali curvi o a più pezzi, cioè funzioni non lineari. È per questo che le reti con
+                        almeno uno strato nascosto sono, in teoria, capaci di approssimare funzioni molto più
+                        complesse di quelle che un solo neurone potrà mai rappresentare.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

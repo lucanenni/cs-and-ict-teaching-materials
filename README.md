@@ -21,6 +21,10 @@ L'indice online è organizzato per argomento: la home page mostra le categorie, 
 - [bias-in-data-simulator](bias-in-data-simulator/) — mostra come un modello impari a ripetere un'ingiustizia presente nei propri dati di addestramento.
 - [confusion-matrix-explorer](confusion-matrix-explorer/) — sposta la soglia di decisione di un filtro anti-spam e guarda matrice di confusione, precisione e richiamo cambiare dal vivo.
 - [rules-vs-ai-chatbot](rules-vs-ai-chatbot/) — due chatbot a confronto: uno a regole rigide, uno probabilistico simulato — con una vera allucinazione "in diretta".
+- [kmeans-clustering-explorer](kmeans-clustering-explorer/) — punti che si raggruppano iterazione dopo iterazione — e perché centroidi iniziali diversi possono dare risultati diversi.
+- [neural-network-layers-explorer](neural-network-layers-explorer/) — un input che attraversa uno strato nascosto fino all'output, un neurone alla volta, con ogni calcolo visibile.
+- [decision-tree-explorer](decision-tree-explorer/) — una serie di domande sui dati che arrivano a una decisione, con la logica di scelta della domanda migliore a ogni nodo visibile passo passo.
+- [reinforcement-learning-explorer](reinforcement-learning-explorer/) — un agente che impara a muoversi solo da premi e punizioni, senza che nessuno gli indichi mai la mossa giusta in anticipo.
 
 ### 💾 Rappresentazione dei dati
 
@@ -64,6 +68,24 @@ L'indice online è organizzato per argomento: la home page mostra le categorie, 
 - [firewall-rules-explorer](firewall-rules-explorer/) — un pacchetto testato contro una lista di regole, che si ferma alla prima corrispondenza — e come l'ordine può vanificare una regola più specifica.
 - [load-balancer-explorer](load-balancer-explorer/) — le stesse richieste distribuite su 3 server con due strategie a confronto, per vedere cosa succede quando una richiesta dura più delle altre.
 - [cdn-cache-explorer](cdn-cache-explorer/) — guarda una richiesta viaggiare fino all'origine la prima volta, e tornare quasi istantanea dalla cache le volte successive — finché non scade.
+- [routing-vector-explorer](routing-vector-explorer/) — cinque router che si scambiano solo le proprie tabelle con i vicini imparano, round dopo round, le strade più economiche verso tutte le destinazioni.
+- [wifi-csma-explorer](wifi-csma-explorer/) — perché una radio non può rilevare una collisione mentre trasmette — e come ascolto del canale e attesa casuale la evitano in anticipo.
+- [qos-queue-explorer](qos-queue-explorer/) — una videochiamata e un download condividono lo stesso collo di bottiglia: guarda la differenza tra una coda FIFO e una a priorità.
+- [certificate-chain-explorer](certificate-chain-explorer/) — perché il browser si fida di un sito: una catena di firme che risale fino a una Root CA già registrata — e cosa succede quando si rompe.
+- [password-hashing-explorer](password-hashing-explorer/) — stessa password, hash identici senza salt — e completamente diversi con un salt casuale per utente.
+- [sql-injection-explorer](sql-injection-explorer/) — stesso input malevolo: autentica senza password con una query concatenata, fallisce correttamente con una parametrizzata.
+- [network-topology-explorer](network-topology-explorer/) — bus, stella, anello, mesh: lo stesso messaggio che viaggia in modo diverso — e lo stesso guasto che ha conseguenze molto diverse.
+- [circuit-vs-packet-switching-explorer](circuit-vs-packet-switching-explorer/) — una linea dedicata per tutta la chiamata, o dati spezzettati e instradati indipendentemente: due modi opposti di condividere la stessa rete.
+- [aloha-protocol-explorer](aloha-protocol-explorer/) — trasmetti quando vuoi, scopri la collisione dopo: guarda perché ALOHA puro e slotted ALOHA hanno un limite teorico di efficienza così basso.
+- [csma-cd-explorer](csma-cd-explorer/) — su un cavo condiviso un dispositivo può accorgersi di una collisione mentre sta ancora trasmettendo — qualcosa che il Wi-Fi non può fare.
+- [token-ring-explorer](token-ring-explorer/) — solo chi possiede il gettone può trasmettere: un accesso al mezzo deterministico, a confronto con quelli a contesa come ALOHA e CSMA.
+- [multiplexing-explorer](multiplexing-explorer/) — più flussi che condividono lo stesso canale dividendosi il tempo o la frequenza — due filosofie opposte per lo stesso problema.
+- [tcp-three-way-handshake-explorer](tcp-three-way-handshake-explorer/) — SYN, SYN-ACK, ACK: come due host aprono una connessione e si confermano a vicenda i rispettivi numeri di sequenza.
+- [tcp-vs-udp-explorer](tcp-vs-udp-explorer/) — stessa trasmissione, due filosofie: ritrasmissione e conferme per garantire l'arrivo, o "spara e vai" senza nessuna garanzia.
+- [signal-encoding-explorer](signal-encoding-explorer/) — come i bit diventano transizioni elettriche sul cavo, e perché una codifica "auto-sincronizzante" risolve un problema reale di clock che l'altra ha.
+- [crc-checksum-explorer](crc-checksum-explorer/) — un mittente aggiunge pochi bit di controllo per far scoprire al destinatario se qualcosa si è corrotto lungo il cammino.
+- [vpn-tunneling-explorer](vpn-tunneling-explorer/) — un pacchetto privato incapsulato dentro uno pubblico: come due reti private si parlano attraverso Internet come se fossero la stessa rete.
+- [phishing-awareness-explorer](phishing-awareness-explorer/) — email fittizie da classificare come legittime o phishing, con gli indizi che le tradiscono svelati dopo ogni risposta.
 
 ### 🔢 Logica
 
@@ -80,6 +102,8 @@ L'indice online è organizzato per argomento: la home page mostra le categorie, 
 - [pascalina-simulator](pascalina-simulator/) — nel 1642 una macchina sommava girando ruote dentate: guarda scattare il riporto quando una ruota passa da 9 a 0.
 - [cpu-cycle-explorer](cpu-cycle-explorer/) — una CPU giocattolo esegue davvero un programma, fase per fase: preleva l'istruzione, capisce cosa significa, ne esegue l'effetto.
 - [cache-memory-explorer](cache-memory-explorer/) — una cache reale a mappatura diretta: guarda hit e miss cambiare a seconda di quanto un programma riusa gli indirizzi vicini.
+- [virtual-memory-paging-explorer](virtual-memory-paging-explorer/) — più pagine virtuali che frame fisici: guarda un accesso diventare un hit immediato o un page fault da risolvere.
+- [cpu-pipeline-explorer](cpu-pipeline-explorer/) — più istruzioni in volo contemporaneamente sulle fasi fetch/decode/execute, e cosa succede quando una dipende dal risultato di quella prima.
 
 ### 🧮 Algoritmi
 
@@ -90,6 +114,12 @@ L'indice online è organizzato per argomento: la home page mostra le categorie, 
 - [game-of-life-explorer](game-of-life-explorer/) — quattro regole semplicissime, applicate a milioni di celle, bastano a generare comportamenti complessi.
 - [dijkstra-shortest-path-explorer](dijkstra-shortest-path-explorer/) — erba, fango, acqua, muri: guarda l'algoritmo trovare sempre il percorso di costo totale più basso, non quello con meno passi.
 - [manhattan-distance-explorer](manhattan-distance-explorer/) — sposta due punti su una griglia e confronta la distanza "a isolati" con quella in linea d'aria.
+- [dynamic-programming-explorer](dynamic-programming-explorer/) — guarda lo stesso albero di chiamate ricalcolare gli stessi sottoproblemi all'infinito — o tagliarli con una tabella di memoization.
+- [union-find-explorer](union-find-explorer/) — un grafo pesato, un arco alla volta: guarda Kruskal costruire l'albero di copertura minimo scartando chi chiuderebbe un ciclo.
+- [astar-pathfinding-explorer](astar-pathfinding-explorer/) — stessa griglia di Dijkstra, ma con una euristica che guida la ricerca verso il traguardo invece di esplorare alla cieca in ogni direzione.
+- [merge-sort-explorer](merge-sort-explorer/) — dividi un array a metà finché restano singoli elementi, poi riunisci i pezzi ordinati: così nasce la complessità O(n log n).
+- [n-queens-backtracking-explorer](n-queens-backtracking-explorer/) — piazza una regina per riga, e torna indietro ogni volta che un vicolo cieco lo richiede: il paradigma del backtracking in azione.
+- [topological-sort-explorer](topological-sort-explorer/) — un ordine di compiti che rispetta tutte le dipendenze — e cosa succede quando una dipendenza circolare rende il grafo impossibile da ordinare.
 
 ### 🗂️ Strutture dati
 
@@ -99,6 +129,9 @@ L'indice online è organizzato per argomento: la home page mostra le categorie, 
 - [git-branching-explorer](git-branching-explorer/) — il grafo dei commit, un branch alla volta: cosa succede davvero con commit, branch, checkout e merge.
 - [priority-queue-heap-explorer](priority-queue-heap-explorer/) — un min-heap binario, come array e come albero allo stesso tempo: guarda inserimento ed estrazione del minimo passo per passo.
 - [trie-explorer](trie-explorer/) — la struttura dati dietro l'autocompletamento: digita un prefisso e guarda il percorso corrispondente illuminarsi dal vivo.
+- [avl-tree-explorer](avl-tree-explorer/) — stessi numeri inseriti in ordine: un albero che si ribilancia da solo resta basso, uno senza bilanciamento degenera in una catena.
+- [linked-list-explorer](linked-list-explorer/) — inserimento e rimozione senza spostare nulla, a differenza di un array: il tassello base delle strutture dati.
+- [bloom-filter-explorer](bloom-filter-explorer/) — una struttura probabilistica che può dire "sicuramente assente" o "forse presente", mai il contrario — e perché a volte vale il compromesso.
 
 ### 🗄️ Basi di dati
 
@@ -110,6 +143,9 @@ L'indice online è organizzato per argomento: la home page mostra le categorie, 
 - [database-locking-explorer](database-locking-explorer/) — due bonifici in direzioni opposte possono aspettarsi a vicenda per sempre — e un ordine di lock coerente lo previene del tutto.
 - [query-plan-explorer](query-plan-explorer/) — regola quante righe soddisfano una condizione e guarda il pianificatore scegliere tra scansione completa e ricerca indicizzata.
 - [replication-explorer](replication-explorer/) — scrivi sul primario e guarda la modifica propagarsi alle repliche in ritardo — e cosa succede a leggere da una replica troppo presto.
+- [isolation-levels-explorer](isolation-levels-explorer/) — stesso scenario a due transazioni, letto sui 4 livelli di isolamento SQL: quali anomalie permettono, e quali impediscono.
+- [sharding-explorer](sharding-explorer/) — una tabella divisa su 3 nodi: una query sulla chiave ne interroga uno solo, una query qualsiasi li interroga tutti.
+- [join-strategy-explorer](join-strategy-explorer/) — stessa JOIN, due strategie: guarda il contatore di confronti crescere come N×M o come N+M al variare delle righe.
 
 ## Come contribuire un nuovo progetto
 

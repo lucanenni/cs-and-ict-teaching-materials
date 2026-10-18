@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Token passing: accesso senza collisioni</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Token passing: accesso senza collisioni</h1>
+            <p class="subtitle">Un gettone che gira sempre nello stesso senso: solo chi lo possiede in un dato
+                istante può trasmettere</p>
+
+            <div class="callout">
+                <strong>Topologia vs accesso al mezzo.</strong> L'anello qui sotto è la stessa forma del cablaggio
+                di una rete ad anello, ma quello che conta per questo esploratore non è <em>come i cavi sono
+                    collegati</em>: è <strong>chi ha il permesso di trasmettere in un dato momento</strong>. Il
+                token passing è un meccanismo di accesso al mezzo — proprio come CSMA/CA sul Wi-Fi o CSMA/CD su
+                cavo — solo che qui l'accesso è deterministico invece che a contesa.
+            </div>
+
+            <h2 class="section-title">Chi ha un frame pronto da inviare?</h2>
+            <div class="device-picker" id="devicePicker"></div>
+
+            <div class="diagram-box">
+                <div class="ring-diagram" id="ringDiagram">
+                    <div class="ring-track"></div>
+                </div>
+            </div>
+
+            <div class="step-panel" id="stepPanel"></div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="playBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">Passo singolo →</button>
+                <button class="btn btn-secondary" id="newScenarioBtn">🔀 Nuovo scenario</button>
+            </div>
+
+            <div class="result-box good hidden" id="doneBox"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Un <strong>token</strong> speciale circola continuamente, un nodo alla volta, sempre
+                        nello stesso senso intorno all'anello.</li>
+                    <li>• <strong>Solo</strong> il nodo che possiede il token in un dato istante può trasmettere un
+                        frame. Se non ha nulla da inviare, passa subito il token al nodo successivo — senza
+                        ritardo.</li>
+                    <li>• Quando il token arriva a un nodo che ha un frame pronto, quel nodo lo trattiene,
+                        allega il frame, e lo lascia viaggiare intorno all'anello finché non raggiunge il
+                        destinatario (che lo copia) e poi completa il giro tornando al mittente, come conferma di
+                        consegna. Solo a quel punto il mittente rilascia il token.</li>
+                    <li>• Se un altro nodo vuole trasmettere nel frattempo, può solo <strong>aspettare il proprio
+                            turno</strong> — il momento in cui il token arriverà a lui. Nessuna trasmissione è mai
+                        possibile fuori turno: per questo <strong>nessuna collisione può avvenire</strong>, per
+                        costruzione.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Allora perché non lo usano tutti? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Il token passing è <strong>deterministico</strong>: si sa sempre con certezza chi può
+                        trasmettere in un dato istante, e una collisione è impossibile per definizione — un
+                        vantaggio enorme rispetto a un accesso a contesa come ALOHA o CSMA, dove le collisioni
+                        restano sempre possibili. Il prezzo è un <strong>overhead di attesa</strong>: anche se il
+                        mezzo sarebbe altrimenti libero, un nodo con dati pronti deve comunque aspettare che il
+                        token gli arrivi, nodo per nodo — un costo che pesa soprattutto quando pochi nodi hanno
+                        davvero traffico da inviare su un anello grande, e il token passa a vuoto per molti nodi
+                        prima di raggiungere chi ne ha bisogno. Un accesso a contesa, al contrario, rischia
+                        collisioni ma non ha questo overhead quando il traffico è basso: sono due filosofie
+                        opposte per risolvere lo stesso problema — condividere un unico mezzo fisico tra più
+                        dispositivi.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

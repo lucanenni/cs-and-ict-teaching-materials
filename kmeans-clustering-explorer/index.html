@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-means: clustering passo per passo</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>K-means: clustering passo per passo</h1>
+            <p class="subtitle">Un gruppo di punti sparsi, nessuna etichetta. L'algoritmo k-means cerca di
+                raggrupparli in K cluster alternando due mosse semplici: assegnare e aggiornare</p>
+
+            <div class="controls">
+                <label for="kSelect" class="inline-label">Numero di cluster (K):</label>
+                <select id="kSelect">
+                    <option value="2">2</option>
+                    <option value="3" selected>3</option>
+                    <option value="4">4</option>
+                </select>
+                <button class="btn btn-secondary" id="newPointsBtn">Nuovi punti casuali</button>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="runBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">⏭ Passo singolo</button>
+                <button class="btn btn-secondary" id="reinitBtn">↺ Ricomincia con nuovi centroidi casuali</button>
+            </div>
+
+            <p class="hint-text">Clic sull'area per aggiungere un punto a mano.</p>
+
+            <div class="canvas-wrap">
+                <canvas id="plotCanvas" role="img" aria-label="Area con i punti e i centroidi del clustering"></canvas>
+            </div>
+
+            <div class="status-row">
+                <div class="stat-box">
+                    <div class="stat-label">Fase successiva</div>
+                    <div class="stat-value" id="phaseValue">Assegnazione</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Iterazioni complete</div>
+                    <div class="stat-value" id="iterValue">0</div>
+                </div>
+            </div>
+
+            <div class="step-panel" id="stepPanel"></div>
+
+            <div class="result-box hidden" id="resultBox"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• <strong>Assegnazione</strong>: ogni punto prende il colore del centroide più vicino
+                        (distanza euclidea).</li>
+                    <li>• <strong>Aggiornamento</strong>: ogni centroide si sposta nella media delle posizioni dei
+                        punti che gli sono stati assegnati.</li>
+                    <li>• Si ripete finché i centroidi non si muovono più (convergenza) o si raggiunge un numero
+                        massimo di iterazioni di sicurezza.</li>
+                    <li>• I centroidi iniziali sono scelti a caso tra i punti esistenti: partenze diverse possono
+                        portare a raggruppamenti finali diversi.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false"
+                    aria-controls="deepDivePanel">Perché risultati diversi se l'algoritmo è lo stesso? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>K-means non prova tutte le possibili suddivisioni in cluster (sarebbero troppe): si limita a
+                        migliorare, passo dopo passo, la suddivisione a partire da dove sono finiti i centroidi
+                        iniziali. Questo lo fa scendere verso un <strong>minimo locale</strong>: un punto in cui
+                        nessuna piccola mossa successiva migliora il risultato, ma che non è necessariamente il
+                        miglior raggruppamento possibile in assoluto (il <strong>minimo globale</strong>). Partenze
+                        diverse (centroidi iniziali diversi) possono far scendere l'algoritmo in valli diverse, cioè
+                        raggruppamenti finali diversi — a volte buoni, a volte peggiori. Nella pratica si gira
+                        k-means più volte con inizializzazioni diverse e si tiene il risultato con l'errore totale
+                        più basso (somma delle distanze al quadrato dai centroidi): è esattamente quello che fai
+                        premendo "Ricomincia con nuovi centroidi casuali" e confrontando il risultato.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

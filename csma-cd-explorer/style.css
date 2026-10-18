@@ -1,0 +1,366 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(to bottom right, #eff6ff, #fefce8);
+    min-height: 100vh;
+    padding: 1.5rem;
+}
+
+.container {
+    max-width: 62rem;
+    margin: 0 auto;
+}
+
+.card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+.section-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.75rem;
+}
+
+.controls {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 0.85rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    font-weight: 600;
+    padding: 0.6rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 0.82rem;
+}
+
+.btn:disabled {
+    background-color: #e5e7eb !important;
+    color: #9ca3af !important;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background-color: #1d4ed8;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #1e40af;
+}
+
+.btn-secondary {
+    background-color: #e5e7eb;
+    color: #374151;
+}
+
+.btn-secondary:hover {
+    background-color: #d1d5db;
+}
+
+.step-panel {
+    background-color: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 0.85rem;
+    font-size: 0.85rem;
+    color: #374151;
+    line-height: 1.6;
+    min-height: 6rem;
+    max-height: 14rem;
+    overflow-y: auto;
+}
+
+.step-line {
+    padding: 0.3rem 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.step-line:last-child {
+    border-bottom: none;
+}
+
+.step-line.current {
+    font-weight: 700;
+    color: #1d4ed8;
+}
+
+.result-box {
+    border-radius: 0.5rem;
+    padding: 0.9rem 1rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    min-height: 2rem;
+}
+
+.result-box.bad {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.result-box.good {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.help-panel {
+    background-color: #eff6ff;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.help-title {
+    font-weight: 600;
+    color: #1e3a8a;
+    margin-bottom: 0.5rem;
+}
+
+.help-list {
+    font-size: 0.875rem;
+    color: #1e3a8a;
+    list-style: none;
+}
+
+.help-list li {
+    margin-bottom: 0.35rem;
+}
+
+.btn-link {
+    display: block;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1d4ed8;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.btn-link:hover {
+    color: #1e3a8a;
+}
+
+.deep-dive-panel {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #bfdbfe;
+    font-size: 0.875rem;
+    color: #1e3a8a;
+    line-height: 1.6;
+}
+
+.hidden {
+    display: none;
+}
+
+/* --- Confronto CSMA/CD vs CSMA/CA, in evidenza ------------------------------ */
+
+.callout {
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 0.5rem;
+    padding: 0.85rem 1rem;
+    font-size: 0.82rem;
+    color: #9a3412;
+    line-height: 1.55;
+    margin-bottom: 1.25rem;
+}
+
+/* --- Selezione dispositivi --------------------------------------------------- */
+
+.device-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+}
+
+.device-check {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #f9fafb;
+    border: 2px solid #e5e7eb;
+    border-radius: 9999px;
+    padding: 0.4rem 0.85rem 0.4rem 0.6rem;
+    font-size: 0.8rem;
+    color: #374151;
+    cursor: pointer;
+}
+
+.device-check input {
+    cursor: pointer;
+}
+
+.device-check.active {
+    border-color: #1d4ed8;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-weight: 600;
+}
+
+/* --- Diagramma: cavo orizzontale con dispositivi agganciati sopra ---------- */
+
+.diagram-box {
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 2.3rem 1.5rem 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.cable-diagram {
+    position: relative;
+    width: 100%;
+    height: 8.5rem;
+    margin: 0 auto;
+}
+
+.cable-line {
+    position: absolute;
+    top: 3.6rem;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: #94a3b8;
+    border-radius: 3px;
+    z-index: 0;
+}
+
+.cable-line.collision {
+    background: #dc2626;
+    box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.15);
+}
+
+.signal-spread {
+    position: absolute;
+    top: 3.3rem;
+    height: 11px;
+    border-radius: 6px;
+    opacity: 0.35;
+    z-index: 1;
+    transition: all 0.15s;
+}
+
+.signal-spread.jam {
+    opacity: 0.55;
+    background-image: repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.25) 0 4px, transparent 4px 8px);
+}
+
+.cable-stub {
+    position: absolute;
+    top: 1.9rem;
+    width: 2px;
+    height: 1.7rem;
+    background: #cbd5e1;
+    transform: translateX(-50%);
+    z-index: 0;
+}
+
+.device-tap {
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    width: 6.4rem;
+    z-index: 2;
+}
+
+.device-tap-icon {
+    width: 2.7rem;
+    height: 2.7rem;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid #d1d5db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.2s;
+}
+
+.device-tap.listening .device-tap-icon {
+    border-color: #ca8a04;
+    background: #fefce8;
+}
+
+.device-tap.backoff .device-tap-icon {
+    border-color: #ca8a04;
+    background: #fefce8;
+    opacity: 0.85;
+}
+
+.device-tap.transmitting .device-tap-icon {
+    border-color: #16a34a;
+    background: #dcfce7;
+    transform: scale(1.12);
+    box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.18);
+}
+
+.device-tap.jamming .device-tap-icon {
+    border-color: #dc2626;
+    background: #fee2e2;
+    transform: scale(1.12);
+    box-shadow: 0 0 0 5px rgba(220, 38, 38, 0.22);
+}
+
+.device-tap.done .device-tap-icon {
+    border-color: #9ca3af;
+    opacity: 0.55;
+}
+
+.device-tap.pending .device-tap-icon {
+    opacity: 0.35;
+}
+
+.device-tap-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: #4b5563;
+}
+
+.device-tap-status {
+    font-size: 0.63rem;
+    color: #6b7280;
+    text-align: center;
+    min-height: 1.6em;
+}
+
+.device-tap.jamming .device-tap-status {
+    color: #b91c1c;
+    font-weight: 700;
+}
+
+.device-tap.transmitting .device-tap-status {
+    color: #15803d;
+    font-weight: 700;
+}
