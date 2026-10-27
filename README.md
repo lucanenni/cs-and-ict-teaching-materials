@@ -85,6 +85,7 @@ L'indice online è organizzato per argomento: la home page mostra le categorie, 
 - [signal-encoding-explorer](signal-encoding-explorer/) — come i bit diventano transizioni elettriche sul cavo, e perché una codifica "auto-sincronizzante" risolve un problema reale di clock che l'altra ha.
 - [crc-checksum-explorer](crc-checksum-explorer/) — un mittente aggiunge pochi bit di controllo per far scoprire al destinatario se qualcosa si è corrotto lungo il cammino.
 - [vpn-tunneling-explorer](vpn-tunneling-explorer/) — un pacchetto privato incapsulato dentro uno pubblico: come due reti private si parlano attraverso Internet come se fossero la stessa rete.
+- [ping-explorer](ping-explorer/) — c'è qualcuno dall'altra parte? Quattro richieste ICMP Echo per scoprirlo, e quanto velocemente risponde.
 - [phishing-awareness-explorer](phishing-awareness-explorer/) — email fittizie da classificare come legittime o phishing, con gli indizi che le tradiscono svelati dopo ogni risposta.
 
 ### 🔢 Logica
@@ -146,6 +147,16 @@ L'indice online è organizzato per argomento: la home page mostra le categorie, 
 - [isolation-levels-explorer](isolation-levels-explorer/) — stesso scenario a due transazioni, letto sui 4 livelli di isolamento SQL: quali anomalie permettono, e quali impediscono.
 - [sharding-explorer](sharding-explorer/) — una tabella divisa su 3 nodi: una query sulla chiave ne interroga uno solo, una query qualsiasi li interroga tutti.
 - [join-strategy-explorer](join-strategy-explorer/) — stessa JOIN, due strategie: guarda il contatore di confronti crescere come N×M o come N+M al variare delle righe.
+
+### 🏛️ Educazione civica digitale
+
+- [digital-identity-explorer](digital-identity-explorer/) — cosa può dedurre chi guarda da fuori combinando le informazioni che condividi, una scelta dopo l'altra.
+- [digital-divide-explorer](digital-divide-explorer/) — stessa interrogazione a distanza, due famiglie con risorse digitali molto diverse: le conseguenze pratiche del divario, non solo i numeri.
+- [netiquette-explorer](netiquette-explorer/) — messaggi reali da valutare come appropriati o scorretti, con la regola violata svelata dopo ogni risposta.
+- [ai-ethics-explorer](ai-ethics-explorer/) — dilemmi reali, come un algoritmo che decide un prestito o il riconoscimento facciale a scuola, da esplorare, non da indovinare.
+- [social-media-filter-bubble-explorer](social-media-filter-bubble-explorer/) — un feed che si personalizza ai tuoi "mi piace": guarda quanto in fretta mostra sempre meno punti di vista diversi dal tuo.
+- [fake-news-explorer](fake-news-explorer/) — notizie vere e false da classificare, con gli indizi — o la fonte verificabile — svelati dopo ogni risposta.
+- [tracking-cookies-explorer](tracking-cookies-explorer/) — come un cookie di terze parti, un'immagine invisibile o le caratteristiche del tuo browser ti rendono riconoscibile da un sito all'altro.
 
 ## Come contribuire un nuovo progetto
 
