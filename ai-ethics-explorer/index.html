@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dilemmi etici dell'intelligenza artificiale</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Dilemmi etici dell'intelligenza artificiale</h1>
+            <p class="subtitle">Non quiz con una risposta giusta, ma scenari realistici da discutere: dove sta il confine tra un uso utile dell'IA e un uso problematico?</p>
+
+            <h2 class="section-title">Scegli uno scenario</h2>
+            <div class="controls scenario-selector" id="scenarioSelector"></div>
+
+            <div class="scenario-box">
+                <h2 class="scenario-title" id="scenarioTitle"></h2>
+                <p class="scenario-description" id="scenarioDescription"></p>
+
+                <div class="principle-panel" id="principlePanel">
+                    <div class="principle-label">Principio etico in gioco: <span id="principleName"></span></div>
+                    <p id="principleText"></p>
+                </div>
+
+                <div class="pro-con-grid">
+                    <div class="pro-con-col pro-col">
+                        <h3 class="section-title">A favore</h3>
+                        <ul class="pro-list" id="proList"></ul>
+                    </div>
+                    <div class="pro-con-col con-col">
+                        <h3 class="section-title">Contro</h3>
+                        <ul class="con-list" id="conList"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Perché l'intelligenza artificiale solleva domande (in parte) nuove?</h3>
+                <ul class="help-list">
+                    <li>• Un sistema automatico non si può "interrogare" come una persona: non ha un'intenzione da spiegare a parole, solo un calcolo che ha prodotto un risultato — a volte nemmeno chi l'ha progettato riesce a ricostruire con precisione perché, in quel caso specifico, è andata così.</li>
+                    <li>• Un errore sistematico di un algoritmo si applica potenzialmente a migliaia di casi simili nello stesso istante, non a una sola decisione isolata come farebbe un singolo essere umano che sbaglia una volta.</li>
+                    <li>• Una decisione umana può essere messa in discussione faccia a faccia, chiedendo ragioni e magari ottenendo un ripensamento; una decisione automatica arriva spesso come un responso definitivo, senza un vero interlocutore dall'altra parte.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false" aria-controls="deepDivePanel">In cosa differisce questo progetto dal simulatore sul bias nei dati? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Il progetto <strong>bias-in-data-simulator</strong>, nella stessa raccolta, mostra <em>come nascono</em> i pregiudizi statistici dentro un modello, a partire dai dati con cui è stato addestrato: è un problema in parte tecnico, che si può misurare e in parte correggere. Questo progetto affronta invece domande etiche più ampie — sull'uso, la responsabilità, la trasparenza e la sorveglianza di un sistema di IA — che restano aperte anche quando un sistema è perfettamente accurato dal punto di vista statistico: un algoritmo può essere "equo nei numeri" eppure restare opaco, inappellabile, o impiegato per fini discutibili, indipendentemente dalla sua precisione.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

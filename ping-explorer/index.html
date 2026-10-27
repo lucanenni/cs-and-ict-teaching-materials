@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il comando ping: c'è qualcuno dall'altra parte?</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Il comando ping: c'è qualcuno dall'altra parte?</h1>
+            <p class="subtitle">Invia 4 richieste "ci sei?" verso una destinazione e misura se, e quanto velocemente, arriva una risposta.</p>
+
+            <p class="section-title">Destinazione</p>
+            <div class="dest-chips" id="destChips"></div>
+
+            <div class="ping-diagram">
+                <div class="ping-node">
+                    <div class="ping-node-icon">💻</div>
+                    <div class="ping-node-label">Il tuo dispositivo</div>
+                    <div class="ping-node-sub">mittente</div>
+                </div>
+                <div class="ping-path">
+                    <div class="ping-path-line"></div>
+                    <div class="ping-packet" id="pingPacket" style="left: 0%;"></div>
+                </div>
+                <div class="ping-node">
+                    <div class="ping-node-icon" id="destIcon">🖥️</div>
+                    <div class="ping-node-label" id="destLabel">Server scolastico</div>
+                    <div class="ping-node-sub" id="destHost">10.0.4.12</div>
+                </div>
+            </div>
+
+            <div class="attempt-row" id="attemptRow"></div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="runBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">Passo singolo →</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Reimposta</button>
+            </div>
+
+            <div class="step-panel" id="stepPanel"></div>
+
+            <div id="statsWrap" class="hidden">
+                <p class="section-title">Statistiche</p>
+                <div class="result-box" id="statsBox"></div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• <code>ping</code> invia un pacchetto <strong>ICMP Echo Request</strong> e aspetta un <strong>ICMP Echo Reply</strong>: se la risposta arriva, misura il tempo di andata e ritorno, l'<strong>RTT</strong> (Round-Trip Time).</li>
+                    <li>• Ogni pacchetto parte con un <strong>TTL</strong> (Time To Live) che si riduce di 1 a ogni router attraversato. Qui serve solo a far scartare il pacchetto se finisce in un loop di routing infinito — non dice affatto per quali router è passato: scoprire il percorso hop per hop è il compito di un altro strumento, <code>traceroute</code> (vedi il progetto traceroute-explorer in questa stessa raccolta).</li>
+                    <li>• Un RTT alto non significa che qualcosa sia "rotto": dipende dalla distanza fisica e dal numero di router attraversati. Un server dall'altra parte del mondo avrà sempre un RTT più alto di un server nella stanza a fianco, anche se entrambi funzionano perfettamente.</li>
+                    <li>• <strong>"Richiesta scaduta"</strong> (timeout) significa che nessuna risposta è arrivata entro il tempo massimo d'attesa: il pacchetto potrebbe essersi perso, o la risposta non essere mai tornata. <strong>"Destinazione host irraggiungibile"</strong> è diverso: è una risposta esplicita di errore, inviata da un router intermedio che non trova nessuna strada verso quell'indirizzo.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false" aria-controls="deepDivePanel">Perché a volte alcuni pacchetti si perdono anche se l'host risponde agli altri? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>I pacchetti IP viaggiano in modo indipendente l'uno dall'altro, senza una "linea riservata": attraversano router condivisi con il traffico di molte altre persone. Se in un certo istante un router è momentaneamente sovraccarico, può scartare qualche pacchetto in coda — compreso un singolo Echo Request o Echo Reply — anche se un attimo prima e un attimo dopo tutto funziona normalmente. Per questo una connessione può risultare "mediamente funzionante" ma con un RTT che varia molto (jitter) e qualche richiesta persa qua e là: non è un guasto totale, ma un segnale che il percorso è instabile o congestionato in quel momento.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

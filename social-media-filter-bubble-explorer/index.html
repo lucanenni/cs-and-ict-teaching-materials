@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bolle di filtraggio: quando l'algoritmo ti dà sempre ragione</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Bolle di filtraggio: quando l'algoritmo ti dà sempre ragione</h1>
+            <p class="subtitle">Argomento del giorno: Mare o montagna per le vacanze? Metti "Mi piace" ai post che preferisci e osserva come il feed cambia round dopo round.</p>
+
+            <div class="proportion-bar-wrap">
+                <div class="proportion-labels">
+                    <span class="label-a">🌊 Mare: <span id="pctA">50</span>%</span>
+                    <span class="label-b">⛰️ Montagna: <span id="pctB">50</span>%</span>
+                </div>
+                <div class="proportion-bar">
+                    <div class="proportion-fill-a" id="fillA" style="width:50%"></div>
+                    <div class="proportion-fill-b" id="fillB" style="width:50%"></div>
+                </div>
+            </div>
+
+            <div class="status-row">
+                <span>Round: <strong id="roundNum">1</strong></span>
+                <span>Mi piace dati finora — 🌊 Mare: <strong id="totalA">0</strong> · ⛰️ Montagna: <strong id="totalB">0</strong></span>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="runBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">Passo singolo →</button>
+                <button class="btn btn-secondary" id="resetBtn">Rimetti in equilibrio il feed</button>
+            </div>
+
+            <div class="feed" id="feed"></div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Gli algoritmi di raccomandazione dei social sono progettati per massimizzare l'engagement — quanto tempo passi sulla piattaforma e quante interazioni generi — non per mostrarti la maggiore varietà possibile di punti di vista.</li>
+                    <li>• Mostrarti contenuti che ti piacciono già funziona meglio, per questo obiettivo, di mostrarti contenuti che potrebbero non piacerti: per questo il feed si sbilancia sempre più verso ciò che hai già premiato con un "mi piace".</li>
+                    <li>• Il risultato, su scala reale, si chiama <strong>echo chamber</strong> ("camera dell'eco"): un ambiente informativo in cui si sente ripetere soprattutto ciò che già si pensa, che finisce per rinforzarlo anziché metterlo mai in discussione.</li>
+                    <li>• Consiglio pratico: cerca di tanto in tanto, attivamente, fonti e punti di vista diversi da quelli che il tuo feed mostra di default — il feed, da solo, non lo farà mai spontaneamente per te.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false" aria-controls="deepDivePanel">Ma qui l'argomento è leggero: nella realtà cambia qualcosa? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Qui l'argomento (mare o montagna) è scelto apposta per essere innocuo: nessuno rischia danni reali nel vedere solo post a favore del mare. Il meccanismo che osservi, però, è esattamente lo stesso che agisce su temi ben più delicati (salute, attualità, opinioni su gruppi di persone): più dati storici di "mi piace" l'algoritmo accumula su di te, più stretta può diventare la bolla, ed è tanto più difficile accorgersene quanto più l'argomento sembra opinabile o conta davvero nella vita delle persone.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

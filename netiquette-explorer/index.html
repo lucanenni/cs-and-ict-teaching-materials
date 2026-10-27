@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netiquette: le regole non scritte del comportamento online</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Netiquette: le regole non scritte del comportamento online</h1>
+            <p class="subtitle">8 messaggi completamente inventati, in contesti diversi (chat di classe, commenti, email, canale di lavoro, forum di gioco). Per ciascuno, decidi PRIMA se va bene o no — poi scopri la valutazione corretta.</p>
+
+            <p class="progress-text" id="progressText"></p>
+
+            <div id="quizArea">
+                <span class="context-tag" id="contextTag"></span>
+                <div class="message-frame" id="messageFrame"></div>
+
+                <div class="controls" id="answerControls">
+                    <button class="btn btn-primary" id="okBtn">✓ Va bene</button>
+                    <button class="btn btn-secondary" id="badBtn">⚠ Non va bene</button>
+                </div>
+
+                <div class="result-box hidden" id="feedbackBox"></div>
+
+                <div class="controls">
+                    <button class="btn btn-primary hidden" id="nextBtn">Messaggio successivo →</button>
+                </div>
+            </div>
+
+            <div class="summary-box hidden" id="summaryArea">
+                <h2 class="section-title">Riepilogo finale</h2>
+                <div class="result-box" id="summaryScoreBox"></div>
+                <div id="summaryWrongList"></div>
+                <div class="controls">
+                    <button class="btn btn-secondary" id="restartBtn">↺ Ricomincia</button>
+                </div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Perché le regole contano, anche se "è solo internet"?</h3>
+                <ul class="help-list">
+                    <li>• Quello che scrivi online spesso <strong>resta visibile molto più a lungo</strong> di una frase detta a voce: un messaggio, un commento o un post possono essere letti, riletti e ricondivisi anche giorni, mesi o anni dopo.</li>
+                    <li>• Un messaggio scritto raggiunge con facilità <strong>un pubblico più ampio</strong> di quanto chi scrive si immagini: in una chat di gruppo, un forum o un commento pubblico, leggono anche persone che non erano il destinatario pensato.</li>
+                    <li>• Manca il <strong>linguaggio del corpo e il tono di voce</strong> che, di persona, aiutano sia a moderare un messaggio mentre lo si dice, sia a capire che una frase non era intesa in modo offensivo. Nel testo scritto, un tono brusco o un'ironia mal riuscita sono molto più facili da fraintendere.</li>
+                    <li>• Per questo le "regole non scritte" (netiquette) non sono formalismi: servono a evitare equivoci e conflitti che, di persona, si sarebbero risolti da soli con un sorriso o un tono di voce più leggero.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false" aria-controls="deepDivePanel">Ma online si scherza sempre un po' così tra amici: è davvero un problema? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Tra amici che si conoscono bene, un certo registro informale o battute pungenti possono funzionare perché entrambi condividono lo stesso contesto e la stessa confidenza. Il problema è che online è facile perdere di vista <em>chi può leggere</em> davvero quel messaggio: un gruppo "solo per amici" può includere persone che la pensano diversamente, un commento pubblico può essere letto da chiunque, e un messaggio può essere rigirato fuori contesto. La regola pratica è semplice: prima di scrivere qualcosa che non diresti con lo stesso tono a voce alta, in presenza di tutte le persone che potrebbero leggerlo, vale la pena fermarsi un istante.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

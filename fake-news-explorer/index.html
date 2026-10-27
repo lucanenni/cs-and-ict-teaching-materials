@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riconoscere una fake news</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Riconoscere una fake news</h1>
+            <p class="subtitle">8 notizie completamente inventate (nessun fatto reale, nessun tema divisivo): alcune sono attendibili, altre false. Per ciascuna, decidi PRIMA di vedere la risposta — poi scopri quali indizi la rivelano.</p>
+
+            <p class="progress-text" id="progressText"></p>
+
+            <div id="quizArea">
+                <div class="news-card" id="newsCard"></div>
+
+                <div class="controls" id="answerControls">
+                    <button class="btn btn-primary" id="trueBtn">✓ Attendibile</button>
+                    <button class="btn btn-secondary" id="fakeBtn">⚠ Probabilmente falsa</button>
+                </div>
+
+                <div class="result-box hidden" id="feedbackBox"></div>
+
+                <div class="controls">
+                    <button class="btn btn-primary hidden" id="nextBtn">Notizia successiva →</button>
+                </div>
+            </div>
+
+            <div class="summary-box hidden" id="summaryArea">
+                <h2 class="section-title">Riepilogo finale</h2>
+                <div class="result-box" id="summaryScoreBox"></div>
+                <div id="summaryWrongList"></div>
+                <div class="controls">
+                    <button class="btn btn-secondary" id="restartBtn">↺ Ricomincia</button>
+                </div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come controllare una notizia?</h3>
+                <ul class="help-list">
+                    <li>• <strong>Controlla se altre fonti indipendenti</strong> riportano la stessa notizia: se un fatto importante è vero, di solito ne parlano più testate diverse, non una sola pagina isolata.</li>
+                    <li>• <strong>Verifica la data di pubblicazione reale</strong>: una notizia vecchia, anche se vera a suo tempo, può essere rimessa in circolazione con una data o un contesto diversi per sembrare di attualità.</li>
+                    <li>• <strong>Fai una ricerca inversa delle immagini</strong> che sembrano sospette: una foto "scioccante" a volte proviene da un evento completamente diverso, spesso molto più vecchio.</li>
+                    <li>• <strong>Diffida dei titoli che puntano soprattutto sull'emozione</strong> (paura, indignazione, sorpresa) più che sui fatti: è spesso un segnale che il contenuto reale non sostiene il titolo.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false" aria-controls="deepDivePanel">Perché le notizie false si diffondono così velocemente? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Un ampio studio del MIT del 2018 su Twitter (Vosoughi, Roy e Aral, pubblicato su <em>Science</em>) ha analizzato milioni di notizie condivise nell'arco di diversi anni e ha trovato che le notizie false si diffondono in modo significativamente più rapido, più ampio e più profondo di quelle vere — e che questo non è dovuto a bot, ma al comportamento delle persone reali. Una spiegazione proposta dagli autori è che le notizie false tendono a essere più sorprendenti e a suscitare emozioni più intense (sorpresa, disgusto), ed è proprio questo che spinge più persone a condividerle rapidamente, spesso senza verificarle prima.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

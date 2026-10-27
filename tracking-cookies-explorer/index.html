@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie, fingerprinting e tracking pixel</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Cookie, fingerprinting e tracking pixel</h1>
+            <p class="subtitle">Chi ti osserva mentre navighi? Tre siti fittizi diversi, lo stesso script pubblicitario di terze parti incorporato in tutti e tre: ecco cosa scrive, legge e deduce a tua insaputa.</p>
+
+            <h2 class="section-title">1. Lo stesso cookie di terze parti su tre siti diversi</h2>
+            <p class="hint-text">NegozioScarpe.it, BlogRicette.it e NotizieSport.it sono tre siti fittizi indipendenti, ma incorporano tutti lo stesso script pubblicitario di "AdNetworkXYZ". Avvia la navigazione simulata, oppure avanza passo per passo fin da subito.</p>
+
+            <div class="browser-mockup">
+                <div class="browser-bar" id="navUrlBar">🔒 (nessuna pagina visitata)</div>
+                <div class="browser-page" id="navPage">
+                    <div class="browser-page-title">—</div>
+                </div>
+            </div>
+
+            <div class="tracking-columns">
+                <div class="tracking-col" id="navCookieCol">
+                    <div class="tracking-col-title">Cookie nel browser (lato utente)</div>
+                    <div class="tracking-col-value" id="navCookieValue">nessun cookie di AdNetworkXYZ</div>
+                </div>
+                <div class="tracking-col" id="navProfileCol">
+                    <div class="tracking-col-title">Profilo costruito da AdNetworkXYZ (lato network pubblicitario)</div>
+                    <div class="tracking-col-value" id="navProfileValue">nessun profilo</div>
+                    <div class="tag-list" id="navProfileTags"></div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="navRunBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="navStepBtn">Passo singolo →</button>
+                <button class="btn btn-secondary" id="navResetBtn">↺ Ricomincia</button>
+            </div>
+            <div class="step-panel" id="navStepPanel"></div>
+        </div>
+
+        <div class="card">
+            <h2 class="section-title">2. Il tracking pixel: un'immagine invisibile che registra l'apertura</h2>
+            <p class="hint-text">Molte email di marketing contengono un'immagine di 1 pixel per 1 pixel, invisibile a occhio nudo. Quando l'email viene aperta, il client email scarica quell'immagine da un server remoto — e quel semplice scaricamento basta a registrare che l'hai aperta, senza che tu clicchi su nulla.</p>
+
+            <div class="email-mockup">
+                <div class="email-mockup-header">
+                    <div><strong>Da:</strong> Newsletter Negozio Fittizio &lt;newsletter@negozio-fittizio.it&gt;</div>
+                    <div><strong>Oggetto:</strong> I nostri sconti di stagione ti aspettano!</div>
+                </div>
+                <div class="email-mockup-body">
+                    <p>Ciao! Scopri le nostre offerte di stagione, valide fino a fine mese. Visita il nostro sito per i dettagli.</p>
+                    <p class="pixel-caption">↓ qui sotto, invisibile, c'è un'immagine di 1×1 pixel <span class="pixel-placeholder" id="pixelImg" title="pixel di tracciamento 1x1 (reso visibile solo per la demo)"></span></p>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="openEmailBtn">📧 Apri l'email</button>
+            </div>
+            <div class="result-box" id="pixelResultBox">L'email non è ancora stata aperta: nessuna richiesta è ancora partita.</div>
+        </div>
+
+        <div class="card">
+            <h2 class="section-title">3. Il fingerprinting del browser: riconoscerti senza bisogno di cookie</h2>
+            <p class="hint-text">Ogni caratteristica qui sotto, presa da sola, è condivisa da moltissimi altri dispositivi. Ma la loro <strong>combinazione specifica</strong> è quasi unica — tanto da permettere di riconoscere lo stesso dispositivo anche se i cookie vengono cancellati o bloccati del tutto.</p>
+
+            <div class="fingerprint-table" id="fingerprintTable"></div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="fingerprintBtn">📊 Quanto è unica questa combinazione?</button>
+            </div>
+            <div class="result-box hidden" id="fingerprintResultBox"></div>
+        </div>
+
+        <div class="card">
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• <strong>Cookie di prima parte</strong>: impostati direttamente dal sito che stai visitando (es. per ricordare che hai effettuato il login, o le preferenze di lingua). Restano legati a quel sito soltanto.</li>
+                    <li>• <strong>Cookie di terze parti</strong>: impostati non dal sito stesso, ma da un servizio esterno incorporato in più siti diversi (come lo script pubblicitario di questo esempio). Proprio perché lo stesso script è incorporato ovunque, può leggere il suo stesso cookie su ogni sito che lo include, e così riconoscere lo stesso browser da un sito all'altro.</li>
+                    <li>• <strong>Perché il fingerprinting è più difficile da bloccare</strong>: non richiede scrivere nulla sul dispositivo (niente da cancellare o rifiutare), ma si basa solo su informazioni che il browser comunica comunque per funzionare correttamente (risoluzione, lingua, fuso orario, font installati...). Bloccarlo del tutto significherebbe nascondere informazioni che molti siti usano anche per motivi legittimi.</li>
+                    <li>• <strong>Il GDPR</strong> (il regolamento europeo sulla protezione dei dati) richiede un <strong>consenso informato esplicito</strong> prima di impostare cookie non essenziali, come quelli di tracciamento pubblicitario: è per questo che compare ovunque il banner dei cookie, che dovrebbe permettere di accettarli o rifiutarli davvero, non solo di "prenderne atto".</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false" aria-controls="deepDivePanel">Se rifiuto i cookie dal banner, sono davvero al sicuro dal tracciamento? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Rifiutare i cookie non essenziali dal banner impedisce ai cookie di terze parti come quello di questo esempio di essere impostati, il che è già un passo importante: senza quel cookie, AdNetworkXYZ non può più riconoscere direttamente lo stesso browser tra un sito e l'altro nel modo mostrato qui. Ma non protegge dal fingerprinting: quelle informazioni (risoluzione, fuso orario, font, user agent) il browser le comunica comunque, a prescindere dal consenso sui cookie, perché servono a far funzionare correttamente le pagine. È per questo che oggi si parla sempre più spesso non solo di "bloccare i cookie", ma anche di ridurre quante informazioni il browser rivela di default (ad esempio alcuni browser moderni limitano deliberatamente certi dettagli, o li uniformano tra utenti diversi, proprio per rendere il fingerprinting meno efficace).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

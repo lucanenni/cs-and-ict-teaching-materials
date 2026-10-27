@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il divario digitale: non solo una questione di connessione</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Il divario digitale: non solo una questione di connessione</h1>
+            <p class="subtitle">Due famiglie, stesso impegno, stessa capacità delle persone coinvolte. Confronta cosa succede davvero quando serve fare qualcosa online.</p>
+
+            <div class="families-row">
+                <div class="family-card bianchi">
+                    <div class="family-name">Famiglia Bianchi</div>
+                    <ul class="family-trait-list">
+                        <li>• Connessione in fibra</li>
+                        <li>• Un dispositivo per persona</li>
+                        <li>• Genitori a loro agio con la tecnologia</li>
+                    </ul>
+                </div>
+                <div class="family-card rossi">
+                    <div class="family-name">Famiglia Rossi</div>
+                    <ul class="family-trait-list">
+                        <li>• Solo dati mobili, con un pacchetto limitato</li>
+                        <li>• Un unico smartphone condiviso tra 3 fratelli</li>
+                        <li>• Genitori poco pratici con le piattaforme digitali</li>
+                    </ul>
+                </div>
+            </div>
+
+            <p class="section-title">Scenario</p>
+            <div class="scenario-chips" id="scenarioChips"></div>
+
+            <div class="controls">
+                <button class="btn btn-primary" id="runBtn">▶ Avvia</button>
+                <button class="btn btn-secondary" id="stepBtn">Passo singolo →</button>
+                <button class="btn btn-secondary" id="resetBtn">↺ Reimposta</button>
+            </div>
+
+            <div class="columns-row">
+                <div class="column">
+                    <div class="column-title bianchi">Famiglia Bianchi</div>
+                    <div class="step-panel" id="bianchiPanel"></div>
+                    <div class="result-box hidden" id="bianchiOutcome"></div>
+                </div>
+                <div class="column">
+                    <div class="column-title rossi">Famiglia Rossi</div>
+                    <div class="step-panel" id="rossiPanel"></div>
+                    <div class="result-box hidden" id="rossiOutcome"></div>
+                </div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Il divario digitale ha almeno <strong>tre dimensioni</strong>, non una sola: (1) l'<strong>accesso all'infrastruttura</strong> — avere o non avere una connessione adeguata; (2) il <strong>possesso di dispositivi adeguati</strong> — anche con una buona connessione, un solo smartphone condiviso tra più persone è un ostacolo concreto; (3) le <strong>competenze digitali</strong> — saper usare davvero gli strumenti disponibili, non solo possederli.</li>
+                    <li>• Spesso si pensa solo alla prima dimensione (la connessione), ma le altre due contano altrettanto: una famiglia con fibra ma un solo dispositivo condiviso, o con buoni dispositivi ma genitori che non sanno orientarsi in una piattaforma, incontra comunque ostacoli concreti.</li>
+                    <li>• In ogni scenario qui sopra, le persone coinvolte hanno lo stesso impegno e la stessa capacità: l'esito diverso dipende solo da fattori strutturali, non da merito o preparazione.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false" aria-controls="deepDivePanel">Non basta regalare un dispositivo a chi non ne ha? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>Aiuta, ma non risolve da solo il problema. Un dispositivo in più affronta solo la seconda dimensione del divario: resterebbero comunque la connessione limitata (prima dimensione) e la familiarità con le piattaforme (terza dimensione). Per questo le politiche più efficaci contro il divario digitale agiscono su tutte e tre le dimensioni insieme: infrastrutture di rete accessibili, dispositivi adeguati al numero di persone in famiglia, e percorsi di formazione digitale per chi ha meno occasioni di esercitarsi con questi strumenti.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

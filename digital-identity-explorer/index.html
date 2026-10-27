@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identità digitale: cosa si vede, cosa si deduce</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Identità digitale: cosa si vede, cosa si deduce</h1>
+            <p class="subtitle">Ogni singola informazione che condividi online può sembrare innocua. Il problema è quando qualcuno le mette insieme.</p>
+
+            <div class="exposure-meter">
+                <span class="exposure-label">Livello di esposizione:</span>
+                <div class="exposure-bar-track"><div class="exposure-bar-fill basso" id="exposureFill" style="width: 0%;"></div></div>
+                <span class="exposure-badge basso" id="exposureBadge">Basso</span>
+            </div>
+
+            <div class="choices-log" id="choicesLog"></div>
+
+            <div id="deductionPanel" class="deduction-panel hidden">
+                <strong>Cosa può dedurre chi guarda da fuori:</strong>
+                <ul id="deductionList"></ul>
+            </div>
+
+            <div id="decisionArea">
+                <p class="progress-text" id="progressText"></p>
+                <div class="decision-card">
+                    <p class="decision-question" id="decisionQuestion"></p>
+                    <div class="decision-buttons">
+                        <button class="btn btn-share" id="shareBtn"></button>
+                        <button class="btn btn-noshare" id="skipBtn"></button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="summaryArea" class="hidden">
+                <div class="summary-profile">
+                    <h3>Profilo ricostruibile da chi guarda da fuori</h3>
+                    <div id="summaryChoices" class="choices-log"></div>
+                    <div id="summaryDeductions"></div>
+                </div>
+                <div class="controls">
+                    <button class="btn btn-primary" id="restartBtn">↺ Ricomincia con scelte diverse</button>
+                </div>
+            </div>
+
+            <div class="help-panel">
+                <h3 class="help-title">Come funziona?</h3>
+                <ul class="help-list">
+                    <li>• Il <strong>diritto all'oblio</strong> è la possibilità di chiedere la rimozione di informazioni su di sé che sono diventate obsolete, non più rilevanti o eccessive rispetto al motivo per cui erano state pubblicate.</li>
+                    <li>• Il <strong>consenso informato</strong> significa sapere davvero a cosa si acconsente quando si condivide qualcosa: non solo "chi vede questo post", ma anche con cosa potrà essere combinato in futuro e da chi.</li>
+                    <li>• "Non ho nulla da nascondere" non è un argomento sempre valido: il punto non è nascondere qualcosa di sbagliato, ma mantenere il controllo su come le informazioni vengono combinate e usate da altri, in modi che non si possono prevedere al momento in cui si condividono.</li>
+                </ul>
+                <button type="button" class="btn-link" id="deepDiveBtn" aria-expanded="false" aria-controls="deepDivePanel">Allora non dovrei condividere mai nulla? ▸</button>
+                <div id="deepDivePanel" class="deep-dive-panel hidden">
+                    <p>No: il punto non è smettere di condividere, ma farlo consapevolmente. Ogni informazione, presa da sola, può valere il rischio (far sapere agli amici dove sei, festeggiare un traguardo, restare in contatto). Il problema nasce quando si accumulano tante informazioni piccole senza accorgersene: ciascuna sembra poco significativa, ma messe insieme da chi le osserva da fuori — un malintenzionato, un\'azienda, un futuro datore di lavoro — possono ricostruire un profilo molto più dettagliato di quanto si pensasse. Vale la pena chiedersi, prima di condividere: "questa informazione, insieme a quelle che ho già pubblicato, cosa permette di dedurre?"</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
